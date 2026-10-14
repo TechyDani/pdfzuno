@@ -1,0 +1,9 @@
+node_modules/
+.next/
+out/
+public/engines/
+public/pdfzuno-source.zip
+.test-output/
+.env*
+*.tsbuildinfo
+next-env.d.ts
