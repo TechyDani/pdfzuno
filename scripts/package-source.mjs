@@ -17,6 +17,7 @@ for (const file of [
   "THIRD_PARTY_NOTICES.md",
   "package.json",
   "pnpm-lock.yaml",
+  "pnpm-workspace.yaml",
   "next.config.ts",
   "postcss.config.mjs",
   "eslint.config.mjs",
