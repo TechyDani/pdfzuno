@@ -30,11 +30,16 @@ export async function processPdf(
   const result = await PDFDocument.create();
   if (id === "jpg-pdf") {
     for (const file of files) {
-      const bytes = await file.arrayBuffer();
-      const image =
-        file.type === "image/png"
-          ? await result.embedPng(bytes)
-          : await result.embedJpg(bytes);
+      const bytes = new Uint8Array(await file.arrayBuffer());
+      const png = [137, 80, 78, 71, 13, 10, 26, 10].every(
+        (value, index) => bytes[index] === value,
+      );
+      const jpg = bytes[0] === 255 && bytes[1] === 216 && bytes[2] === 255;
+      if (!png && !jpg)
+        throw new Error(`“${file.name}” is not a valid JPG or PNG image.`);
+      const image = png
+        ? await result.embedPng(bytes)
+        : await result.embedJpg(bytes);
       const scale = Math.min(1, 1200 / image.width);
       const page = result.addPage([image.width * scale, image.height * scale]);
       page.drawImage(image, {

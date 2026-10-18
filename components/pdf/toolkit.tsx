@@ -1,8 +1,10 @@
 "use client";
 import { useEffect, useState } from "react";
+import Link from "next/link";
 import * as Icons from "lucide-react";
 import { tools, categories, type Tool } from "@/lib/pdf/tools";
 import { Workspace } from "./workspace";
+import { PopularHero } from "./popular-hero";
 import {
   Dialog,
   DialogContent,
@@ -82,18 +84,18 @@ export function Toolkit() {
     <>
       <header className="topbar">
         <div className="shell flex h-full items-center justify-between gap-6">
-          <a className="brand" href="/" aria-label="PDFzuno home">
+          <Link className="brand" href="/" aria-label="PDFzuno home">
             <span className="brand-mark">
               <Icons.FileText size={25} />
             </span>
             PDFzuno<span className="text-[#315be8] -ml-2">.</span>
-          </a>
+          </Link>
           <nav
             className="mobile-hide items-center gap-8"
             aria-label="Main navigation"
           >
             <a className="navlink !text-[#315be8] font-semibold" href="#tools">
-              All PDF tools
+              All tools
             </a>
             <button className="navlink" onClick={() => setInfo("how")}>
               How it works
@@ -112,21 +114,14 @@ export function Toolkit() {
         <section className="hero">
           <div className="shell">
             <span className="eyebrow">
-              <Icons.Zap size={13} /> YOUR EVERYDAY PDF TOOLKIT
+              <Icons.Zap size={13} /> YOUR EVERYDAY PDF & IMAGE TOOLKIT
             </span>
-            <h1>
-              Big plans. <span>Small PDF tasks.</span>
-            </h1>
-            <p>
-              All the tools you need to work with PDFs, in one place.
-              <br className="hidden sm:block" /> Simple to use. Built to keep
-              your day moving.
-            </p>
+            <PopularHero onSelect={setActive} suspended={!!active || !!info} />
             <label className="search">
               <Icons.Search size={20} color="#8591aa" />
               <input
-                aria-label="Search PDF tools"
-                placeholder="What would you like to do with your PDF?"
+                aria-label="Search tools"
+                placeholder="What would you like to do with your PDF or image?"
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
               />
@@ -152,7 +147,7 @@ export function Toolkit() {
         <section
           className="tool-section shell"
           id="tools"
-          aria-label="PDF tools"
+          aria-label="PDF and image tools"
         >
           <div className="filters">
             <Icons.SlidersHorizontal
@@ -230,20 +225,23 @@ export function Toolkit() {
       </main>
       <footer className="footer">
         <div className="shell flex flex-wrap items-center justify-between gap-5">
-          <a href="/" className="brand">
+          <Link href="/" className="brand">
             <Icons.FileText size={24} color="#315be8" />
             PDFzuno.
-          </a>
+          </Link>
           <p className="text-xs text-[#748198]">
             A little less paperwork. A little more possibility.
           </p>
           <span className="text-xs text-[#748198]">
             © {new Date().getFullYear()} PDFzuno
           </span>
-        
         </div>
       </footer>
-      <Workspace tool={active} onClose={() => setActive(null)} />
+      <Workspace
+        key={active?.id || "closed"}
+        tool={active}
+        onClose={() => setActive(null)}
+      />
       <Dialog open={!!info} onOpenChange={() => setInfo(null)}>
         <DialogContent>
           <DialogTitle>
@@ -260,14 +258,16 @@ export function Toolkit() {
             {info === "privacy" ? (
               <>
                 <p>
-                  PDF tools run inside your browser. PDFzuno does not upload or
-                  store your files. Closing the tool clears its working
-                  selection.
+                  PDF and image tools run inside your browser. PDFzuno does not
+                  upload or store your files. Closing the tool clears its
+                  working selection.
                 </p>
                 <p className="mt-3">
                   Fonts are loaded from Google Fonts. They receive ordinary
                   connection information, never your PDF contents. The document
                   engine downloads once and processes your files locally.
+                  Background removal also downloads an AI model from IMG.LY;
+                  your images are processed locally and are never uploaded.
                 </p>
               </>
             ) : (

@@ -1,5 +1,6 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
+import Image from "next/image";
 import {
   ArrowDown,
   ArrowUp,
@@ -36,6 +37,12 @@ import { SignaturePad } from "./signature-pad";
 import { PagePreview } from "./page-preview";
 
 const notes: Record<string, string> = {
+  "jpg-pdf":
+    "Add JPG or PNG images. Each image becomes one PDF page. Use the arrows to choose the page order before converting.",
+  "webp-jpg":
+    "Converts one WebP image at its original size. Transparent areas become white because JPG does not support transparency. Animated images export as a still image.",
+  "remove-background":
+    "Remove the background around a person, product or other subject and download a transparent PNG. On first use, an AI model downloads (about 40 MB plus the engine); keep this tab open. Your image stays on your device. Images up to 25 megapixels are supported.",
   "pdf-word":
     "Editable text mode exports selectable text. Preserve appearance embeds page images, including scanned pages. OCR is not included.",
   "pdf-excel":
@@ -65,6 +72,8 @@ const fileTypes: Record<string, string> = {
   "excel-pdf": ".xlsx",
   "ppt-pdf": ".pptx",
   "jpg-pdf": ".jpg,.jpeg,.png",
+  "webp-jpg": ".webp",
+  "remove-background": ".jpg,.jpeg,.png,.webp",
 };
 export function Workspace({
   tool,
@@ -74,7 +83,17 @@ export function Workspace({
   onClose: () => void;
 }) {
   const [files, setFiles] = useState<File[]>([]),
-    [options, setOptions] = useState<ProcessOptions>(defaultOptions),
+    [options, setOptions] = useState<ProcessOptions>(() => ({
+      ...defaultOptions,
+      mode:
+        tool?.id === "pdf-ppt"
+          ? "appearance"
+          : tool?.id === "split"
+            ? "combined"
+            : "editable",
+      pages: tool?.id === "pdf-jpg" ? "" : "1",
+      quality: tool?.id === "compress" ? "lossless" : "balanced",
+    })),
     [busy, setBusy] = useState(false),
     [error, setError] = useState(""),
     [status, setStatus] = useState(""),
@@ -92,10 +111,6 @@ export function Workspace({
     generation = useRef(0),
     urls = useRef<string[]>([]),
     input = useRef<HTMLInputElement>(null);
-  function release() {
-    urls.current.forEach(URL.revokeObjectURL);
-    urls.current = [];
-  }
   function stop() {
     generation.current++;
     worker.current?.terminate();
@@ -103,33 +118,15 @@ export function Workspace({
     setBusy(false);
   }
   useEffect(() => {
-    worker.current?.terminate();
-    generation.current++;
-    release();
-    setFiles([]);
-    setResult(null);
-    setPreview(null);
-    setBusy(false);
-    setError("");
-    setStatus("");
-    setPercent(0);
-    setOptions({
-      ...defaultOptions,
-      mode:
-        tool?.id === "pdf-ppt"
-          ? "appearance"
-          : tool?.id === "split"
-            ? "combined"
-            : "editable",
-      pages: tool?.id === "pdf-jpg" ? "" : "1",
-      quality: tool?.id === "compress" ? "lossless" : "balanced",
-    });
+    const workerRef = worker;
+    const generationRef = generation;
+    const ownedUrls = urls.current;
     return () => {
-      worker.current?.terminate();
-      generation.current++;
-      release();
+      workerRef.current?.terminate();
+      generationRef.current++;
+      ownedUrls.forEach(URL.revokeObjectURL);
     };
-  }, [tool?.id]);
+  }, []);
   function invalidate() {
     setResult(null);
     setError("");
@@ -228,7 +225,7 @@ export function Workspace({
       job.onerror = () => {
         if (generation.current !== token) return;
         setError(
-          "The document engine could not finish. Try a smaller file, or reload the page and try again.",
+          "Processing could not finish. Try a smaller file, or reload the page and try again.",
         );
         setBusy(false);
         setStatus("");
@@ -250,9 +247,16 @@ export function Workspace({
     pageTool =
       tool &&
       ["split", "extract", "organize", "remove", "pdf-jpg"].includes(tool.id),
-    officeInput =
+    nonPdfInput =
       !!tool &&
-      ["word-pdf", "excel-pdf", "ppt-pdf", "jpg-pdf"].includes(tool.id);
+      [
+        "word-pdf",
+        "excel-pdf",
+        "ppt-pdf",
+        "jpg-pdf",
+        "webp-jpg",
+        "remove-background",
+      ].includes(tool.id);
   function field(
     key: keyof ProcessOptions,
     label: string,
@@ -395,7 +399,7 @@ export function Workspace({
               </p>
             )}
             <fieldset disabled={busy} className="space-y-4 min-w-0">
-              {!officeInput && (
+              {!nonPdfInput && (
                 <details
                   open={tool.id === "unlock" || undefined}
                   className="text-sm"
@@ -462,6 +466,11 @@ export function Workspace({
                 select("quality", "Image resolution", [
                   ["balanced", "Standard · 108 DPI"],
                   ["high", "High · up to 216 DPI"],
+                ])}
+              {tool.id === "webp-jpg" &&
+                select("quality", "JPG quality", [
+                  ["balanced", "Balanced · smaller file"],
+                  ["high", "High · best quality"],
                 ])}
               {tool.id === "protect" &&
                 field(
@@ -585,6 +594,22 @@ export function Workspace({
                 <p className="text-sm leading-6 text-slate-600 mb-4">
                   {result.message}
                 </p>
+                {result.mime.startsWith("image/") && (
+                  <div className="image-result-preview mb-4 rounded-lg overflow-hidden">
+                    <Image
+                      src={result.url}
+                      alt={
+                        tool.id === "remove-background"
+                          ? "Subject with background removed"
+                          : "Converted JPG image"
+                      }
+                      width={600}
+                      height={400}
+                      unoptimized
+                      className="w-full h-64 object-contain"
+                    />
+                  </div>
+                )}
                 <a
                   className="primary"
                   href={result.url}

@@ -98,7 +98,7 @@ context.self = context;
 async function loadModule(specifier, ref) {
   const url = new URL(specifier, ref?.identifier || workerUrl).href;
   if (moduleCache.has(url)) return moduleCache.get(url);
-  const module = new vm.SourceTextModule(
+  const loadedModule = new vm.SourceTextModule(
     fs.readFileSync(localFile(url), "utf8"),
     {
       context,
@@ -109,10 +109,10 @@ async function loadModule(specifier, ref) {
       importModuleDynamically: loadModule,
     },
   );
-  moduleCache.set(url, module);
-  await module.link(loadModule);
-  await module.evaluate();
-  return module;
+  moduleCache.set(url, loadedModule);
+  await loadedModule.link(loadModule);
+  await loadedModule.evaluate();
+  return loadedModule;
 }
 vm.runInContext(fs.readFileSync(localFile(workerUrl), "utf8"), context, {
   filename: workerUrl,

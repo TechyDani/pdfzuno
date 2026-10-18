@@ -1,6 +1,6 @@
 # PDFzuno
 
-Next.js App Router + React + TypeScript + Tailwind CSS PDF toolkit. All 24 displayed tools have real processing paths and downloadable output; there are no placeholder tool dialogs. Processing runs in a cancellable browser Web Worker. Documents and passwords never go to a processing server.
+Next.js App Router + React + TypeScript + Tailwind CSS PDF and image toolkit. All 26 displayed tools have real processing paths and downloadable output; there are no placeholder tool dialogs. Processing runs in a cancellable browser Web Worker. Documents, images and passwords never go to a processing server.
 
 ## Run the project
 
@@ -39,6 +39,7 @@ To regenerate the downloadable source archive, run `node scripts/package-source.
 | `lib/pdf/engine.ts`                | Native module/WASM loader and PDF preview               |
 | `lib/pdf/process.worker.ts`        | Background processing and progress messages             |
 | `lib/pdf/types.ts`                 | Shared processing options/result types                  |
+| `lib/image/process.ts`             | WebP conversion and local AI background removal          |
 | `scripts/`                         | Engine preparation and source packaging                 |
 | `tests/`                           | Real-file processing and validation checks              |
 | `public/`                          | Favicon, generated engine assets and source download    |
@@ -53,6 +54,8 @@ To regenerate the downloadable source archive, run `node scripts/package-source.
 | PDF to Word       | Editable selectable text, or page images preserving appearance; real DOCX                                |
 | Word to PDF       | Reflow conversion of modern `.docx` content                                                              |
 | JPG to PDF        | JPG/PNG images combined into PDF pages                                                                   |
+| WebP to JPG       | One WebP image converted to JPG at its original dimensions; transparent areas become white; quality control |
+| Remove background | Local AI subject segmentation; downloadable transparent PNG at the original dimensions; marked Popular     |
 | PDF to JPG        | Selected/all pages rendered to JPG images in a ZIP                                                       |
 | Edit PDF          | Adds Latin text to every page at a specified position                                                    |
 | Rotate PDF        | Rotates all pages by 90/180/270 degrees                                                                  |
@@ -84,11 +87,15 @@ To regenerate the downloadable source archive, run `node scripts/package-source.
 - Repair is best-effort recovery, not a guarantee that missing/corrupted content can be reconstructed.
 - Basic PDF text insertion uses Latin standard fonts. Office reflow supports the fonts/scripts available in MuPDF.
 - Maximum combined input is 50 MB. Available memory varies by device; large or complex documents may need a desktop browser. The initial processing-engine download is about 11 MB.
+- WebP conversion and background removal accept one image at a time, up to 25 megapixels. They require a recent browser supporting `createImageBitmap` and `OffscreenCanvas`. Animated WebP files export as a still image.
+- Background removal uses `@imgly/background-removal` 1.7.0 and ONNX Runtime Web 1.21.0, loaded only when that tool runs. First use downloads IMG.LY's quantized ISNet model (about 40 MB) and runtime assets from `staticimgly.com`; an internet connection is required for uncached assets. No image is uploaded. CPU/WASM runs inside the existing cancellable worker without requiring special isolation headers. AI results vary by image; review fine edges and complex subjects.
 - This project does not implement user accounts, billing, cloud imports, legally certified signing workflows or full iLovePDF feature parity.
 
 ## Verification
 
-`pnpm test` checks all 24 tool paths and extra modes using generated documents. Checks include valid PDF/ZIP/Office containers, encryption plus unlock round-trip, wrong-password rejection, page-range validation and text removal after redaction. Generated test outputs are written under `.test-output/` and are not shipped in the ZIP.
+`pnpm test` checks the 24 PDF tool paths and extra modes using generated documents. Checks include valid PDF/ZIP/Office containers, encryption plus unlock round-trip, wrong-password rejection, page-range validation and text removal after redaction. Generated test outputs are written under `.test-output/` and are not shipped in the ZIP.
+
+After `pnpm build`, run `pnpm test:browser` (or `npm run test:browser`) with Google Chrome installed. This serves the production export and checks all 26 cards, JPG/PNG-to-PDF page order with missing MIME types, genuine WebP-to-JPG downloads and transparency handling, invalid-image rejection, cancellation, real AI background removal with a public-domain NASA astronaut photo, PNG transparency and retained subject pixels, filters, search, mobile overflow, and browser exceptions/failed application assets. It needs internet access for the test photo and AI model. Screenshots are saved under `.test-output/`.
 
 Browser UI testing is environment-dependent; passing processor tests and a production build does not replace testing downloads, touch interactions and document appearance in your target browsers.
 

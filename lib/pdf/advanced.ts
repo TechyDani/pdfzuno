@@ -51,6 +51,10 @@ export async function runTool(
   if (!files.length) throw new Error("Choose a file first.");
   if (files.reduce((s, f) => s + f.size, 0) > 50 * 1024 * 1024)
     throw new Error("Please keep the combined file size below 50 MB.");
+  if (["webp-jpg", "remove-background"].includes(id)) {
+    const { processImage } = await import("../image/process.ts");
+    return processImage(id, files, o, progress);
+  }
   progress("Loading document engine…", 5);
   if (["word-pdf", "excel-pdf", "ppt-pdf"].includes(id))
     return officeToPdf(id, files[0], progress);

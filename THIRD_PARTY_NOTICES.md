@@ -15,6 +15,9 @@ Other main libraries retain their own notices and licenses, installed with their
 - PptxGenJS — MIT
 - JSZip — MIT or GPL-3.0-or-later (used under MIT)
 - Lucide — ISC
+- @imgly/background-removal 1.7.0 — AGPL-3.0; source: https://github.com/imgly/background-removal-js. Its unmodified quantized ISNet model and runtime resources download from IMG.LY's CDN on first use. See the package's `LICENSE.md` and `ThirdPartyLicenses.json` for included dependency/model notices.
+- ONNX Runtime Web 1.21.0 — MIT; source: https://github.com/microsoft/onnxruntime
+- Playwright (development/browser verification) — Apache-2.0
 - Manrope and DM Sans — SIL Open Font License; loaded from Google Fonts
 
 See `pnpm-lock.yaml` for exact dependency versions and each installed package for its full license text. The downloadable project contains the application source, not installed dependencies or generated WebAssembly binaries; `pnpm install` followed by `pnpm build` restores these from their pinned packages.

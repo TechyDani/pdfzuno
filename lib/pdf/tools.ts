@@ -18,6 +18,17 @@ export const categories = [
 ];
 export const tools: Tool[] = [
   {
+    id: "remove-background",
+    name: "Remove background",
+    description:
+      "Keep the subject. Download a PNG with a transparent background.",
+    category: "Edit",
+    icon: "WandSparkles",
+    color: "teal",
+    available: true,
+    popular: true,
+  },
+  {
     id: "merge",
     name: "Merge PDF",
     description: "Bring multiple PDFs together in one document.",
@@ -69,9 +80,18 @@ export const tools: Tool[] = [
   {
     id: "jpg-pdf",
     name: "JPG to PDF",
-    description: "Give your images a home in a single PDF.",
+    description: "Combine JPG or PNG images into a PDF, in your chosen order.",
     category: "Convert",
     icon: "Image",
+    color: "purple",
+    available: true,
+  },
+  {
+    id: "webp-jpg",
+    name: "WebP to JPG",
+    description: "Turn WebP images into easy-to-share, high-quality JPGs.",
+    category: "Convert",
+    icon: "ImageDown",
     color: "purple",
     available: true,
   },
