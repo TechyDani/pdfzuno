@@ -224,7 +224,6 @@ export function PopularHero({
         }
       }}
     >
-      <h1 className="sr-only">Your everyday PDF and image toolkit</h1>
       <div className="hero-viewport" ref={viewport}>
         <div className="hero-track">
           {popular.map((tool, index) => {
