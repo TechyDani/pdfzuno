@@ -12,6 +12,7 @@
     "format": "prettier --write app components/pdf lib/pdf tests README.md",
     "test": "node --experimental-strip-types tests/pdf-smoke.mjs && node --experimental-strip-types tests/all-tools.mjs",
     "test:browser": "node --experimental-strip-types tests/image-tools.mjs",
+    "test:pages": "node --experimental-strip-types tests/tool-pages.mjs",
     "lint": "eslint . --ignore-pattern dist --ignore-pattern .next"
   },
   "dependencies": {

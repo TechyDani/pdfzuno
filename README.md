@@ -19,7 +19,15 @@ pnpm test
 pnpm build
 ```
 
-The production site is exported to `out/`. Deploy that directory to a static host supporting JavaScript modules, Web Workers, `.wasm` files and same-origin asset requests. Do not open `index.html` directly as a `file://` URL. To serve a build locally, use `python3 -m http.server 3000 --directory out`.
+The production site is exported to `out/`. Deploy that directory to a static host supporting JavaScript modules, Web Workers, `.wasm` files and same-origin asset requests. Tool routes use directory indexes (for example, `out/merge-pdf/index.html`), so ordinary static hosting can serve direct visits and refreshes without an SPA fallback. Do not open `index.html` directly as a `file://` URL. To serve a build locally, use `python3 -m http.server 3000 --directory out`.
+
+## Dedicated tool pages
+
+All 26 tools have their own statically generated URL, including `/merge-pdf/`, `/compress-pdf/`, `/pdf-to-word/`, and `/remove-background/`. The home catalog and popular carousel link to these pages. Each page contains its inline file workspace followed by over 500 words of server-rendered guidance: a tool-specific introduction, four tutorial steps, practical use cases, and format, privacy, and file-size FAQs. Content describes the actual processor behavior, including conversion and OCR limitations.
+
+Routes are defined by `slug` in `lib/pdf/tools.ts`; editorial content is maintained in `lib/pdf/guides.ts`. The shared page template is `app/[slug]/page.tsx`. Each tool has a unique title and description. Optionally set `NEXT_PUBLIC_SITE_URL` to your deployed origin before building to generate absolute canonical URLs for that domain.
+
+After building, run `npm run test:pages` to verify all 26 exported routes, internal links, metadata, input workspaces, and the minimum rendered guide length. Run `npm run test:browser -- --skip-ai` for routing, direct refreshes, mobile layout, and real image conversions without downloading the background-removal model.
 
 To regenerate the downloadable source archive, run `node scripts/package-source.mjs`. It excludes credentials, Sites identity, node_modules, builds and test outputs. Source is available at `/pdfzuno-source.zip` after building.
 
@@ -39,41 +47,41 @@ To regenerate the downloadable source archive, run `node scripts/package-source.
 | `lib/pdf/engine.ts`                | Native module/WASM loader and PDF preview               |
 | `lib/pdf/process.worker.ts`        | Background processing and progress messages             |
 | `lib/pdf/types.ts`                 | Shared processing options/result types                  |
-| `lib/image/process.ts`             | WebP conversion and local AI background removal          |
+| `lib/image/process.ts`             | WebP conversion and local AI background removal         |
 | `scripts/`                         | Engine preparation and source packaging                 |
 | `tests/`                           | Real-file processing and validation checks              |
 | `public/`                          | Favicon, generated engine assets and source download    |
 
 ## Tool behavior
 
-| Tool              | Output and behavior                                                                                      |
-| ----------------- | -------------------------------------------------------------------------------------------------------- |
-| Merge PDF         | Combines files in the selected order                                                                     |
-| Split PDF         | Selected pages in one PDF, or separate PDFs in a ZIP                                                     |
-| Compress PDF      | Lossless stream optimization or lossy image-page compression; keeps original if output would be larger   |
-| PDF to Word       | Editable selectable text, or page images preserving appearance; real DOCX                                |
-| Word to PDF       | Reflow conversion of modern `.docx` content                                                              |
-| JPG to PDF        | JPG/PNG images combined into PDF pages                                                                   |
+| Tool              | Output and behavior                                                                                         |
+| ----------------- | ----------------------------------------------------------------------------------------------------------- |
+| Merge PDF         | Combines files in the selected order                                                                        |
+| Split PDF         | Selected pages in one PDF, or separate PDFs in a ZIP                                                        |
+| Compress PDF      | Lossless stream optimization or lossy image-page compression; keeps original if output would be larger      |
+| PDF to Word       | Editable selectable text, or page images preserving appearance; real DOCX                                   |
+| Word to PDF       | Reflow conversion of modern `.docx` content                                                                 |
+| JPG to PDF        | JPG/PNG images combined into PDF pages                                                                      |
 | WebP to JPG       | One WebP image converted to JPG at its original dimensions; transparent areas become white; quality control |
-| Remove background | Local AI subject segmentation; downloadable transparent PNG at the original dimensions; marked Popular     |
-| PDF to JPG        | Selected/all pages rendered to JPG images in a ZIP                                                       |
-| Edit PDF          | Adds Latin text to every page at a specified position                                                    |
-| Rotate PDF        | Rotates all pages by 90/180/270 degrees                                                                  |
-| Organize PDF      | Reorders/duplicates pages using page numbers                                                             |
-| Watermark PDF     | Adds a translucent text watermark to every page                                                          |
-| Page numbers      | Adds sequential numbering                                                                                |
-| Remove pages      | Removes selected pages, preserving at least one                                                          |
-| Extract pages     | Creates a PDF from selected pages/ranges                                                                 |
-| Crop PDF          | Changes the page viewport; not destructive redaction                                                     |
-| Excel to PDF      | Reflows readable `.xlsx` worksheet content                                                               |
-| PDF to Excel      | Groups selectable text into rows and columns; one XLSX sheet per PDF page                                |
-| PowerPoint to PDF | Reflows readable `.pptx` slide content                                                                   |
-| PDF to PowerPoint | Page-image slides or positioned editable text; real PPTX                                                 |
-| Protect PDF       | AES-256 encryption with a supplied password                                                              |
-| Unlock PDF        | Removes encryption after successful password authentication                                              |
-| Sign PDF          | Embeds a drawn signature or typed italic name at the selected location                                   |
-| Redact PDF        | Permanently removes text, image pixels and intersecting graphics in the selected rectangle; full rewrite |
-| Repair PDF        | Recovers readable structure and rewrites PDF objects/cross-references                                    |
+| Remove background | Local AI subject segmentation; downloadable transparent PNG at the original dimensions; marked Popular      |
+| PDF to JPG        | Selected/all pages rendered to JPG images in a ZIP                                                          |
+| Edit PDF          | Adds Latin text to every page at a specified position                                                       |
+| Rotate PDF        | Rotates all pages by 90/180/270 degrees                                                                     |
+| Organize PDF      | Reorders/duplicates pages using page numbers                                                                |
+| Watermark PDF     | Adds a translucent text watermark to every page                                                             |
+| Page numbers      | Adds sequential numbering                                                                                   |
+| Remove pages      | Removes selected pages, preserving at least one                                                             |
+| Extract pages     | Creates a PDF from selected pages/ranges                                                                    |
+| Crop PDF          | Changes the page viewport; not destructive redaction                                                        |
+| Excel to PDF      | Reflows readable `.xlsx` worksheet content                                                                  |
+| PDF to Excel      | Groups selectable text into rows and columns; one XLSX sheet per PDF page                                   |
+| PowerPoint to PDF | Reflows readable `.pptx` slide content                                                                      |
+| PDF to PowerPoint | Page-image slides or positioned editable text; real PPTX                                                    |
+| Protect PDF       | AES-256 encryption with a supplied password                                                                 |
+| Unlock PDF        | Removes encryption after successful password authentication                                                 |
+| Sign PDF          | Embeds a drawn signature or typed italic name at the selected location                                      |
+| Redact PDF        | Permanently removes text, image pixels and intersecting graphics in the selected rectangle; full rewrite    |
+| Repair PDF        | Recovers readable structure and rewrites PDF objects/cross-references                                       |
 
 ## Practical limits
 
@@ -95,7 +103,7 @@ To regenerate the downloadable source archive, run `node scripts/package-source.
 
 `pnpm test` checks the 24 PDF tool paths and extra modes using generated documents. Checks include valid PDF/ZIP/Office containers, encryption plus unlock round-trip, wrong-password rejection, page-range validation and text removal after redaction. Generated test outputs are written under `.test-output/` and are not shipped in the ZIP.
 
-After `pnpm build`, run `pnpm test:browser` (or `npm run test:browser`) with Google Chrome installed. This serves the production export and checks all 26 cards, JPG/PNG-to-PDF page order with missing MIME types, genuine WebP-to-JPG downloads and transparency handling, invalid-image rejection, cancellation, real AI background removal with a public-domain NASA astronaut photo, PNG transparency and retained subject pixels, filters, search, mobile overflow, and browser exceptions/failed application assets. It needs internet access for the test photo and AI model. Screenshots are saved under `.test-output/`.
+After `pnpm build`, run `pnpm test:browser` (or `npm run test:browser`) with Google Chrome installed. This serves the production export and checks all 26 dedicated tool pages and direct refreshes, JPG/PNG-to-PDF page order with missing MIME types, genuine WebP-to-JPG downloads and transparency handling, invalid-image rejection, cancellation, real AI background removal with a public-domain NASA astronaut photo, PNG transparency and retained subject pixels, filters, search, mobile overflow, and browser exceptions/failed application assets. It needs internet access for the test photo and AI model unless `--skip-ai` is supplied. Screenshots are saved under `.test-output/`.
 
 Browser UI testing is environment-dependent; passing processor tests and a production build does not replace testing downloads, touch interactions and document appearance in your target browsers.
 

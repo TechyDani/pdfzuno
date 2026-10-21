@@ -14,12 +14,6 @@ import {
   Eye,
 } from "lucide-react";
 import {
-  Dialog,
-  DialogContent,
-  DialogTitle,
-  DialogDescription,
-} from "@/components/ui/dialog";
-import {
   Select,
   SelectTrigger,
   SelectContent,
@@ -75,13 +69,7 @@ const fileTypes: Record<string, string> = {
   "webp-jpg": ".webp",
   "remove-background": ".jpg,.jpeg,.png,.webp",
 };
-export function Workspace({
-  tool,
-  onClose,
-}: {
-  tool: Tool | null;
-  onClose: () => void;
-}) {
+export function Workspace({ tool }: { tool: Tool }) {
   const [files, setFiles] = useState<File[]>([]),
     [options, setOptions] = useState<ProcessOptions>(() => ({
       ...defaultOptions,
@@ -305,360 +293,353 @@ export function Workspace({
     );
   }
   return (
-    <Dialog
-      open={!!tool}
-      onOpenChange={(open) => {
-        if (!open) {
-          stop();
-          onClose();
-        }
-      }}
+    <section
+      id="tool-workspace"
+      aria-label={`${tool.name} workspace`}
+      className="tool-workspace space-y-5"
     >
-      <DialogContent className="sm:max-w-[680px] max-h-[92vh] overflow-y-auto rounded-2xl p-6 sm:p-7">
-        <DialogTitle className="text-2xl font-bold">{tool?.name}</DialogTitle>
-        <DialogDescription>{tool?.description}</DialogDescription>
-        {tool && (
-          <>
-            <label
-              className="upload focus-within:outline-2 focus-within:outline-blue-500"
-              onDragOver={(e) => e.preventDefault()}
-              onDrop={(e) => {
-                e.preventDefault();
-                addFiles(Array.from(e.dataTransfer.files));
+      <h2 className="text-xl font-bold">Choose your files</h2>
+      <p className="text-sm text-slate-500">{tool.description}</p>
+      {tool && (
+        <>
+          <label
+            className="upload focus-within:outline-2 focus-within:outline-blue-500"
+            onDragOver={(e) => e.preventDefault()}
+            onDrop={(e) => {
+              e.preventDefault();
+              addFiles(Array.from(e.dataTransfer.files));
+            }}
+          >
+            <UploadCloud size={30} className="text-[#315be8]" />
+            <span className="font-semibold">
+              Choose {fileTypes[tool.id]?.replaceAll(",", " / ") || "PDF"} files
+            </span>
+            <span className="text-sm text-slate-500">
+              or drag and drop · 50 MB total max
+            </span>
+            <input
+              ref={input}
+              type="file"
+              className="sr-only"
+              aria-label="Choose files"
+              disabled={busy}
+              accept={fileTypes[tool.id] || ".pdf"}
+              multiple={["merge", "jpg-pdf"].includes(tool.id)}
+              onChange={(e) => {
+                addFiles(Array.from(e.target.files || []));
+                e.target.value = "";
               }}
-            >
-              <UploadCloud size={30} className="text-[#315be8]" />
-              <span className="font-semibold">
-                Choose {fileTypes[tool.id]?.replaceAll(",", " / ") || "PDF"}{" "}
-                files
-              </span>
-              <span className="text-sm text-slate-500">
-                or drag and drop · 50 MB total max
-              </span>
-              <input
-                ref={input}
-                type="file"
-                className="sr-only"
-                aria-label="Choose files"
-                disabled={busy}
-                accept={fileTypes[tool.id] || ".pdf"}
-                multiple={["merge", "jpg-pdf"].includes(tool.id)}
-                onChange={(e) => {
-                  addFiles(Array.from(e.target.files || []));
-                  e.target.value = "";
-                }}
-              />
-            </label>
-            {!!files.length && (
-              <div className="space-y-2">
-                {files.map((f, i) => (
-                  <div className="file-row" key={`${f.name}-${i}`}>
-                    <FileText size={18} className="text-blue-600 shrink-0" />
-                    <span className="truncate flex-1" title={f.name}>
-                      {f.name}
-                    </span>
-                    <span className="text-xs text-slate-500">
-                      {(f.size / 1048576).toFixed(2)} MB
-                    </span>
-                    {files.length > 1 && (
-                      <>
-                        <button
-                          disabled={i === 0 || busy}
-                          aria-label={`Move ${f.name} up`}
-                          onClick={() => move(i, -1)}
-                        >
-                          <ArrowUp size={14} />
-                        </button>
-                        <button
-                          disabled={i === files.length - 1 || busy}
-                          aria-label={`Move ${f.name} down`}
-                          onClick={() => move(i, 1)}
-                        >
-                          <ArrowDown size={14} />
-                        </button>
-                      </>
-                    )}
-                    <button
-                      disabled={busy}
-                      aria-label={`Remove ${f.name}`}
-                      onClick={() => {
-                        invalidate();
-                        setFiles((old) => old.filter((_, n) => n !== i));
-                        setPreview(null);
-                      }}
-                    >
-                      <X size={14} />
-                    </button>
-                  </div>
-                ))}
-              </div>
-            )}
-            {notes[tool.id] && (
-              <p className="rounded-lg bg-blue-50 px-4 py-3 text-sm leading-6 text-slate-600">
-                {notes[tool.id]}
-              </p>
-            )}
-            <fieldset disabled={busy} className="space-y-4 min-w-0">
-              {!nonPdfInput && (
-                <details
-                  open={tool.id === "unlock" || undefined}
-                  className="text-sm"
-                >
-                  <summary className="cursor-pointer text-slate-600 mb-2">
-                    {tool.id === "unlock"
-                      ? "Current PDF password"
-                      : "Is your PDF password-protected?"}
-                  </summary>
-                  {field(
-                    "password",
-                    "Current password (if required)",
-                    "password",
+            />
+          </label>
+          {!!files.length && (
+            <div className="space-y-2">
+              {files.map((f, i) => (
+                <div className="file-row" key={`${f.name}-${i}`}>
+                  <FileText size={18} className="text-blue-600 shrink-0" />
+                  <span className="truncate flex-1" title={f.name}>
+                    {f.name}
+                  </span>
+                  <span className="text-xs text-slate-500">
+                    {(f.size / 1048576).toFixed(2)} MB
+                  </span>
+                  {files.length > 1 && (
+                    <>
+                      <button
+                        disabled={i === 0 || busy}
+                        aria-label={`Move ${f.name} up`}
+                        onClick={() => move(i, -1)}
+                      >
+                        <ArrowUp size={14} />
+                      </button>
+                      <button
+                        disabled={i === files.length - 1 || busy}
+                        aria-label={`Move ${f.name} down`}
+                        onClick={() => move(i, 1)}
+                      >
+                        <ArrowDown size={14} />
+                      </button>
+                    </>
                   )}
-                </details>
-              )}
-              {pageTool && (
-                <>
-                  {field(
-                    "pages",
-                    tool.id === "remove"
-                      ? "Pages to remove"
-                      : tool.id === "organize"
-                        ? "New page order"
-                        : "Page selection",
-                    "text",
-                    "1-3, 5",
-                  )}
-                  <p className="text-xs text-slate-500">
-                    {tool.id === "pdf-jpg"
-                      ? "Leave blank for all pages, or enter 1-3, 5."
-                      : tool.id === "organize"
-                        ? "Enter any order, such as 3, 1, 2. Repeated numbers duplicate pages."
-                        : "Use page numbers and ranges, for example 1-3, 5."}
-                  </p>
-                </>
-              )}
-              {tool.id === "split" &&
-                select("mode", "Output", [
-                  ["combined", "Selected pages in one PDF"],
-                  ["individual", "Separate PDF per selected page (ZIP)"],
-                ])}
-              {["pdf-word", "pdf-ppt"].includes(tool.id) &&
-                select("mode", "Conversion mode", [
-                  ["editable", "Editable text"],
-                  ["appearance", "Preserve appearance (page images)"],
-                ])}
-              {tool.id === "compress" && (
-                <>
-                  {select("quality", "Compression", [
-                    ["lossless", "Lossless · preserve text and vectors"],
-                    ["balanced", "Balanced · flatten pages to images"],
-                    ["small", "Smallest · lower-quality page images"],
-                  ])}
-                  {options.quality !== "lossless" && (
-                    <p className="text-sm text-amber-800">
-                      This mode removes searchable text, interactive forms and
-                      links by turning pages into images.
-                    </p>
-                  )}
-                </>
-              )}
-              {tool.id === "pdf-jpg" &&
-                select("quality", "Image resolution", [
-                  ["balanced", "Standard · 108 DPI"],
-                  ["high", "High · up to 216 DPI"],
-                ])}
-              {tool.id === "webp-jpg" &&
-                select("quality", "JPG quality", [
-                  ["balanced", "Balanced · smaller file"],
-                  ["high", "High · best quality"],
-                ])}
-              {tool.id === "protect" &&
-                field(
-                  "newPassword",
-                  "New password · 8–64 characters",
+                  <button
+                    disabled={busy}
+                    aria-label={`Remove ${f.name}`}
+                    onClick={() => {
+                      invalidate();
+                      setFiles((old) => old.filter((_, n) => n !== i));
+                      setPreview(null);
+                    }}
+                  >
+                    <X size={14} />
+                  </button>
+                </div>
+              ))}
+            </div>
+          )}
+          {notes[tool.id] && (
+            <p className="rounded-lg bg-blue-50 px-4 py-3 text-sm leading-6 text-slate-600">
+              {notes[tool.id]}
+            </p>
+          )}
+          <fieldset disabled={busy} className="space-y-4 min-w-0">
+            {!nonPdfInput && (
+              <details
+                open={tool.id === "unlock" || undefined}
+                className="text-sm"
+              >
+                <summary className="cursor-pointer text-slate-600 mb-2">
+                  {tool.id === "unlock"
+                    ? "Current PDF password"
+                    : "Is your PDF password-protected?"}
+                </summary>
+                {field(
+                  "password",
+                  "Current password (if required)",
                   "password",
                 )}
-              {["watermark", "edit"].includes(tool.id) &&
-                field(
+              </details>
+            )}
+            {pageTool && (
+              <>
+                {field(
+                  "pages",
+                  tool.id === "remove"
+                    ? "Pages to remove"
+                    : tool.id === "organize"
+                      ? "New page order"
+                      : "Page selection",
                   "text",
-                  tool.id === "watermark"
-                    ? "Watermark text"
-                    : "Text to add on every page",
+                  "1-3, 5",
                 )}
-              {tool.id === "rotate" &&
-                select("angle", "Clockwise rotation · all pages", [
-                  ["90", "90°"],
-                  ["180", "180°"],
-                  ["270", "270°"],
+                <p className="text-xs text-slate-500">
+                  {tool.id === "pdf-jpg"
+                    ? "Leave blank for all pages, or enter 1-3, 5."
+                    : tool.id === "organize"
+                      ? "Enter any order, such as 3, 1, 2. Repeated numbers duplicate pages."
+                      : "Use page numbers and ranges, for example 1-3, 5."}
+                </p>
+              </>
+            )}
+            {tool.id === "split" &&
+              select("mode", "Output", [
+                ["combined", "Selected pages in one PDF"],
+                ["individual", "Separate PDF per selected page (ZIP)"],
+              ])}
+            {["pdf-word", "pdf-ppt"].includes(tool.id) &&
+              select("mode", "Conversion mode", [
+                ["editable", "Editable text"],
+                ["appearance", "Preserve appearance (page images)"],
+              ])}
+            {tool.id === "compress" && (
+              <>
+                {select("quality", "Compression", [
+                  ["lossless", "Lossless · preserve text and vectors"],
+                  ["balanced", "Balanced · flatten pages to images"],
+                  ["small", "Smallest · lower-quality page images"],
                 ])}
-              {tool.id === "crop" &&
-                field("margin", "Trim from each edge (points)", "number")}
-              {tool.id === "edit" && (
-                <div className="grid grid-cols-3 gap-3">
-                  {field("x", "X position", "number")}
-                  {field("y", "Y position", "number")}
-                  {field("size", "Font size", "number")}
+                {options.quality !== "lossless" && (
+                  <p className="text-sm text-amber-800">
+                    This mode removes searchable text, interactive forms and
+                    links by turning pages into images.
+                  </p>
+                )}
+              </>
+            )}
+            {tool.id === "pdf-jpg" &&
+              select("quality", "Image resolution", [
+                ["balanced", "Standard · 108 DPI"],
+                ["high", "High · up to 216 DPI"],
+              ])}
+            {tool.id === "webp-jpg" &&
+              select("quality", "JPG quality", [
+                ["balanced", "Balanced · smaller file"],
+                ["high", "High · best quality"],
+              ])}
+            {tool.id === "protect" &&
+              field(
+                "newPassword",
+                "New password · 8–64 characters",
+                "password",
+              )}
+            {["watermark", "edit"].includes(tool.id) &&
+              field(
+                "text",
+                tool.id === "watermark"
+                  ? "Watermark text"
+                  : "Text to add on every page",
+              )}
+            {tool.id === "rotate" &&
+              select("angle", "Clockwise rotation · all pages", [
+                ["90", "90°"],
+                ["180", "180°"],
+                ["270", "270°"],
+              ])}
+            {tool.id === "crop" &&
+              field("margin", "Trim from each edge (points)", "number")}
+            {tool.id === "edit" && (
+              <div className="grid grid-cols-3 gap-3">
+                {field("x", "X position", "number")}
+                {field("y", "Y position", "number")}
+                {field("size", "Font size", "number")}
+              </div>
+            )}
+            {geometry && (
+              <>
+                {field("targetPage", "Page number", "number")}
+                <button
+                  type="button"
+                  className="flex items-center gap-2 text-sm font-semibold text-blue-700"
+                  disabled={!files.length || busy}
+                  onClick={() => void run("preview")}
+                >
+                  <Eye size={17} />
+                  Load page preview
+                </button>
+                {preview && (
+                  <PagePreview
+                    {...preview}
+                    disabled={busy}
+                    box={{
+                      x: Number(options.x),
+                      y: Number(options.y),
+                      width: Number(options.width),
+                      height: Number(options.height),
+                    }}
+                    onChange={(b) => {
+                      invalidate();
+                      setOptions((old) => ({
+                        ...old,
+                        x: b.x.toFixed(1),
+                        y: b.y.toFixed(1),
+                        width: b.width.toFixed(1),
+                        height: b.height.toFixed(1),
+                      }));
+                    }}
+                  />
+                )}
+                <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+                  {field("x", "Left (pt)", "number")}
+                  {field("y", "Top (pt)", "number")}
+                  {field("width", "Width (pt)", "number")}
+                  {field("height", "Height (pt)", "number")}
+                </div>
+                <p className="text-xs text-slate-500">
+                  Position from the top-left corner. 72 points = 1 inch.
+                </p>
+              </>
+            )}
+            {tool.id === "sign" && (
+              <>
+                <SignaturePad
+                  key={tool.id}
+                  disabled={busy}
+                  onChange={(data) => update("signature", data)}
+                />
+                {field(
+                  "text",
+                  "Typed signature name (used if drawing is empty)",
+                )}
+              </>
+            )}
+          </fieldset>
+          {error && (
+            <p
+              role="alert"
+              className="rounded-lg bg-red-50 p-3 text-sm text-red-700 break-words"
+            >
+              {error}
+            </p>
+          )}
+          {busy && (
+            <div className="space-y-2" role="status">
+              <p className="text-sm text-slate-600">{status}</p>
+              <Progress value={percent} />
+              <button
+                className="text-sm underline text-slate-500"
+                onClick={() => {
+                  stop();
+                  setStatus(
+                    "Processing cancelled. Your original is unchanged.",
+                  );
+                }}
+              >
+                Cancel processing
+              </button>
+            </div>
+          )}
+          {result ? (
+            <div
+              className="rounded-xl bg-emerald-50 p-5 text-center"
+              role="status"
+            >
+              <CheckCircle2 className="mx-auto text-emerald-600 mb-2" />
+              <p className="font-semibold mb-2">Your file is ready.</p>
+              <p className="text-sm leading-6 text-slate-600 mb-4">
+                {result.message}
+              </p>
+              {result.mime.startsWith("image/") && (
+                <div className="image-result-preview mb-4 rounded-lg overflow-hidden">
+                  <Image
+                    src={result.url}
+                    alt={
+                      tool.id === "remove-background"
+                        ? "Subject with background removed"
+                        : "Converted JPG image"
+                    }
+                    width={600}
+                    height={400}
+                    unoptimized
+                    className="w-full h-64 object-contain"
+                  />
                 </div>
               )}
-              {geometry && (
+              <a
+                className="primary"
+                href={result.url}
+                download={result.filename}
+              >
+                <Download size={17} />
+                Download {result.filename.split(".").pop()?.toUpperCase()}
+              </a>
+              <p className="text-xs text-slate-500 mt-3">
+                {(result.size / 1048576).toFixed(2)} MB · Original unchanged
+              </p>
+            </div>
+          ) : (
+            <button
+              className="primary w-full"
+              disabled={
+                busy ||
+                !files.length ||
+                (tool.id === "merge" && files.length < 2)
+              }
+              onClick={() => void run("process")}
+            >
+              {busy ? (
                 <>
-                  {field("targetPage", "Page number", "number")}
-                  <button
-                    type="button"
-                    className="flex items-center gap-2 text-sm font-semibold text-blue-700"
-                    disabled={!files.length || busy}
-                    onClick={() => void run("preview")}
-                  >
-                    <Eye size={17} />
-                    Load page preview
-                  </button>
-                  {preview && (
-                    <PagePreview
-                      {...preview}
-                      disabled={busy}
-                      box={{
-                        x: Number(options.x),
-                        y: Number(options.y),
-                        width: Number(options.width),
-                        height: Number(options.height),
-                      }}
-                      onChange={(b) => {
-                        invalidate();
-                        setOptions((old) => ({
-                          ...old,
-                          x: b.x.toFixed(1),
-                          y: b.y.toFixed(1),
-                          width: b.width.toFixed(1),
-                          height: b.height.toFixed(1),
-                        }));
-                      }}
-                    />
-                  )}
-                  <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-                    {field("x", "Left (pt)", "number")}
-                    {field("y", "Top (pt)", "number")}
-                    {field("width", "Width (pt)", "number")}
-                    {field("height", "Height (pt)", "number")}
-                  </div>
-                  <p className="text-xs text-slate-500">
-                    Position from the top-left corner. 72 points = 1 inch.
-                  </p>
+                  <LoaderCircle size={18} className="animate-spin" />
+                  Processing…
+                </>
+              ) : (
+                <>
+                  {" "}
+                  {tool.id === "redact"
+                    ? "Apply permanent redaction"
+                    : tool.name}
+                  <ArrowDown size={16} />
                 </>
               )}
-              {tool.id === "sign" && (
-                <>
-                  <SignaturePad
-                    key={tool.id}
-                    disabled={busy}
-                    onChange={(data) => update("signature", data)}
-                  />
-                  {field(
-                    "text",
-                    "Typed signature name (used if drawing is empty)",
-                  )}
-                </>
-              )}
-            </fieldset>
-            {error && (
-              <p
-                role="alert"
-                className="rounded-lg bg-red-50 p-3 text-sm text-red-700 break-words"
-              >
-                {error}
-              </p>
-            )}
-            {busy && (
-              <div className="space-y-2" role="status">
-                <p className="text-sm text-slate-600">{status}</p>
-                <Progress value={percent} />
-                <button
-                  className="text-sm underline text-slate-500"
-                  onClick={() => {
-                    stop();
-                    setStatus(
-                      "Processing cancelled. Your original is unchanged.",
-                    );
-                  }}
-                >
-                  Cancel processing
-                </button>
-              </div>
-            )}
-            {result ? (
-              <div
-                className="rounded-xl bg-emerald-50 p-5 text-center"
-                role="status"
-              >
-                <CheckCircle2 className="mx-auto text-emerald-600 mb-2" />
-                <p className="font-semibold mb-2">Your file is ready.</p>
-                <p className="text-sm leading-6 text-slate-600 mb-4">
-                  {result.message}
-                </p>
-                {result.mime.startsWith("image/") && (
-                  <div className="image-result-preview mb-4 rounded-lg overflow-hidden">
-                    <Image
-                      src={result.url}
-                      alt={
-                        tool.id === "remove-background"
-                          ? "Subject with background removed"
-                          : "Converted JPG image"
-                      }
-                      width={600}
-                      height={400}
-                      unoptimized
-                      className="w-full h-64 object-contain"
-                    />
-                  </div>
-                )}
-                <a
-                  className="primary"
-                  href={result.url}
-                  download={result.filename}
-                >
-                  <Download size={17} />
-                  Download {result.filename.split(".").pop()?.toUpperCase()}
-                </a>
-                <p className="text-xs text-slate-500 mt-3">
-                  {(result.size / 1048576).toFixed(2)} MB · Original unchanged
-                </p>
-              </div>
-            ) : (
-              <button
-                className="primary w-full"
-                disabled={
-                  busy ||
-                  !files.length ||
-                  (tool.id === "merge" && files.length < 2)
-                }
-                onClick={() => void run("process")}
-              >
-                {busy ? (
-                  <>
-                    <LoaderCircle size={18} className="animate-spin" />
-                    Processing…
-                  </>
-                ) : (
-                  <>
-                    {" "}
-                    {tool.id === "redact"
-                      ? "Apply permanent redaction"
-                      : tool.name}
-                    <ArrowDown size={16} />
-                  </>
-                )}
-              </button>
-            )}
-            {!busy && status && !result && (
-              <p className="text-xs text-slate-500" role="status">
-                {status}
-              </p>
-            )}
-            <p className="text-xs text-slate-500 flex items-center justify-center gap-1.5">
-              <LockKeyhole size={12} /> Files and passwords stay on your device
+            </button>
+          )}
+          {!busy && status && !result && (
+            <p className="text-xs text-slate-500" role="status">
+              {status}
             </p>
-          </>
-        )}
-      </DialogContent>
-    </Dialog>
+          )}
+          <p className="text-xs text-slate-500 flex items-center justify-center gap-1.5">
+            <LockKeyhole size={12} /> Files and passwords stay on your device
+          </p>
+        </>
+      )}
+    </section>
   );
 }

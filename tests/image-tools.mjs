@@ -3,7 +3,7 @@
 // public-domain NASA astronaut photo from scikit-image's sample dataset.
 import assert from "node:assert/strict";
 import { createServer } from "node:http";
-import { readFile, mkdir } from "node:fs/promises";
+import { readFile, mkdir, stat } from "node:fs/promises";
 import path from "node:path";
 import { chromium, expect } from "@playwright/test";
 import { PDFDocument } from "pdf-lib";
@@ -23,11 +23,19 @@ const server = createServer(async (req, res) => {
     const pathname = decodeURIComponent(
       new URL(req.url, "http://localhost").pathname,
     );
-    const filename = path.resolve(
+    let filename = path.resolve(
       root,
       `.${pathname === "/" ? "/index.html" : pathname}`,
     );
     assert(filename.startsWith(root + path.sep));
+    if ((await stat(filename)).isDirectory()) {
+      if (!pathname.endsWith("/")) {
+        res.writeHead(301, { Location: `${pathname}/` });
+        res.end();
+        return;
+      }
+      filename = path.join(filename, "index.html");
+    }
     const bytes = await readFile(filename);
     res.writeHead(200, {
       "Content-Type":
@@ -59,7 +67,7 @@ async function verifySite() {
     await page.goto(url);
     await expect(page.locator(".tool-card")).toHaveCount(tools.length);
     await expect(
-      page.getByRole("button", { name: "Remove background", exact: true }),
+      page.getByRole("link", { name: "Remove background", exact: true }),
     ).toContainText("Popular");
 
     const featured = tools.filter((tool) => tool.popular);
@@ -108,8 +116,8 @@ async function verifySite() {
       await page.getByRole("textbox", { name: "Search tools" }).focus();
       await page.clock.fastForward(5100);
       await show(0);
-      await hero
-        .getByRole("button", { name: `Use ${featured[0].name}`, exact: true })
+      await page
+        .getByRole("button", { name: "Privacy first", exact: true })
         .click();
       await expect(page.getByRole("dialog")).toBeVisible();
       await page.mouse.move(1, 1);
@@ -137,15 +145,23 @@ async function verifySite() {
         hero.getByRole("button", { name: `Show ${tool.name}`, exact: true }),
       ).toHaveAttribute("aria-current", "true");
       await hero
-        .getByRole("button", { name: `Use ${tool.name}`, exact: true })
+        .getByRole("link", { name: `Use ${tool.name}`, exact: true })
         .click();
       await expect(
-        page
-          .getByRole("dialog")
-          .getByRole("heading", { name: tool.name, exact: true }),
+        page.getByRole("heading", { name: tool.name, exact: true, level: 1 }),
       ).toBeVisible();
-      await page.keyboard.press("Escape");
+      await expect(page).toHaveURL(`${url}/${tool.slug}/`);
+      await page
+        .getByRole("navigation", { name: "Main navigation" })
+        .getByRole("link", { name: "Home", exact: true })
+        .click();
     }
+    await hero
+      .getByRole("button", {
+        name: `Show ${featured.at(-1).name}`,
+        exact: true,
+      })
+      .click();
     await hero.getByRole("button", { name: "Next popular tool" }).click();
     await expect(
       hero.getByRole("button", {
@@ -227,17 +243,48 @@ async function verifySite() {
       "PASS all popular hero slides, tool buttons, looping arrows, dots, keyboard, reduced motion and mobile touch swipe",
     );
 
-    // Every card opens a working dialog, and selecting another tool resets it.
+    // Every catalog link opens an independent, refreshable tool page.
     for (const tool of tools) {
-      await page.getByRole("button", { name: tool.name, exact: true }).click();
-      await expect(page.getByRole("dialog")).toBeVisible();
+      await page.getByRole("link", { name: tool.name, exact: true }).click();
+      await expect(page).toHaveURL(`${url}/${tool.slug}/`);
+      await page.reload();
+      await expect(page.locator("#tool-workspace")).toBeVisible();
       await expect(
-        page.getByRole("heading", { name: tool.name, exact: true }),
+        page.getByRole("heading", { name: tool.name, exact: true, level: 1 }),
       ).toBeVisible();
-      await page.keyboard.press("Escape");
-      await expect(page.getByRole("dialog")).toHaveCount(0);
+      await expect(page.getByLabel("Choose files")).toHaveValue("");
+      assert(
+        (await page.locator(".tool-guide").innerText()).split(/\s+/u).length >=
+          500,
+      );
+      if (tool.id === "merge") {
+        await page.screenshot({
+          path: ".test-output/merge-desktop.png",
+          fullPage: true,
+        });
+        await page.setViewportSize({ width: 390, height: 844 });
+        assert(
+          await page.evaluate(
+            () => document.documentElement.scrollWidth <= innerWidth,
+          ),
+        );
+        await page.screenshot({
+          path: ".test-output/merge-mobile.png",
+          fullPage: true,
+        });
+        await page.setViewportSize({ width: 1280, height: 720 });
+      }
+      await page
+        .getByRole("navigation", { name: "Main navigation" })
+        .getByRole("link", { name: "Home", exact: true })
+        .click();
+      await expect(page.locator(".tool-card")).toHaveCount(tools.length);
     }
-    console.log(`PASS all ${tools.length} cards open and close`);
+    const missing = await context.request.get(`${url}/not-a-real-tool/`);
+    assert.equal(missing.status(), 404);
+    console.log(
+      `PASS all ${tools.length} tool URLs, direct refreshes, guide lengths, empty initial inputs, mobile page and unknown-route 404`,
+    );
 
     const fixtures = await page.evaluate(async () => {
       async function image(width, height, type) {
@@ -254,9 +301,10 @@ async function verifySite() {
         webp: await image(160, 120, "image/webp"),
       };
     });
-    const dialog = page.getByRole("dialog");
+    const dialog = page.locator("#tool-workspace");
     async function open(name) {
-      await page.getByRole("button", { name, exact: true }).click();
+      await page.goto(url);
+      await page.getByRole("link", { name, exact: true }).click();
       await expect(dialog).toBeVisible();
     }
     async function download(name, timeout = 30000) {
@@ -291,7 +339,10 @@ async function verifySite() {
     assert.equal(pdf.getPageCount(), 2);
     assert.deepEqual(pdf.getPage(0).getSize(), { width: 80, height: 100 });
     assert.deepEqual(pdf.getPage(1).getSize(), { width: 160, height: 120 });
-    await page.keyboard.press("Escape");
+    await page
+      .getByRole("navigation", { name: "Main navigation" })
+      .getByRole("link", { name: "Home", exact: true })
+      .click();
     console.log(
       "PASS JPG/PNG to PDF with missing MIME types and reordered pages",
     );
@@ -328,7 +379,10 @@ async function verifySite() {
     assert.equal(pixels.height, 120);
     assert(pixels.corner.slice(0, 3).every((value) => value > 245));
     assert(pixels.center[0] > 200 && pixels.center[1] < 90);
-    await page.keyboard.press("Escape");
+    await page
+      .getByRole("navigation", { name: "Main navigation" })
+      .getByRole("link", { name: "Home", exact: true })
+      .click();
     console.log(
       "PASS WebP to JPG, dimensions, real image content and white transparency",
     );
@@ -346,110 +400,121 @@ async function verifySite() {
     await expect(
       dialog.getByRole("link", { name: "Download JPG" }),
     ).toHaveCount(0);
-    await page.keyboard.press("Escape");
+    await page
+      .getByRole("navigation", { name: "Main navigation" })
+      .getByRole("link", { name: "Home", exact: true })
+      .click();
     console.log("PASS invalid image rejection and state reset");
 
-    const photo = await fetch(
-      "https://raw.githubusercontent.com/scikit-image/scikit-image/v0.18.3/skimage/data/astronaut.png",
-    );
-    assert(photo.ok, "Astronaut test fixture is available");
-    const photoBytes = Buffer.from(await photo.arrayBuffer());
-    await open("Remove background");
-    await expect(
-      dialog.getByText("Is your PDF password-protected?"),
-    ).toHaveCount(0);
-    await page.getByLabel("Choose files").setInputFiles({
-      name: "astronaut.png",
-      mimeType: "image/png",
-      buffer: photoBytes,
-    });
-    await dialog
-      .getByRole("button", { name: "Remove background", exact: true })
-      .click();
-    await expect(
-      dialog.getByRole("button", { name: "Cancel processing" }),
-    ).toBeVisible();
-    await dialog.getByRole("button", { name: "Cancel processing" }).click();
-    await expect(
-      dialog.getByRole("button", { name: "Remove background", exact: true }),
-    ).toBeEnabled();
-    await expect(
-      dialog.getByRole("link", { name: "Download PNG" }),
-    ).toHaveCount(0);
-    console.log("PASS background removal cancellation");
-
-    await dialog
-      .getByRole("button", { name: "Remove background", exact: true })
-      .click();
-    // Observe genuine model loading and inference, without replacing the AI.
-    const logger = setInterval(async () => {
-      console.log(
-        "Background:",
-        await dialog
-          .locator('[role="status"]')
-          .innerText()
-          .catch(() => "processing"),
+    if (!process.argv.includes("--skip-ai")) {
+      const photo = await fetch(
+        "https://raw.githubusercontent.com/scikit-image/scikit-image/v0.18.3/skimage/data/astronaut.png",
       );
-    }, 20000);
-    let png;
-    try {
+      assert(photo.ok, "Astronaut test fixture is available");
+      const photoBytes = Buffer.from(await photo.arrayBuffer());
+      await open("Remove background");
       await expect(
-        dialog
-          .getByRole("link", { name: "Download PNG" })
-          .or(dialog.getByRole("alert")),
-      ).toBeVisible({ timeout: 240000 });
-      assert.equal(
-        await dialog.getByRole("alert").count(),
-        0,
-        (await dialog.getByRole("alert").allTextContents()).join(" "),
-      );
-      png = await download("Download PNG");
-    } finally {
-      clearInterval(logger);
-    }
-    assert.equal(png.name, "astronaut-no-background.png");
-    assert.equal(png.bytes.subarray(0, 8).toString("hex"), "89504e470d0a1a0a");
-    const alpha = await page.evaluate(async () => {
-      const img = document.querySelector(
-        'img[alt="Subject with background removed"]',
-      );
-      await img.decode();
-      const canvas = new OffscreenCanvas(img.naturalWidth, img.naturalHeight);
-      const ctx = canvas.getContext("2d");
-      ctx.drawImage(img, 0, 0);
-      const pixels = ctx.getImageData(0, 0, canvas.width, canvas.height).data;
-      let transparent = 0,
-        opaque = 0;
-      for (let i = 3; i < pixels.length; i += 4) {
-        if (pixels[i] < 20) transparent++;
-        if (pixels[i] > 235) opaque++;
-      }
-      return {
-        width: canvas.width,
-        height: canvas.height,
-        transparent,
-        opaque,
-      };
-    });
-    assert.equal(alpha.width, 512);
-    assert.equal(alpha.height, 512);
-    assert(alpha.transparent > 20000, "Background is transparent");
-    assert(alpha.opaque > 20000, "Subject is retained");
-    await mkdir(".test-output", { recursive: true });
-    await page.screenshot({
-      path: ".test-output/background-removal.png",
-      fullPage: true,
-    });
-    await page.keyboard.press("Escape");
-    console.log("PASS real AI background removal and transparent PNG", alpha);
+        dialog.getByText("Is your PDF password-protected?"),
+      ).toHaveCount(0);
+      await page.getByLabel("Choose files").setInputFiles({
+        name: "astronaut.png",
+        mimeType: "image/png",
+        buffer: photoBytes,
+      });
+      await dialog
+        .getByRole("button", { name: "Remove background", exact: true })
+        .click();
+      await expect(
+        dialog.getByRole("button", { name: "Cancel processing" }),
+      ).toBeVisible();
+      await dialog.getByRole("button", { name: "Cancel processing" }).click();
+      await expect(
+        dialog.getByRole("button", { name: "Remove background", exact: true }),
+      ).toBeEnabled();
+      await expect(
+        dialog.getByRole("link", { name: "Download PNG" }),
+      ).toHaveCount(0);
+      console.log("PASS background removal cancellation");
 
+      await dialog
+        .getByRole("button", { name: "Remove background", exact: true })
+        .click();
+      // Observe genuine model loading and inference, without replacing the AI.
+      const logger = setInterval(async () => {
+        console.log(
+          "Background:",
+          await dialog
+            .locator('[role="status"]')
+            .innerText()
+            .catch(() => "processing"),
+        );
+      }, 20000);
+      let png;
+      try {
+        await expect(
+          dialog
+            .getByRole("link", { name: "Download PNG" })
+            .or(dialog.getByRole("alert")),
+        ).toBeVisible({ timeout: 240000 });
+        assert.equal(
+          await dialog.getByRole("alert").count(),
+          0,
+          (await dialog.getByRole("alert").allTextContents()).join(" "),
+        );
+        png = await download("Download PNG");
+      } finally {
+        clearInterval(logger);
+      }
+      assert.equal(png.name, "astronaut-no-background.png");
+      assert.equal(
+        png.bytes.subarray(0, 8).toString("hex"),
+        "89504e470d0a1a0a",
+      );
+      const alpha = await page.evaluate(async () => {
+        const img = document.querySelector(
+          'img[alt="Subject with background removed"]',
+        );
+        await img.decode();
+        const canvas = new OffscreenCanvas(img.naturalWidth, img.naturalHeight);
+        const ctx = canvas.getContext("2d");
+        ctx.drawImage(img, 0, 0);
+        const pixels = ctx.getImageData(0, 0, canvas.width, canvas.height).data;
+        let transparent = 0,
+          opaque = 0;
+        for (let i = 3; i < pixels.length; i += 4) {
+          if (pixels[i] < 20) transparent++;
+          if (pixels[i] > 235) opaque++;
+        }
+        return {
+          width: canvas.width,
+          height: canvas.height,
+          transparent,
+          opaque,
+        };
+      });
+      assert.equal(alpha.width, 512);
+      assert.equal(alpha.height, 512);
+      assert(alpha.transparent > 20000, "Background is transparent");
+      assert(alpha.opaque > 20000, "Subject is retained");
+      await mkdir(".test-output", { recursive: true });
+      await page.screenshot({
+        path: ".test-output/background-removal.png",
+        fullPage: true,
+      });
+      await page
+        .getByRole("navigation", { name: "Main navigation" })
+        .getByRole("link", { name: "Home", exact: true })
+        .click();
+      console.log("PASS real AI background removal and transparent PNG", alpha);
+    }
+    await page.goto(url);
     await page.getByRole("button", { name: "Convert", exact: true }).click();
     await expect(
-      page.getByRole("button", { name: "WebP to JPG", exact: true }),
+      page.getByRole("link", { name: "WebP to JPG", exact: true }),
     ).toBeVisible();
     await page.getByRole("button", { name: "Edit", exact: true }).click();
     await expect(
-      page.getByRole("button", { name: "Remove background", exact: true }),
+      page.getByRole("link", { name: "Remove background", exact: true }),
     ).toBeVisible();
     await page.getByRole("button", { name: "All tools", exact: true }).click();
     await page

@@ -3,8 +3,8 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import * as Icons from "lucide-react";
 import { tools, categories, type Tool } from "@/lib/pdf/tools";
-import { Workspace } from "./workspace";
 import { PopularHero } from "./popular-hero";
+import { SiteHeader } from "./site-header";
 import {
   Dialog,
   DialogContent,
@@ -24,7 +24,6 @@ export function ToolIcon({ tool }: { tool: Tool }) {
 export function Toolkit() {
   const [query, setQuery] = useState("");
   const [category, setCategory] = useState("All tools");
-  const [active, setActive] = useState<Tool | null>(null);
   const [info, setInfo] = useState<"how" | "privacy" | null>(null);
   useEffect(() => {
     const ctx = (
@@ -82,41 +81,17 @@ export function Toolkit() {
   );
   return (
     <>
-      <header className="topbar">
-        <div className="shell flex h-full items-center justify-between gap-6">
-          <Link className="brand" href="/" aria-label="PDFzuno home">
-            <span className="brand-mark">
-              <Icons.FileText size={25} />
-            </span>
-            PDFzuno<span className="text-[#315be8] -ml-2">.</span>
-          </Link>
-          <nav
-            className="mobile-hide items-center gap-8"
-            aria-label="Main navigation"
-          >
-            <a className="navlink !text-[#315be8] font-semibold" href="#tools">
-              All tools
-            </a>
-            <button className="navlink" onClick={() => setInfo("how")}>
-              How it works
-            </button>
-            <button className="navlink" onClick={() => setInfo("privacy")}>
-              Privacy first
-            </button>
-          </nav>
-          <span className="flex items-center gap-2 text-xs text-[#61708a]">
-            <Icons.Sparkles size={15} className="text-[#315be8]" /> Less work.
-            More flow.
-          </span>
-        </div>
-      </header>
+      <SiteHeader
+        onHowItWorks={() => setInfo("how")}
+        onPrivacy={() => setInfo("privacy")}
+      />
       <main>
         <section className="hero">
           <div className="shell">
             <span className="eyebrow">
               <Icons.Zap size={13} /> YOUR EVERYDAY PDF & IMAGE TOOLKIT
             </span>
-            <PopularHero onSelect={setActive} suspended={!!active || !!info} />
+            <PopularHero suspended={!!info} />
             <label className="search">
               <Icons.Search size={20} color="#8591aa" />
               <input
@@ -170,10 +145,10 @@ export function Toolkit() {
           </div>
           <div className="tool-grid">
             {filtered.map((t) => (
-              <button
+              <Link
                 key={t.id}
+                href={`/${t.slug}/`}
                 className="tool-card"
-                onClick={() => setActive(t)}
                 aria-label={t.name}
               >
                 <ToolIcon tool={t} />
@@ -182,7 +157,7 @@ export function Toolkit() {
                 ) : null}
                 <h3>{t.name}</h3>
                 <p>{t.description}</p>
-              </button>
+              </Link>
             ))}
           </div>
           {!filtered.length && (
@@ -223,25 +198,6 @@ export function Toolkit() {
           </div>
         </section>
       </main>
-      <footer className="footer">
-        <div className="shell flex flex-wrap items-center justify-between gap-5">
-          <Link href="/" className="brand">
-            <Icons.FileText size={24} color="#315be8" />
-            PDFzuno.
-          </Link>
-          <p className="text-xs text-[#748198]">
-            A little less paperwork. A little more possibility.
-          </p>
-          <span className="text-xs text-[#748198]">
-            © {new Date().getFullYear()} PDFzuno
-          </span>
-        </div>
-      </footer>
-      <Workspace
-        key={active?.id || "closed"}
-        tool={active}
-        onClose={() => setActive(null)}
-      />
       <Dialog open={!!info} onOpenChange={() => setInfo(null)}>
         <DialogContent>
           <DialogTitle>
@@ -269,6 +225,12 @@ export function Toolkit() {
                   Background removal also downloads an AI model from IMG.LY;
                   your images are processed locally and are never uploaded.
                 </p>
+                <Link
+                  className="inline-block mt-3 text-blue-700 underline"
+                  href="/privacy-policy/"
+                >
+                  Read the full Privacy Policy
+                </Link>
               </>
             ) : (
               <ol className="list-decimal pl-5 space-y-3">

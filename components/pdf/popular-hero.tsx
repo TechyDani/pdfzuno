@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Link from "next/link";
 import useEmblaCarousel from "embla-carousel-react";
 import {
   ArrowDownToLine,
@@ -129,13 +130,7 @@ function ToolPreview({ tool }: { tool: Tool }) {
   );
 }
 
-export function PopularHero({
-  onSelect,
-  suspended = false,
-}: {
-  onSelect: (tool: Tool) => void;
-  suspended?: boolean;
-}) {
+export function PopularHero({ suspended = false }: { suspended?: boolean }) {
   const [viewport, api] = useEmblaCarousel({ loop: true });
   const [selected, setSelected] = useState(0);
   const [paused, setPaused] = useState(false);
@@ -254,12 +249,9 @@ export function PopularHero({
                     <span>{slide.accent}</span>
                   </h2>
                   <p>{slide.detail}</p>
-                  <button
-                    className="primary hero-cta"
-                    onClick={() => onSelect(tool)}
-                  >
+                  <Link className="primary hero-cta" href={`/${tool.slug}/`}>
                     Use {tool.name} <ArrowRight size={17} />
-                  </button>
+                  </Link>
                   <span className="hero-local-note">
                     <Check size={14} /> Free to use. Your files stay on your
                     device.

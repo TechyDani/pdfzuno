@@ -1,5 +1,6 @@
 export type Tool = {
   id: string;
+  slug: string;
   name: string;
   description: string;
   category: string;
@@ -19,6 +20,7 @@ export const categories = [
 export const tools: Tool[] = [
   {
     id: "remove-background",
+    slug: "remove-background",
     name: "Remove background",
     description:
       "Keep the subject. Download a PNG with a transparent background.",
@@ -30,6 +32,7 @@ export const tools: Tool[] = [
   },
   {
     id: "merge",
+    slug: "merge-pdf",
     name: "Merge PDF",
     description: "Bring multiple PDFs together in one document.",
     category: "Organize",
@@ -40,6 +43,7 @@ export const tools: Tool[] = [
   },
   {
     id: "split",
+    slug: "split-pdf",
     name: "Split PDF",
     description: "Take the pages you need. Leave the rest.",
     category: "Organize",
@@ -50,6 +54,7 @@ export const tools: Tool[] = [
   },
   {
     id: "compress",
+    slug: "compress-pdf",
     name: "Compress PDF",
     description: "Smaller files. Easier sharing. Same great content.",
     category: "Optimize",
@@ -60,6 +65,7 @@ export const tools: Tool[] = [
   },
   {
     id: "pdf-word",
+    slug: "pdf-to-word",
     name: "PDF to Word",
     description: "Turn your PDF into an editable Word document.",
     category: "Convert",
@@ -70,6 +76,7 @@ export const tools: Tool[] = [
   },
   {
     id: "word-pdf",
+    slug: "word-to-pdf",
     name: "Word to PDF",
     description: "Make your Word documents ready to share.",
     category: "Convert",
@@ -79,6 +86,7 @@ export const tools: Tool[] = [
   },
   {
     id: "jpg-pdf",
+    slug: "jpg-to-pdf",
     name: "JPG to PDF",
     description: "Combine JPG or PNG images into a PDF, in your chosen order.",
     category: "Convert",
@@ -88,6 +96,7 @@ export const tools: Tool[] = [
   },
   {
     id: "webp-jpg",
+    slug: "webp-to-jpg",
     name: "WebP to JPG",
     description: "Turn WebP images into easy-to-share, high-quality JPGs.",
     category: "Convert",
@@ -97,6 +106,7 @@ export const tools: Tool[] = [
   },
   {
     id: "pdf-jpg",
+    slug: "pdf-to-jpg",
     name: "PDF to JPG",
     description: "Export PDF pages as high-quality images.",
     category: "Convert",
@@ -106,6 +116,7 @@ export const tools: Tool[] = [
   },
   {
     id: "edit",
+    slug: "edit-pdf",
     name: "Edit PDF",
     description: "Add text to your document, right where you need it.",
     category: "Edit",
@@ -115,6 +126,7 @@ export const tools: Tool[] = [
   },
   {
     id: "rotate",
+    slug: "rotate-pdf",
     name: "Rotate PDF",
     description: "Get every page facing the right direction.",
     category: "Organize",
@@ -124,6 +136,7 @@ export const tools: Tool[] = [
   },
   {
     id: "organize",
+    slug: "organize-pdf",
     name: "Organize PDF",
     description: "Reorder and duplicate pages your way.",
     category: "Organize",
@@ -133,6 +146,7 @@ export const tools: Tool[] = [
   },
   {
     id: "watermark",
+    slug: "watermark-pdf",
     name: "Watermark PDF",
     description: "Make it yours with a custom text watermark.",
     category: "Edit",
@@ -142,6 +156,7 @@ export const tools: Tool[] = [
   },
   {
     id: "numbers",
+    slug: "add-page-numbers",
     name: "Page numbers",
     description: "Keep your document easy to navigate.",
     category: "Edit",
@@ -151,6 +166,7 @@ export const tools: Tool[] = [
   },
   {
     id: "remove",
+    slug: "remove-pdf-pages",
     name: "Remove pages",
     description: "A cleaner document, without the extra pages.",
     category: "Organize",
@@ -160,6 +176,7 @@ export const tools: Tool[] = [
   },
   {
     id: "extract",
+    slug: "extract-pdf-pages",
     name: "Extract pages",
     description: "Save selected pages as a brand-new PDF.",
     category: "Organize",
@@ -169,6 +186,7 @@ export const tools: Tool[] = [
   },
   {
     id: "crop",
+    slug: "crop-pdf",
     name: "Crop PDF",
     description: "Trim the margins to focus on what matters.",
     category: "Edit",
@@ -178,6 +196,7 @@ export const tools: Tool[] = [
   },
   {
     id: "excel-pdf",
+    slug: "excel-to-pdf",
     name: "Excel to PDF",
     description: "Turn spreadsheets into shareable documents.",
     category: "Convert",
@@ -187,6 +206,7 @@ export const tools: Tool[] = [
   },
   {
     id: "pdf-excel",
+    slug: "pdf-to-excel",
     name: "PDF to Excel",
     description: "Move your PDF tables into a spreadsheet.",
     category: "Convert",
@@ -196,6 +216,7 @@ export const tools: Tool[] = [
   },
   {
     id: "ppt-pdf",
+    slug: "powerpoint-to-pdf",
     name: "PowerPoint to PDF",
     description: "Make every slide easy to view and share.",
     category: "Convert",
@@ -205,6 +226,7 @@ export const tools: Tool[] = [
   },
   {
     id: "pdf-ppt",
+    slug: "pdf-to-powerpoint",
     name: "PDF to PowerPoint",
     description: "Turn PDF pages into editable slides.",
     category: "Convert",
@@ -214,6 +236,7 @@ export const tools: Tool[] = [
   },
   {
     id: "protect",
+    slug: "protect-pdf",
     name: "Protect PDF",
     description: "Add password protection to sensitive files.",
     category: "Security",
@@ -223,6 +246,7 @@ export const tools: Tool[] = [
   },
   {
     id: "unlock",
+    slug: "unlock-pdf",
     name: "Unlock PDF",
     description: "Remove passwords from files you own.",
     category: "Security",
@@ -232,6 +256,7 @@ export const tools: Tool[] = [
   },
   {
     id: "sign",
+    slug: "sign-pdf",
     name: "Sign PDF",
     description: "Add a signature and finish the paperwork.",
     category: "Security",
@@ -241,6 +266,7 @@ export const tools: Tool[] = [
   },
   {
     id: "redact",
+    slug: "redact-pdf",
     name: "Redact PDF",
     description: "Permanently remove confidential information.",
     category: "Security",
@@ -250,6 +276,7 @@ export const tools: Tool[] = [
   },
   {
     id: "repair",
+    slug: "repair-pdf",
     name: "Repair PDF",
     description: "Recover content from a damaged document.",
     category: "Optimize",

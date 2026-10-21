@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import { SiteFooter } from "@/components/pdf/site-footer";
 
 export const metadata: Metadata = {
   title: "PDFzuno — Your everyday PDF toolkit",
@@ -20,6 +21,7 @@ export default function RootLayout({
     <html lang="en">
       <body className="antialiased" suppressHydrationWarning>
         {children}
+        <SiteFooter />
       </body>
     </html>
   );
