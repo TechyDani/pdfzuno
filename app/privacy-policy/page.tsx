@@ -4,6 +4,7 @@ import { InfoPage } from "@/components/pdf/info-page";
 
 export const metadata: Metadata = {
   title: "Privacy Policy | PDFzuno",
+  alternates: { canonical: "/privacy-policy/" },
   description:
     "Learn how PDFzuno processes files locally on your device without uploading your documents or passwords to a server, and how website connections work.",
 };
@@ -18,7 +19,9 @@ export default function PrivacyPolicyPage() {
       <p className="guide-intro">
         PDFzuno was built by Danyal Khan to make everyday document tasks easier
         while keeping you in control of your files. This policy explains what
-        happens when you visit the website and use its PDF and image tools.
+        happens when you visit the website and use its PDF and image tools. This
+        policy applies to the home page, individual tool pages, guides, and
+        other informational pages on PDFzuno.
       </p>
       <section className="guide-section">
         <h2>Your files are processed locally</h2>
@@ -95,6 +98,13 @@ export default function PrivacyPolicyPage() {
       <section className="guide-section">
         <h2>Your choices and responsibilities</h2>
         <p>
+          Each tool has a dedicated page with instructions, use cases, and
+          frequently asked questions below its file interface. Read that
+          guidance before selecting files, especially when converting formats,
+          removing information, or creating a protected copy. You can browse
+          these pages and read their guidance without choosing a document.
+        </p>
+        <p>
           You decide which files to select and which results to download or
           share. Use a device and browser you trust, keep sensitive downloads in
           an appropriate location, and review outputs before sharing them. You
@@ -130,9 +140,9 @@ export default function PrivacyPolicyPage() {
           attach sensitive documents or passwords to a privacy inquiry.
         </p>
         <p>
-          You can also read our{" "}
-          <Link href="/terms-of-service/">Terms of Service</Link> and learn
-          about the creator on our <Link href="/about-us/">About Us</Link> page.
+          You can also read our <Link href="/terms/">Terms of Service</Link> and
+          learn about the creator on our <Link href="/about-us/">About Us</Link>{" "}
+          page.
         </p>
       </section>
     </InfoPage>

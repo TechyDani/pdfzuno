@@ -15,7 +15,7 @@ import {
   Sparkles,
   UserRound,
 } from "lucide-react";
-import { tools, type Tool } from "@/lib/pdf/tools";
+import { tools, toolPath, type Tool } from "@/lib/pdf/tools";
 
 const popular = tools.filter((tool) => tool.popular);
 const copy: Record<string, { title: string; accent: string; detail: string }> =
@@ -249,7 +249,7 @@ export function PopularHero({ suspended = false }: { suspended?: boolean }) {
                     <span>{slide.accent}</span>
                   </h2>
                   <p>{slide.detail}</p>
-                  <Link className="primary hero-cta" href={`/${tool.slug}/`}>
+                  <Link className="primary hero-cta" href={toolPath(tool)}>
                     Use {tool.name} <ArrowRight size={17} />
                   </Link>
                   <span className="hero-local-note">

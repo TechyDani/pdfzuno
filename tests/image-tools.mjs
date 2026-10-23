@@ -150,7 +150,7 @@ async function verifySite() {
       await expect(
         page.getByRole("heading", { name: tool.name, exact: true, level: 1 }),
       ).toBeVisible();
-      await expect(page).toHaveURL(`${url}/${tool.slug}/`);
+      await expect(page).toHaveURL(`${url}/tools/${tool.slug}/`);
       await page
         .getByRole("navigation", { name: "Main navigation" })
         .getByRole("link", { name: "Home", exact: true })
@@ -246,17 +246,21 @@ async function verifySite() {
     // Every catalog link opens an independent, refreshable tool page.
     for (const tool of tools) {
       await page.getByRole("link", { name: tool.name, exact: true }).click();
-      await expect(page).toHaveURL(`${url}/${tool.slug}/`);
+      await expect(page).toHaveURL(`${url}/tools/${tool.slug}/`);
+      // Wait for the client navigation to commit before testing a hard refresh.
+      await expect(page.locator("#tool-workspace")).toBeVisible();
+      await page.waitForLoadState("networkidle");
       await page.reload();
       await expect(page.locator("#tool-workspace")).toBeVisible();
       await expect(
         page.getByRole("heading", { name: tool.name, exact: true, level: 1 }),
       ).toBeVisible();
       await expect(page.getByLabel("Choose files")).toHaveValue("");
-      assert(
-        (await page.locator(".tool-guide").innerText()).split(/\s+/u).length >=
-          500,
-      );
+      const guideWords = (await page.locator(".tool-guide p").allTextContents())
+        .join(" ")
+        .trim()
+        .split(/\s+/u).length;
+      assert(guideWords >= 400 && guideWords <= 500);
       if (tool.id === "merge") {
         await page.screenshot({
           path: ".test-output/merge-desktop.png",
@@ -280,8 +284,30 @@ async function verifySite() {
         .click();
       await expect(page.locator(".tool-card")).toHaveCount(tools.length);
     }
-    const missing = await context.request.get(`${url}/not-a-real-tool/`);
-    assert.equal(missing.status(), 404);
+    for (const pathname of ["/not-a-real-tool/", "/tools/not-a-real-tool/"]) {
+      const missing = await context.request.get(`${url}${pathname}`);
+      assert.equal(missing.status(), 404);
+    }
+    for (const [pathname, heading] of [
+      ["/privacy-policy/", "Privacy Policy"],
+      ["/terms/", "Terms of Service"],
+      ["/about-us/", "About Us"],
+    ]) {
+      await page
+        .getByRole("navigation", { name: "Footer navigation" })
+        .getByRole("link", { name: heading, exact: true })
+        .click();
+      await expect(page).toHaveURL(`${url}${pathname}`);
+      await expect(
+        page.getByRole("heading", { name: heading, exact: true, level: 1 }),
+      ).toBeVisible();
+      await page.waitForLoadState("networkidle");
+      await page.reload();
+      await expect(
+        page.getByRole("heading", { name: heading, exact: true, level: 1 }),
+      ).toBeVisible();
+    }
+    await page.goto(url);
     console.log(
       `PASS all ${tools.length} tool URLs, direct refreshes, guide lengths, empty initial inputs, mobile page and unknown-route 404`,
     );

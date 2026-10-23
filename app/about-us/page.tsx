@@ -4,6 +4,7 @@ import { InfoPage } from "@/components/pdf/info-page";
 
 export const metadata: Metadata = {
   title: "About Us — Built by Danyal Khan | PDFzuno",
+  alternates: { canonical: "/about-us/" },
   description:
     "PDFzuno was built by Danyal Khan, a software engineer, to help people handle everyday PDF and image tasks with free tools that process files locally.",
 };
@@ -31,11 +32,19 @@ export default function AboutUsPage() {
         </p>
         <p>
           Danyal created PDFzuno to help with those moments. The toolkit brings
-          together tools for merging, splitting, compressing, organizing,
+          together 26 tools for merging, splitting, compressing, organizing,
           converting, and editing documents, along with useful image tasks. Each
           tool has its own page with instructions, practical examples, and
           answers to common questions, so people can understand the options
           before working on a file.
+        </p>
+        <p>
+          Start with the <Link href="/#tools">searchable tool catalog</Link>, or
+          go directly to <Link href="/tools/merge-pdf/">Merge PDF</Link>,{" "}
+          <Link href="/tools/compress-pdf/">Compress PDF</Link>, or{" "}
+          <Link href="/tools/remove-background/">Remove background</Link>. Each
+          page opens the tool itself first, with a how-to guide and FAQs
+          underneath. You can bookmark a tool and return to it directly.
         </p>
       </section>
       <section className="guide-section">
@@ -82,8 +91,8 @@ export default function AboutUsPage() {
           Questions, feedback, and suggestions are welcome at{" "}
           <a href="mailto:info@pdfzuno.pk">info@pdfzuno.pk</a>. Please describe
           the issue without sending confidential documents or passwords. You can
-          also read the <Link href="/terms-of-service/">Terms of Service</Link>{" "}
-          or <Link href="/#tools">explore all tools</Link> to find the one you
+          also read the <Link href="/terms/">Terms of Service</Link> or{" "}
+          <Link href="/#tools">explore all tools</Link> to find the one you
           need.
         </p>
       </section>

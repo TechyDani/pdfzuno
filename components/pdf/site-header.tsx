@@ -4,7 +4,7 @@ import { useEffect, useId, useRef, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { ChevronDown, FileText, Sparkles } from "lucide-react";
-import { categories, tools } from "@/lib/pdf/tools";
+import { categories, tools, toolPath } from "@/lib/pdf/tools";
 
 export function SiteHeader({
   onHowItWorks,
@@ -118,10 +118,10 @@ export function SiteHeader({
                             .map((tool) => (
                               <li key={tool.id}>
                                 <Link
-                                  href={`/${tool.slug}/`}
+                                  href={toolPath(tool)}
                                   aria-current={
-                                    pathname === `/${tool.slug}/` ||
-                                    pathname === `/${tool.slug}`
+                                    pathname === toolPath(tool) ||
+                                    pathname === toolPath(tool).slice(0, -1)
                                       ? "page"
                                       : undefined
                                   }

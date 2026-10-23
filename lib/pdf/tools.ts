@@ -9,6 +9,11 @@ export type Tool = {
   available: boolean;
   popular?: boolean;
 };
+
+export function toolPath(tool: Pick<Tool, "slug">) {
+  return `/tools/${tool.slug}/`;
+}
+
 export const categories = [
   "All tools",
   "Organize",

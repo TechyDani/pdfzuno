@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import * as Icons from "lucide-react";
-import { tools, categories, type Tool } from "@/lib/pdf/tools";
+import { tools, categories, toolPath, type Tool } from "@/lib/pdf/tools";
 import { PopularHero } from "./popular-hero";
 import { SiteHeader } from "./site-header";
 import {
@@ -147,7 +147,7 @@ export function Toolkit() {
             {filtered.map((t) => (
               <Link
                 key={t.id}
-                href={`/${t.slug}/`}
+                href={toolPath(t)}
                 className="tool-card"
                 aria-label={t.name}
               >

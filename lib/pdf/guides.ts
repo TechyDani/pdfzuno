@@ -6,18 +6,6 @@ export type ToolGuide = {
   faqs: GuideSection[];
 };
 
-// Shared answers describe the actual browser workspace, not a server upload service.
-export const commonFaqs: GuideSection[] = [
-  {
-    title: "Are my files uploaded, and do I need an account?",
-    text: "Processing happens on your device inside a browser worker. PDFzuno does not upload your document contents or passwords to a processing server, and you do not need an account. The site downloads application assets and fonts; background removal also downloads an AI model. Those connections do not send your selected files. Use a device you trust, save your result before leaving, and close the page when you finish working with private documents.",
-  },
-  {
-    title: "What is the file size limit, and why might processing fail?",
-    text: "The combined input limit is 50 MB per operation. A file below that limit can still require substantial memory, especially when it contains many pages or large images. Close unnecessary tabs, try a smaller document, or use a desktop browser if processing cannot finish. You can cancel a running operation. Your original file is not overwritten, so keep it until you have opened and checked the downloaded result.",
-  },
-];
-
 export const guides: Record<string, ToolGuide> = {
   protect: {
     intro:

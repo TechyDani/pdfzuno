@@ -28,7 +28,7 @@ export function InfoPage({
           <p>{description}</p>
           {updated && (
             <p className="info-updated">
-              Last updated: <time dateTime="2026-10-22">October 22, 2026</time>
+              Last updated: <time dateTime="2026-10-23">October 23, 2026</time>
             </p>
           )}
         </div>

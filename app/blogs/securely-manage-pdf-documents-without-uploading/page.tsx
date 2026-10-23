@@ -202,18 +202,18 @@ export default function SecurePdfArticlePage() {
                   what does this recipient actually need? If someone requests a
                   two-page certificate, sending a forty-page archive can expose
                   unrelated records. Use{" "}
-                  <Link href="/extract-pdf-pages/">Extract pages</Link> or{" "}
-                  <Link href="/split-pdf/">Split PDF</Link> to create a focused
-                  copy. Count actual page positions, including covers and
-                  introductory pages, rather than assuming printed page numbers
-                  match the file&apos;s sequence.
+                  <Link href="/tools/extract-pdf-pages/">Extract pages</Link> or{" "}
+                  <Link href="/tools/split-pdf/">Split PDF</Link> to create a
+                  focused copy. Count actual page positions, including covers
+                  and introductory pages, rather than assuming printed page
+                  numbers match the file&apos;s sequence.
                 </p>
                 <p>
                   When several documents belong together, use{" "}
-                  <Link href="/merge-pdf/">Merge PDF</Link> and arrange the
-                  selected files before processing. Afterward, check the joins
-                  between documents and confirm that every expected page is
-                  present. If a scanner introduced blank or repeated pages,
+                  <Link href="/tools/merge-pdf/">Merge PDF</Link> and arrange
+                  the selected files before processing. Afterward, check the
+                  joins between documents and confirm that every expected page
+                  is present. If a scanner introduced blank or repeated pages,
                   remove them from the working copy. Keep the complete original
                   somewhere suitable so you can rebuild the packet without
                   relying on an already reduced version.
@@ -238,11 +238,11 @@ export default function SecurePdfArticlePage() {
                 <p>
                   A university portal or email service may reject a document
                   that is too large. Start with lossless optimization in{" "}
-                  <Link href="/compress-pdf/">Compress PDF</Link> when you want
-                  to preserve text and vectors. An already optimized document
-                  may not shrink much, so compare the actual output size with
-                  the destination&apos;s limit rather than expecting a fixed
-                  reduction percentage.
+                  <Link href="/tools/compress-pdf/">Compress PDF</Link> when you
+                  want to preserve text and vectors. An already optimized
+                  document may not shrink much, so compare the actual output
+                  size with the destination&apos;s limit rather than expecting a
+                  fixed reduction percentage.
                 </p>
                 <p>
                   The balanced and smallest modes flatten pages into images.
@@ -280,10 +280,10 @@ export default function SecurePdfArticlePage() {
                   document.
                 </p>
                 <p>
-                  With <Link href="/redact-pdf/">Redact PDF</Link>, choose the
-                  target page, load its preview, and select the complete area to
-                  remove. The current tool applies permanent redaction to one
-                  rectangle on one page and rewrites the PDF. It does not
+                  With <Link href="/tools/redact-pdf/">Redact PDF</Link>, choose
+                  the target page, load its preview, and select the complete
+                  area to remove. The current tool applies permanent redaction
+                  to one rectangle on one page and rewrites the PDF. It does not
                   automatically search every page for matching names or numbers.
                   Review each required area and inspect the downloaded output
                   after applying it.
@@ -314,7 +314,7 @@ export default function SecurePdfArticlePage() {
                   Use password protection as one part of the workflow
                 </h2>
                 <p>
-                  <Link href="/protect-pdf/">Protect PDF</Link> creates an
+                  <Link href="/tools/protect-pdf/">Protect PDF</Link> creates an
                   encrypted document using AES-256 and the opening password you
                   provide. Choose a password you can retain through a suitable
                   password-management method, and keep it out of the filename.

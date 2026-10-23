@@ -13,7 +13,7 @@ export function SiteFooter() {
         </div>
         <nav className="site-footer-links" aria-label="Footer navigation">
           <Link href="/privacy-policy/">Privacy Policy</Link>
-          <Link href="/terms-of-service/">Terms of Service</Link>
+          <Link href="/terms/">Terms of Service</Link>
           <Link href="/about-us/">About Us</Link>
           <a href="mailto:info@pdfzuno.pk">Contact</a>
         </nav>

@@ -19,15 +19,17 @@ pnpm test
 pnpm build
 ```
 
-The production site is exported to `out/`. Deploy that directory to a static host supporting JavaScript modules, Web Workers, `.wasm` files and same-origin asset requests. Tool routes use directory indexes (for example, `out/merge-pdf/index.html`), so ordinary static hosting can serve direct visits and refreshes without an SPA fallback. Do not open `index.html` directly as a `file://` URL. To serve a build locally, use `python3 -m http.server 3000 --directory out`.
+The production site is exported to `out/`. Deploy that directory to a static host supporting JavaScript modules, Web Workers, `.wasm` files and same-origin asset requests. Tool routes use directory indexes (for example, `out/tools/merge-pdf/index.html`), so ordinary static hosting can serve direct visits and refreshes without an SPA fallback. Do not open `index.html` directly as a `file://` URL. To serve a build locally, use `python3 -m http.server 3000 --directory out`.
 
 ## Dedicated tool pages
 
-All 26 tools have their own statically generated URL, including `/merge-pdf/`, `/compress-pdf/`, `/pdf-to-word/`, and `/remove-background/`. The home catalog and popular carousel link to these pages. Each page contains its inline file workspace followed by over 500 words of server-rendered guidance: a tool-specific introduction, four tutorial steps, practical use cases, and format, privacy, and file-size FAQs. Content describes the actual processor behavior, including conversion and OCR limitations.
+All 26 tools have their own statically generated URL, including `/tools/merge-pdf/`, `/tools/compress-pdf/`, `/tools/pdf-to-word/`, and `/tools/remove-background/`. The home catalog and popular carousel link to these pages. Each page contains its inline file workspace followed by 400–500 words of server-rendered guidance: a tool-specific introduction, four tutorial steps, practical use cases, and tool-specific FAQs. Content describes the actual processor behavior, including conversion and OCR limitations.
 
-Routes are defined by `slug` in `lib/pdf/tools.ts`; editorial content is maintained in `lib/pdf/guides.ts`. The shared page template is `app/[slug]/page.tsx`. Each tool has a unique title and description. Optionally set `NEXT_PUBLIC_SITE_URL` to your deployed origin before building to generate absolute canonical URLs for that domain.
+Privacy, terms, and about content is available at `/privacy-policy/`, `/terms/`, and `/about-us/`, with footer links on every page. The existing wording has been updated to cover the dedicated tool pages and guidance. Legacy root tool URLs and `/terms-of-service/` remain accessible for bookmarks and identify the new canonical URLs; internal links use the new routes.
 
-After building, run `npm run test:pages` to verify all 26 exported routes, internal links, metadata, input workspaces, and the minimum rendered guide length. Run `npm run test:browser -- --skip-ai` for routing, direct refreshes, mobile layout, and real image conversions without downloading the background-removal model.
+Routes are defined by `slug` in `lib/pdf/tools.ts`; editorial content is maintained in `lib/pdf/guides.ts`. The shared page template is `app/tools/[slug]/page.tsx`. Each tool has a unique title and description. Optionally set `NEXT_PUBLIC_SITE_URL` to your deployed origin before building to generate absolute canonical URLs for that domain.
+
+After building, run `npm run test:pages` to verify all 26 exported routes, internal links, metadata, input workspaces, guide word counts, and compliance pages. Run `npm run test:browser -- --skip-ai` for routing, direct refreshes, mobile layout, and real image conversions without downloading the background-removal model.
 
 To regenerate the downloadable source archive, run `node scripts/package-source.mjs`. It excludes credentials, Sites identity, node_modules, builds and test outputs. Source is available at `/pdfzuno-source.zip` after building.
 
