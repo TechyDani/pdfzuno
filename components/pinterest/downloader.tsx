@@ -134,7 +134,7 @@ export function PinterestDownloader() {
       link.href = blobUrl;
       link.download =
         filename ||
-        `pdfzivra-pinterest-${result?.pinId}.${item.type === "video" ? "mp4" : "jpg"}`;
+        `zivratools-pinterest-${result?.pinId}.${item.type === "video" ? "mp4" : "jpg"}`;
       document.body.appendChild(link);
       link.click();
       link.remove();

@@ -7,4 +7,4 @@ await mkdir(target, { recursive: true });
 for (const file of ["mupdf.js", "mupdf-wasm.js", "mupdf-wasm.wasm"])
   await copyFile(resolve(source, file), resolve(target, file));
 await copyFile(resolve(source, "../LICENSE"), resolve(target, "LICENSE"));
-console.log("PDFZivra processing engine prepared");
+console.log("ZivraTools processing engine prepared");

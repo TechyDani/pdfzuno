@@ -1,6 +1,6 @@
 # Third-party software
 
-PDFZivra uses MuPDF 1.28.1, copyright Artifex Software, under AGPL-3.0-or-later. The bundled engine is unmodified. The generated application source is distributed under AGPL-3.0-or-later for compatibility with this dependency; the complete license is in `LICENSE`. A source download is available in the site footer.
+ZivraTools uses MuPDF 1.28.1, copyright Artifex Software, under AGPL-3.0-or-later. The bundled engine is unmodified. The generated application source is distributed under AGPL-3.0-or-later for compatibility with this dependency; the complete license is in `LICENSE`. A source download is available in the site footer.
 
 MuPDF source and build instructions: https://github.com/ArtifexSoftware/mupdf/tree/1.28.1
 MuPDF JavaScript package: https://www.npmjs.com/package/mupdf/v/1.28.1

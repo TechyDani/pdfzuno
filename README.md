@@ -1,4 +1,8 @@
-# PDFZivra
+# ZivraTools
+
+**Every Tool. One Place.**
+
+Free online tools for PDFs, images, documents, and everyday productivity. Fast, simple, and private.
 
 Next.js App Router + React + TypeScript + Tailwind CSS toolkit with 26 local PDF/image tools and a Pinterest downloader. Document processing runs in a cancellable browser Web Worker; selected documents, images and passwords never go to a processing server. Pinterest downloader separately sends a public Pin link to a server endpoint and streams the selected media back to the browser.
 
@@ -45,7 +49,7 @@ Every local PDF/image tool also has a long-form post at `/blogs/<tool-slug>-guid
 
 After building, run `npm run test:pages` to verify all 27 prerendered routes, internal links, metadata, input workspaces, guide word counts, and compliance pages. Run `npm run test:browser -- --skip-ai` for routing, direct refreshes, mobile layout, and real image conversions without downloading the background-removal model.
 
-To regenerate the downloadable source archive, run `node scripts/package-source.mjs`. It excludes credentials, Sites identity, node_modules, builds and test outputs. Source is available at `/pdfzivra-source.zip` after building.
+To regenerate the downloadable source archive, run `node scripts/package-source.mjs`. It excludes credentials, Sites identity, node_modules, builds and test outputs. Source is available at `/zivratools-source.zip` after building.
 
 ## Folder structure
 

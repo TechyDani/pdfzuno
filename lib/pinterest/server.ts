@@ -5,7 +5,7 @@ import { progressiveCandidates, videoSignature } from "./video.ts";
 
 type Fetch = typeof fetch;
 type ObjectData = Record<string, unknown>;
-const USER_AGENT = "Mozilla/5.0 (compatible; PDFZivra/1.0)";
+const USER_AGENT = "Mozilla/5.0 (compatible; ZivraTools/1.0)";
 const MAX_PAGE_BYTES = 5 * 1024 * 1024;
 export const MAX_DOWNLOAD_BYTES = 100 * 1024 * 1024;
 
@@ -311,7 +311,7 @@ async function expandVideoSources(
           if (await hasMp4File(candidate.url, signal, fetcher)) {
             source.video_list = {
               ...list,
-              PDFZIVRA_MP4: { ...hls, ...candidate },
+              ZIVRATOOLS_MP4: { ...hls, ...candidate },
             };
             return;
           }
@@ -698,7 +698,7 @@ export async function downloadPinterest(
   return new Response(body, {
     headers: {
       "Content-Type": type,
-      "Content-Disposition": `attachment; filename="pdfzivra-pinterest-${pinId}-${mediaId}.${extension}"`,
+      "Content-Disposition": `attachment; filename="zivratools-pinterest-${pinId}-${mediaId}.${extension}"`,
       "Cache-Control": "private, no-store",
       "X-Content-Type-Options": "nosniff",
     },

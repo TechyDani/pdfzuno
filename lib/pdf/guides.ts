@@ -86,7 +86,7 @@ export const guides: Record<string, ToolGuide> = {
         text: "The processor writes AES-256 PDF encryption with the supplied opening password. This workflow is about requiring a password to open the resulting document. It is not a full document-rights platform with user accounts, access expiry, audit trails, or remote revocation after a recipient has downloaded it.",
       },
       {
-        title: "Can PDFZivra recover a forgotten password?",
+        title: "Can ZivraTools recover a forgotten password?",
         text: "Do not rely on password recovery. The tool does not store your password on a processing server, and Unlock PDF requires successful authentication when a document needs an opening password. Keep an authorized source copy and retain the password through a method appropriate for your records.",
       },
       {

@@ -23,12 +23,12 @@ export function InfoPage({
           <span aria-current="page">{title}</span>
         </nav>
         <div className="tool-page-heading info-page-heading">
-          <span className="eyebrow">PDFZivra</span>
+          <span className="eyebrow">ZivraTools</span>
           <h1>{title}</h1>
           <p>{description}</p>
           {updated && (
             <p className="info-updated">
-              Last updated: <time dateTime="2026-10-31">October 31, 2026</time>
+              Last updated: <time dateTime="2026-11-01">November 1, 2026</time>
             </p>
           )}
         </div>

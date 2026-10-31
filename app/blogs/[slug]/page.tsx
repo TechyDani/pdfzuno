@@ -82,7 +82,7 @@ export default async function ToolArticlePage({ params }: Props) {
         articleSection: article.category,
         wordCount,
         author: { "@type": "Organization", name: article.author },
-        publisher: { "@type": "Organization", name: "PDFZivra" },
+        publisher: { "@type": "Organization", name: "ZivraTools" },
         about: { "@type": "Thing", name: tool.name },
       },
       {

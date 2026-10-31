@@ -5,9 +5,9 @@ import { InfoPage } from "@/components/pdf/info-page";
 import { blogArticles } from "@/lib/blog/articles";
 
 export const metadata: Metadata = {
-  title: "Blogs — PDF Tips and Practical Guides | PDFZivra",
+  title: "Blogs — PDF Tips and Practical Guides | ZivraTools",
   description:
-    "Explore step-by-step guides for PDFZivra's 26 PDF and image tools: merge, split, compress, convert, edit, protect PDFs, and work with images in your browser.",
+    "Explore step-by-step guides for ZivraTools's 26 PDF and image tools: merge, split, compress, convert, edit, protect PDFs, and work with images in your browser.",
   alternates: {
     canonical: process.env.NEXT_PUBLIC_SITE_URL
       ? new URL("/blogs/", process.env.NEXT_PUBLIC_SITE_URL).href

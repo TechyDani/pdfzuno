@@ -18,7 +18,7 @@ const apiGuidance =
   "https://landregistry.github.io/bg-dev-pack-redesign/apis/send-a-document/1.0/technical-guide/";
 
 export const metadata: Metadata = {
-  title: "Compress PDF for HM Land Registry Uploads: UK Guide | PDFZivra",
+  title: "Compress PDF for HM Land Registry Uploads: UK Guide | ZivraTools",
   description: article.excerpt,
   authors: [{ name: article.author }],
   alternates: { canonical: articleUrl },
@@ -57,12 +57,12 @@ const faqs = [
   {
     question: "Can I compress a Land Registry plan without losing quality?",
     answer:
-      "Start with Lossless to preserve text and vector content without deliberately lowering image resolution. The reduction may be small. PDFZivra's Balanced and Smallest settings rasterise pages below the 200 dpi minimum recommended for scanned plans, so use Lossless for plans and compare the output with the original.",
+      "Start with Lossless to preserve text and vector content without deliberately lowering image resolution. The reduction may be small. ZivraTools's Balanced and Smallest settings rasterise pages below the 200 dpi minimum recommended for scanned plans, so use Lossless for plans and compare the output with the original.",
   },
   {
     question: "Does compressing a PDF guarantee HM Land Registry acceptance?",
     answer:
-      "No. File size is only one check. The document must also be complete, readable and suitable for the application, with any required certification and execution requirements satisfied. PDFZivra optimises a file; it does not certify a copy or check the legal sufficiency of an application.",
+      "No. File size is only one check. The document must also be complete, readable and suitable for the application, with any required certification and execution requirements satisfied. ZivraTools optimises a file; it does not certify a copy or check the legal sufficiency of an application.",
   },
   {
     question: "Can I upload a password-protected PDF?",
@@ -70,7 +70,7 @@ const faqs = [
       "The Business Gateway Send a document guidance says PDFs must not be password protected. Check your own submission service's requirements too. Confirm that the final file opens without a password before uploading; do not assume compression removed protection, especially if the tool returned the original file unchanged.",
   },
   {
-    question: "Is PDFZivra free, and does it upload my deeds?",
+    question: "Is ZivraTools free, and does it upload my deeds?",
     answer:
       "The current Compress PDF tool is free and requires no account. Selected documents are processed locally in your browser, with a 50 MB combined input limit per operation. Downloading the result does not submit anything to HM Land Registry; you must attach the reviewed copy through the appropriate service yourself.",
   },
@@ -85,7 +85,7 @@ const structuredData = {
   inLanguage: "en-GB",
   articleSection: article.category,
   author: { "@type": "Person", name: article.author },
-  publisher: { "@type": "Organization", name: "PDFZivra" },
+  publisher: { "@type": "Organization", name: "ZivraTools" },
   ...(origin && {
     url: articleUrl,
     mainEntityOfPage: { "@type": "WebPage", "@id": articleUrl },
@@ -265,7 +265,7 @@ export default function LandRegistryCompressArticlePage() {
                     <p>
                       Open{" "}
                       <Link href="/tools/compress-pdf/">
-                        PDFZivra Compress PDF
+                        ZivraTools Compress PDF
                       </Link>{" "}
                       and select your working copy. The tool accepts up to 50 MB
                       of combined input per operation. A source above that limit
@@ -279,7 +279,7 @@ export default function LandRegistryCompressArticlePage() {
                       Select Lossless under Compression, press Compress PDF,
                       then download the PDF. Check its saved size in your file
                       manager. If the attempted compression would not reduce
-                      size, PDFZivra returns the original instead; read the
+                      size, ZivraTools returns the original instead; read the
                       result message before assuming anything changed.
                     </p>
                   </li>
@@ -378,7 +378,7 @@ export default function LandRegistryCompressArticlePage() {
                 </h2>
                 <p>
                   Deeds and supporting documents may contain names, addresses,
-                  signatures and financial information. PDFZivra processes
+                  signatures and financial information. ZivraTools processes
                   selected files locally in your browser without sending
                   document contents to a compression server. The site still
                   downloads application resources; our{" "}
@@ -424,12 +424,12 @@ export default function LandRegistryCompressArticlePage() {
               <div className="article-author-note">
                 <strong>About the author and this guide</strong>
                 <p>
-                  Danyal Khan is a software engineer and the creator of PDFZivra.
-                  Official guidance was checked on 26 October 2026. This article
-                  covers file preparation; follow HM Land Registry&apos;s
-                  current instructions and your conveyancer&apos;s advice for
-                  application requirements.{" "}
-                  <Link href="/about-us/">About PDFZivra</Link>.
+                  Danyal Khan is a software engineer and the creator of
+                  ZivraTools. Official guidance was checked on 26 October 2026.
+                  This article covers file preparation; follow HM Land
+                  Registry&apos;s current instructions and your
+                  conveyancer&apos;s advice for application requirements.{" "}
+                  <Link href="/about-us/">About ZivraTools</Link>.
                 </p>
               </div>
               <nav className="article-next-links" aria-label="Article links">

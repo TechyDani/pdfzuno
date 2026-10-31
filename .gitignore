@@ -2,7 +2,7 @@ node_modules/
 .next/
 out/
 public/engines/
-public/pdfzivra-source.zip
+public/zivratools-source.zip
 .test-output/
 .env*
 *.tsbuildinfo

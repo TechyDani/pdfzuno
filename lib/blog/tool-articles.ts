@@ -23,11 +23,11 @@ const content: ToolArticleContent[] = [
   {
     toolId: "remove-background",
     title: "How to Remove an Image Background and Save a Transparent PNG",
-    metaTitle: "Remove Image Background: Transparent PNG Guide | PDFZivra",
+    metaTitle: "Remove Image Background: Transparent PNG Guide | ZivraTools",
     excerpt:
       "Remove a photo background in your browser, save a transparent PNG, and check hair, product edges, and image quality before using your cutout.",
     answer:
-      "To remove an image background, open PDFZivra's Remove background tool, choose a JPG, PNG, or WebP image, and run the background remover. Download the transparent PNG and inspect the subject's edges. The image is processed on your device; the first run downloads the AI model needed for the task.",
+      "To remove an image background, open ZivraTools's Remove background tool, choose a JPG, PNG, or WebP image, and run the background remover. Download the transparent PNG and inspect the subject's edges. The image is processed on your device; the first run downloads the AI model needed for the task.",
     relatedToolIds: ["webp-jpg", "jpg-pdf", "pdf-jpg"],
     sections: [
       {
@@ -43,7 +43,7 @@ const content: ToolArticleContent[] = [
         title: "Why does the result use PNG instead of JPG?",
         paragraphs: [
           "A transparent image needs a format that can store an alpha channel, which describes how opaque each pixel should be. PNG supports this, so you can place the cutout over a coloured slide, a product card, or another photograph. A checkerboard in an image editor is usually a transparency indicator rather than part of the picture. Test the downloaded PNG over more than one background colour to see whether the subject has a pale fringe or an incomplete edge.",
-          "JPG cannot retain transparency. Converting the cutout to JPG replaces the transparent area with a solid background; PDFZivra's WebP to JPG converter similarly uses white for transparent pixels. Keep the PNG as your reusable master and create an opaque derivative only when a destination specifically needs it. A PNG can also be larger than the original compressed photo. Judge the result by its usefulness and edge quality rather than assuming successful background removal must reduce file size.",
+          "JPG cannot retain transparency. Converting the cutout to JPG replaces the transparent area with a solid background; ZivraTools's WebP to JPG converter similarly uses white for transparent pixels. Keep the PNG as your reusable master and create an opaque derivative only when a destination specifically needs it. A PNG can also be larger than the original compressed photo. Judge the result by its usefulness and edge quality rather than assuming successful background removal must reduce file size.",
         ],
       },
       {
@@ -59,11 +59,11 @@ const content: ToolArticleContent[] = [
   {
     toolId: "merge",
     title: "How to Merge PDF Files into One Organized Document",
-    metaTitle: "How to Merge PDF Files Online: Complete Guide | PDFZivra",
+    metaTitle: "How to Merge PDF Files Online: Complete Guide | ZivraTools",
     excerpt:
       "Combine PDFs in the right order, prepare a clear document bundle, and check page counts, orientation, file size, and the final download.",
     answer:
-      "To merge PDF files, open PDFZivra's Merge PDF tool, select at least two PDFs, arrange the files in the required order, and create the combined document. Download the result and check the page sequence. Processing takes place in your browser, with a 50 MB combined input limit per operation.",
+      "To merge PDF files, open ZivraTools's Merge PDF tool, select at least two PDFs, arrange the files in the required order, and create the combined document. Download the result and check the page sequence. Processing takes place in your browser, with a 50 MB combined input limit per operation.",
     relatedToolIds: ["organize", "numbers", "compress"],
     sections: [
       {
@@ -78,7 +78,7 @@ const content: ToolArticleContent[] = [
         id: "what-merging-changes",
         title: "What happens to page size, quality, and file size?",
         paragraphs: [
-          "Combining documents does not require turning every page into a screenshot. PDFZivra copies PDF pages into a new document, so the operation is different from exporting pages as JPG images and rebuilding a PDF. Inputs may have different page dimensions or orientations, and those differences can remain in the merged result. A portrait letter followed by a landscape chart is not necessarily an error. Check the recipient's requirements before trying to standardise pages that were intentionally designed differently.",
+          "Combining documents does not require turning every page into a screenshot. ZivraTools copies PDF pages into a new document, so the operation is different from exporting pages as JPG images and rebuilding a PDF. Inputs may have different page dimensions or orientations, and those differences can remain in the merged result. A portrait letter followed by a landscape chart is not necessarily an error. Check the recipient's requirements before trying to standardise pages that were intentionally designed differently.",
           "The output size depends on the inputs and how their resources are stored. Merging is an organisation task rather than a guarantee of smaller files. If a submission portal limits attachment size, compare the downloaded file against that limit and compress a separate copy if needed. Keep searchable text and forms in mind when choosing compression afterward. Also retain original files containing interactive features or existing signatures; inspect the merged copy rather than assuming all document-level behaviour carries across unchanged.",
         ],
       },
@@ -95,18 +95,18 @@ const content: ToolArticleContent[] = [
   {
     toolId: "split",
     title: "How to Split a PDF into Separate Pages or Smaller Documents",
-    metaTitle: "How to Split a PDF: Pages, Ranges and ZIP Files | PDFZivra",
+    metaTitle: "How to Split a PDF: Pages, Ranges and ZIP Files | ZivraTools",
     excerpt:
       "Split a PDF by page range or save individual pages in a ZIP. Learn page selection syntax, output options, and checks for complete results.",
     answer:
-      "To split a PDF, select it in PDFZivra's Split PDF tool and enter the pages you need, such as 1-3, 5. Choose one PDF containing the selection or separate PDFs in a ZIP, then run the tool and review the download. Page numbers refer to positions in the source file.",
+      "To split a PDF, select it in ZivraTools's Split PDF tool and enter the pages you need, such as 1-3, 5. Choose one PDF containing the selection or separate PDFs in a ZIP, then run the tool and review the download. Page numbers refer to positions in the source file.",
     relatedToolIds: ["extract", "remove", "merge"],
     sections: [
       {
         id: "choose-your-output",
         title: "Should you split into one PDF or individual page files?",
         paragraphs: [
-          "Choose the output based on how the recipient will use the pages. A selected chapter normally belongs in one readable PDF, while a collection of independent certificates may work better as separate page files. PDFZivra offers both a combined selection and one PDF per selected page in a ZIP archive. These options serve different purposes: the first preserves a small reading sequence, and the second makes individual pages easier to distribute or organise separately after extracting the archive.",
+          "Choose the output based on how the recipient will use the pages. A selected chapter normally belongs in one readable PDF, while a collection of independent certificates may work better as separate page files. ZivraTools offers both a combined selection and one PDF per selected page in a ZIP archive. These options serve different purposes: the first preserves a small reading sequence, and the second makes individual pages easier to distribute or organise separately after extracting the archive.",
           "For example, a twelve-page workshop handout might contain instructions on pages two through five and individual exercises later in the file. Select 2-5 for a compact instruction booklet. If each exercise must become its own attachment, choose the separate-page output for the relevant positions instead. A ZIP is a container holding the generated PDFs, so the recipient may need to extract it before opening or submitting the individual documents. Confirm which format their destination accepts before choosing an output.",
         ],
       },
@@ -131,11 +131,11 @@ const content: ToolArticleContent[] = [
   {
     toolId: "compress",
     title: "How to Compress a PDF and Choose the Right Quality Setting",
-    metaTitle: "How to Compress a PDF: Size and Quality Guide | PDFZivra",
+    metaTitle: "How to Compress a PDF: Size and Quality Guide | ZivraTools",
     excerpt:
       "Reduce PDF file size with the right compression mode. Compare lossless optimisation with image-based compression and check readability afterward.",
     answer:
-      "To compress a PDF, open PDFZivra's Compress PDF tool, select the file, choose Lossless, Balanced, or Smallest, and download the result. Start with Lossless when searchable text or vector detail matters. Balanced and Smallest rebuild pages as images, which flattens searchable text, links, and interactive form fields.",
+      "To compress a PDF, open ZivraTools's Compress PDF tool, select the file, choose Lossless, Balanced, or Smallest, and download the result. Start with Lossless when searchable text or vector detail matters. Balanced and Smallest rebuild pages as images, which flattens searchable text, links, and interactive form fields.",
     relatedToolIds: ["remove", "split", "pdf-jpg"],
     sections: [
       {
@@ -143,7 +143,7 @@ const content: ToolArticleContent[] = [
         title: "Why are some PDF files much larger than others?",
         paragraphs: [
           "Page count alone does not explain PDF size. A short scan can contain large photographs of every page, while a long text document may store compact character instructions and reusable fonts. High-resolution images, repeated resources, and inefficient storage can all contribute to a bulky file. Before compressing, ask what the recipient actually needs to see. A document containing photographs requires a different quality decision from a text report with small labels, thin chart lines, or detailed technical drawings.",
-          "Compression results therefore vary. A PDF that is already efficiently stored may shrink very little, and an attempted rewrite can even be larger than the source. PDFZivra keeps the original bytes when its compressed result would not reduce size, and reports that decision. A completed operation does not necessarily mean the file became smaller. Read the result message, inspect the downloaded size, and compare it against the real attachment limit rather than expecting a fixed reduction percentage from every document.",
+          "Compression results therefore vary. A PDF that is already efficiently stored may shrink very little, and an attempted rewrite can even be larger than the source. ZivraTools keeps the original bytes when its compressed result would not reduce size, and reports that decision. A completed operation does not necessarily mean the file became smaller. Read the result message, inspect the downloaded size, and compare it against the real attachment limit rather than expecting a fixed reduction percentage from every document.",
         ],
       },
       {
@@ -159,7 +159,7 @@ const content: ToolArticleContent[] = [
         title: "What should you do if the PDF is still too large?",
         paragraphs: [
           "Check the upload destination's stated limit and leave some room below it. A file manager's rounded size display may conceal a small difference that matters to a portal. Inspect pages containing the smallest type and most detailed images after compression. Look for blurred punctuation, unreadable table cells, damaged colour distinctions, and missing interactive behaviour. If the output meets the size target but readers cannot reliably use the information, the compression setting has not solved the practical problem.",
-          "Consider reducing scope before sacrificing more detail. Remove genuinely unnecessary pages, or split a document into sections when the destination accepts multiple attachments. If you have the original editable file, exporting a more efficient PDF there can produce a better starting point. PDFZivra's current combined input limit is 50 MB, so a larger source needs preparation elsewhere before this workflow can read it. Keep the original as your master and label the compressed copy clearly for its intended sharing purpose.",
+          "Consider reducing scope before sacrificing more detail. Remove genuinely unnecessary pages, or split a document into sections when the destination accepts multiple attachments. If you have the original editable file, exporting a more efficient PDF there can produce a better starting point. ZivraTools's current combined input limit is 50 MB, so a larger source needs preparation elsewhere before this workflow can read it. Keep the original as your master and label the compressed copy clearly for its intended sharing purpose.",
         ],
       },
     ],
@@ -167,11 +167,11 @@ const content: ToolArticleContent[] = [
   {
     toolId: "pdf-word",
     title: "How to Convert PDF to Word: Editable Text or Page Images",
-    metaTitle: "PDF to Word Guide: Editable Text and Layout | PDFZivra",
+    metaTitle: "PDF to Word Guide: Editable Text and Layout | ZivraTools",
     excerpt:
       "Convert PDF to Word, choose editable text or page images, understand scanned PDF limits, and check formatting before editing your DOCX.",
     answer:
-      "To convert a PDF to Word, select the PDF in PDFZivra and choose Editable text or Preserve appearance. Editable text exports selectable text into a DOCX; Preserve appearance embeds page images. Scanned PDFs need OCR elsewhere for editable text because this converter does not include optical character recognition.",
+      "To convert a PDF to Word, select the PDF in ZivraTools and choose Editable text or Preserve appearance. Editable text exports selectable text into a DOCX; Preserve appearance embeds page images. Scanned PDFs need OCR elsewhere for editable text because this converter does not include optical character recognition.",
     relatedToolIds: ["word-pdf", "edit", "extract"],
     sections: [
       {
@@ -194,7 +194,7 @@ const content: ToolArticleContent[] = [
         id: "clean-up-the-docx",
         title: "How to turn the converted DOCX into a useful working document",
         paragraphs: [
-          "Begin cleanup by checking completeness rather than styling. Compare the beginning and ending of each section, then inspect pages with columns, captions, and tables. PDFZivra's editable mode exports text without the original images, so add any required illustrations from an authorised source. A visual table may arrive as separate text lines instead of a reusable Word table. Reconstruct those relationships deliberately and confirm that headings and notes remain associated with the correct material after paragraphs begin to flow.",
+          "Begin cleanup by checking completeness rather than styling. Compare the beginning and ending of each section, then inspect pages with columns, captions, and tables. ZivraTools's editable mode exports text without the original images, so add any required illustrations from an authorised source. A visual table may arrive as separate text lines instead of a reusable Word table. Reconstruct those relationships deliberately and confirm that headings and notes remain associated with the correct material after paragraphs begin to flow.",
           "Once the content is correct, apply Word styles for headings and normal paragraphs, remove unnecessary line breaks, and rebuild lists as real lists. Save a clearly named editable master before exporting a review PDF. If you only need to add a short repeated label to an existing PDF, Edit PDF may be a simpler route than converting the entire document. Keep the original PDF available while checking the new draft so formatting cleanup does not accidentally change the meaning or omit a small but important detail.",
         ],
       },
@@ -203,11 +203,11 @@ const content: ToolArticleContent[] = [
   {
     toolId: "word-pdf",
     title: "How to Convert Word to PDF and Check the Finished Document",
-    metaTitle: "Word to PDF Guide: DOCX Conversion and Layout | PDFZivra",
+    metaTitle: "Word to PDF Guide: DOCX Conversion and Layout | ZivraTools",
     excerpt:
       "Convert a DOCX file to PDF in your browser, understand layout changes, and review tables, images, symbols, and page breaks before sharing.",
     answer:
-      "To convert Word to PDF, open PDFZivra's Word to PDF tool, select a DOCX document, and create the PDF. Download it and compare the contents with the Word source. The browser converter reflows supported content, so complex layouts and exact page breaks can differ from a native Word export.",
+      "To convert Word to PDF, open ZivraTools's Word to PDF tool, select a DOCX document, and create the PDF. Download it and compare the contents with the Word source. The browser converter reflows supported content, so complex layouts and exact page breaks can differ from a native Word export.",
     relatedToolIds: ["pdf-word", "compress", "protect"],
     sections: [
       {
@@ -215,14 +215,14 @@ const content: ToolArticleContent[] = [
         title: "Prepare a clear Word document before PDF conversion",
         paragraphs: [
           "The quality of a converted PDF starts with the source document. Review the DOCX for outdated sections, accidental blank paragraphs, unfinished comments, and missing images before creating a sharing copy. Use consistent headings and straightforward tables when possible. A simple report is easier to review after conversion than a document whose layout depends on floating text boxes and tightly positioned objects. Keep the editable source because a PDF is a distribution copy, not a replacement for the document you will revise later.",
-          "For example, a two-page meeting summary with a heading, several paragraphs, and a small action table is a practical candidate for this workflow. A brochure whose text wraps precisely around artwork needs closer comparison and may be better exported from its authoring application. PDFZivra accepts modern DOCX files. If you have an older DOC file or another word-processing format, open it in a compatible editor and save a real DOCX version first; changing the filename alone does not convert it.",
+          "For example, a two-page meeting summary with a heading, several paragraphs, and a small action table is a practical candidate for this workflow. A brochure whose text wraps precisely around artwork needs closer comparison and may be better exported from its authoring application. ZivraTools accepts modern DOCX files. If you have an older DOC file or another word-processing format, open it in a compatible editor and save a real DOCX version first; changing the filename alone does not convert it.",
         ],
       },
       {
         id: "understand-reflow",
         title: "Why might the PDF look different from Microsoft Word?",
         paragraphs: [
-          "An application needs rules for laying out text, fonts, images, and tables across pages. Different layout engines can make different wrapping and pagination decisions, particularly when a source uses unusual fonts or complex objects. PDFZivra reflows supported Office content rather than reproducing every detail of Microsoft Word's rendering. A heading might move to another page, a table might break differently, or an image might occupy a different amount of space. These changes require review even when every paragraph remains readable.",
+          "An application needs rules for laying out text, fonts, images, and tables across pages. Different layout engines can make different wrapping and pagination decisions, particularly when a source uses unusual fonts or complex objects. ZivraTools reflows supported Office content rather than reproducing every detail of Microsoft Word's rendering. A heading might move to another page, a table might break differently, or an image might occupy a different amount of space. These changes require review even when every paragraph remains readable.",
           "If exact template placement matters, compare the result with a native PDF export from the original editor. This is especially useful for a designed CV, a branded proposal, or a document with strict page-count requirements. Avoid trying to repair every conversion difference by adding extra blank lines to the master file; those changes can create new problems in Word itself. Choose the export route that fits the layout requirement, then inspect the actual PDF in a viewer outside the authoring environment.",
         ],
       },
@@ -239,11 +239,11 @@ const content: ToolArticleContent[] = [
   {
     toolId: "jpg-pdf",
     title: "How to Convert JPG and PNG Images into a PDF in the Right Order",
-    metaTitle: "JPG to PDF Guide: Combine JPG and PNG Images | PDFZivra",
+    metaTitle: "JPG to PDF Guide: Combine JPG and PNG Images | ZivraTools",
     excerpt:
       "Combine JPG or PNG images into one PDF, arrange the page order, and check scan quality, page dimensions, and the final document size.",
     answer:
-      "To convert JPG to PDF, select JPG or PNG images in PDFZivra's JPG to PDF tool, arrange them with the ordering controls, and create the document. Each image becomes one PDF page. Download the result and check that the pages are complete, legible, and in the intended sequence.",
+      "To convert JPG to PDF, select JPG or PNG images in ZivraTools's JPG to PDF tool, arrange them with the ordering controls, and create the document. Each image becomes one PDF page. Download the result and check that the pages are complete, legible, and in the intended sequence.",
     relatedToolIds: ["organize", "rotate", "compress"],
     sections: [
       {
@@ -276,11 +276,11 @@ const content: ToolArticleContent[] = [
     toolId: "webp-jpg",
     title:
       "How to Convert WebP to JPG Without Confusing Quality and Resolution",
-    metaTitle: "WebP to JPG Guide: Quality and Transparency | PDFZivra",
+    metaTitle: "WebP to JPG Guide: Quality and Transparency | ZivraTools",
     excerpt:
       "Convert a WebP image to JPG, choose a quality setting, and understand white backgrounds, image dimensions, and still-image output.",
     answer:
-      "To convert WebP to JPG, open PDFZivra's WebP to JPG tool, select one WebP image, choose Balanced or High quality, and download the JPG. Pixel dimensions stay the same. Transparent areas become white because JPG cannot store transparency, and animated WebP content is exported as a still image.",
+      "To convert WebP to JPG, open ZivraTools's WebP to JPG tool, select one WebP image, choose Balanced or High quality, and download the JPG. Pixel dimensions stay the same. Transparent areas become white because JPG cannot store transparency, and animated WebP content is exported as a still image.",
     relatedToolIds: ["remove-background", "jpg-pdf", "pdf-jpg"],
     sections: [
       {
@@ -296,7 +296,7 @@ const content: ToolArticleContent[] = [
         title: "How do quality settings affect transparency and detail?",
         paragraphs: [
           "JPG uses lossy compression, so its file size and visible detail depend on the chosen quality. Balanced is a practical starting point for routine sharing, while High can retain more image detail at the cost of a larger file. Neither setting restores information already lost in the WebP source. A high-quality JPG made from a blurred thumbnail is still a blurred thumbnail. Inspect areas with fine texture, small lettering, and sharp colour boundaries rather than judging quality only from the file size.",
-          "Transparency needs separate attention. PDFZivra composites transparent WebP pixels over white when creating the JPG, so a floating logo or isolated object will gain an opaque white background. If the design needs to sit naturally over a coloured surface, keep a transparency-capable source or use a suitable PNG workflow instead. Similarly, this converter produces one still image rather than preserving WebP animation. Confirm that an opaque, static photograph is the right deliverable before replacing your original asset in a project.",
+          "Transparency needs separate attention. ZivraTools composites transparent WebP pixels over white when creating the JPG, so a floating logo or isolated object will gain an opaque white background. If the design needs to sit naturally over a coloured surface, keep a transparency-capable source or use a suitable PNG workflow instead. Similarly, this converter produces one still image rather than preserving WebP animation. Confirm that an opaque, static photograph is the right deliverable before replacing your original asset in a project.",
         ],
       },
       {
@@ -312,11 +312,11 @@ const content: ToolArticleContent[] = [
   {
     toolId: "pdf-jpg",
     title: "How to Convert PDF Pages to JPG Images and Choose a Resolution",
-    metaTitle: "PDF to JPG Guide: Page Selection and Resolution | PDFZivra",
+    metaTitle: "PDF to JPG Guide: Page Selection and Resolution | ZivraTools",
     excerpt:
       "Export PDF pages as JPG images in a ZIP, choose standard or high resolution, and understand page rendering, readability, and image limits.",
     answer:
-      "To convert PDF to JPG, select a PDF in PDFZivra's PDF to JPG tool, enter page numbers or leave the selection blank for all pages, and choose an image resolution. Run the conversion and download the ZIP. Extract it to access one JPG image for each selected PDF page.",
+      "To convert PDF to JPG, select a PDF in ZivraTools's PDF to JPG tool, enter page numbers or leave the selection blank for all pages, and choose an image resolution. Run the conversion and download the ZIP. Extract it to access one JPG image for each selected PDF page.",
     relatedToolIds: ["jpg-pdf", "extract", "crop"],
     sections: [
       {
@@ -331,7 +331,7 @@ const content: ToolArticleContent[] = [
         id: "choose-resolution",
         title: "Which image resolution is suitable for PDF pages?",
         paragraphs: [
-          "Choose resolution based on how the image will be viewed. A small page preview in a message needs fewer pixels than a full-screen diagram with fine labels. PDFZivra offers Standard at 108 DPI and High at up to 216 DPI, with a maximum rendered page dimension of 4000 pixels. The cap means a physically large PDF page may receive a lower effective resolution than the setting's headline figure. Check the exported pixel dimensions when a destination has specific requirements.",
+          "Choose resolution based on how the image will be viewed. A small page preview in a message needs fewer pixels than a full-screen diagram with fine labels. ZivraTools offers Standard at 108 DPI and High at up to 216 DPI, with a maximum rendered page dimension of 4000 pixels. The cap means a physically large PDF page may receive a lower effective resolution than the setting's headline figure. Check the exported pixel dimensions when a destination has specific requirements.",
           "Higher resolution usually creates larger images and takes more processing time. It can improve the clarity of vector text and line art when rasterised, but it cannot restore detail absent from a low-resolution scan already inside the PDF. JPG compression can also introduce visible artefacts around small text. Compare a representative page before exporting a long document at the highest setting. Keep the original PDF whenever readers need selectable text, links, or the ability to zoom into vector content without raster limits.",
         ],
       },
@@ -348,18 +348,18 @@ const content: ToolArticleContent[] = [
   {
     toolId: "edit",
     title: "How to Add Text to a PDF Without Rebuilding the Whole Document",
-    metaTitle: "Edit PDF Guide: Add Text with Correct Placement | PDFZivra",
+    metaTitle: "Edit PDF Guide: Add Text with Correct Placement | ZivraTools",
     excerpt:
       "Add a repeated text label to PDF pages, set its size and position, and learn when to use Word conversion, signatures, or redaction instead.",
     answer:
-      "To add text to a PDF, select the document in PDFZivra's Edit PDF tool, enter the text, set its font size and position, and create the output. The tool adds the same new text to every page. It does not replace existing text or provide a full word-processing editor.",
+      "To add text to a PDF, select the document in ZivraTools's Edit PDF tool, enter the text, set its font size and position, and create the output. The tool adds the same new text to every page. It does not replace existing text or provide a full word-processing editor.",
     relatedToolIds: ["pdf-word", "watermark", "sign"],
     sections: [
       {
         id: "choose-the-right-edit",
         title: "What kind of PDF editing does this tool support?",
         paragraphs: [
-          "Editing can mean several different tasks: adding a new label, rewriting a sentence, filling a form field, or removing confidential information. PDFZivra's Edit PDF tool focuses on adding new Latin text at a chosen position on every page. It is useful for a repeated reference label or a short note that belongs throughout the document. Knowing the scope first prevents an apparently simple change from turning into a confusing output containing both old and new wording in the same place.",
+          "Editing can mean several different tasks: adding a new label, rewriting a sentence, filling a form field, or removing confidential information. ZivraTools's Edit PDF tool focuses on adding new Latin text at a chosen position on every page. It is useful for a repeated reference label or a short note that belongs throughout the document. Knowing the scope first prevents an apparently simple change from turning into a confusing output containing both old and new wording in the same place.",
           "For example, a project coordinator might add a short internal reference to each page of a working packet. That is different from correcting a name inside an existing paragraph. To rewrite the underlying wording, use an editable source document or convert selectable PDF text to Word and rebuild the passage carefully. For a signature on one selected page, use Sign PDF. For a sensitive word that must be removed, use Redact PDF rather than covering it with newly added text.",
         ],
       },
@@ -384,11 +384,11 @@ const content: ToolArticleContent[] = [
   {
     toolId: "rotate",
     title: "How to Rotate PDF Pages and Save the Correct Orientation",
-    metaTitle: "Rotate PDF Guide: Save Page Orientation | PDFZivra",
+    metaTitle: "Rotate PDF Guide: Save Page Orientation | ZivraTools",
     excerpt:
       "Rotate every PDF page by 90, 180, or 270 degrees, save the change, and learn how to handle documents with mixed page orientations.",
     answer:
-      "To rotate a PDF, open PDFZivra's Rotate PDF tool, select the document, choose a clockwise angle of 90, 180, or 270 degrees, and download the result. The chosen rotation applies to every page. Reopen the saved PDF to verify that the orientation is part of the file.",
+      "To rotate a PDF, open ZivraTools's Rotate PDF tool, select the document, choose a clockwise angle of 90, 180, or 270 degrees, and download the result. The chosen rotation applies to every page. Reopen the saved PDF to verify that the orientation is part of the file.",
     relatedToolIds: ["extract", "organize", "merge"],
     sections: [
       {
@@ -405,7 +405,7 @@ const content: ToolArticleContent[] = [
         title: "How do you choose between 90, 180, and 270 degrees?",
         paragraphs: [
           "Think of the available angles as clockwise turns from the page's existing orientation. Ninety degrees is a quarter turn, 180 degrees turns the page upside down, and 270 degrees is equivalent to a quarter turn anticlockwise. Choose the smallest clear correction based on how the source currently appears. If a page is upside down, use 180 degrees. If it is sideways, determine whether the top edge needs to move clockwise or anticlockwise before processing the complete document.",
-          "The current PDFZivra control applies the same turn to every page. That is convenient when a whole scan has the same problem, but a file with one sideways appendix among upright pages needs preparation. Extract the affected section, rotate that smaller file, and merge the reviewed sections back into sequence, or correct the source in a workflow that supports individual page rotation. Do not rotate the entire mixed document merely because its first visible page is sideways; inspect the remaining pages first.",
+          "The current ZivraTools control applies the same turn to every page. That is convenient when a whole scan has the same problem, but a file with one sideways appendix among upright pages needs preparation. Extract the affected section, rotate that smaller file, and merge the reviewed sections back into sequence, or correct the source in a workflow that supports individual page rotation. Do not rotate the entire mixed document merely because its first visible page is sideways; inspect the remaining pages first.",
         ],
       },
       {
@@ -421,11 +421,11 @@ const content: ToolArticleContent[] = [
   {
     toolId: "organize",
     title: "How to Reorder and Duplicate PDF Pages with a Page Sequence",
-    metaTitle: "Organize PDF Guide: Reorder and Duplicate Pages | PDFZivra",
+    metaTitle: "Organize PDF Guide: Reorder and Duplicate Pages | ZivraTools",
     excerpt:
       "Reorder PDF pages using a clear page sequence, duplicate selected pages, and verify that the finished document includes everything you need.",
     answer:
-      "To reorder PDF pages, open PDFZivra's Organize PDF tool and enter the new page sequence, such as 3, 1, 2. Repeated numbers duplicate pages, and pages omitted from the sequence are left out of the new PDF. Download the result and compare its order with your plan.",
+      "To reorder PDF pages, open ZivraTools's Organize PDF tool and enter the new page sequence, such as 3, 1, 2. Repeated numbers duplicate pages, and pages omitted from the sequence are left out of the new PDF. Download the result and compare its order with your plan.",
     relatedToolIds: ["remove", "extract", "numbers"],
     sections: [
       {
@@ -457,11 +457,11 @@ const content: ToolArticleContent[] = [
   {
     toolId: "watermark",
     title: "How to Add a Text Watermark to Every Page of a PDF",
-    metaTitle: "Watermark PDF Guide: Add Clear Status Labels | PDFZivra",
+    metaTitle: "Watermark PDF Guide: Add Clear Status Labels | ZivraTools",
     excerpt:
       "Add a text watermark to PDF pages, choose concise wording, check readability, and understand the difference between a label and access protection.",
     answer:
-      "To watermark a PDF, open PDFZivra's Watermark PDF tool, select the document, enter a short text label, and create the output. The tool adds a centred, translucent watermark to every page. Download and review it to make sure the label is visible without making the document difficult to read.",
+      "To watermark a PDF, open ZivraTools's Watermark PDF tool, select the document, enter a short text label, and create the output. The tool adds a centred, translucent watermark to every page. Download and review it to make sure the label is visible without making the document difficult to read.",
     relatedToolIds: ["edit", "protect", "redact"],
     sections: [
       {
@@ -495,11 +495,11 @@ const content: ToolArticleContent[] = [
   {
     toolId: "numbers",
     title: "How to Add Page Numbers to a PDF for Easier Navigation",
-    metaTitle: "Add PDF Page Numbers: Numbering Guide | PDFZivra",
+    metaTitle: "Add PDF Page Numbers: Numbering Guide | ZivraTools",
     excerpt:
       "Add page numbers to every PDF page, check footer spacing, and create a clear reference sequence after merging or rearranging documents.",
     answer:
-      "To add page numbers to a PDF, select the document in PDFZivra's Page numbers tool and run the operation. It adds a bottom-centred number in the format current page / total pages, starting with the first PDF page. Download the result and check that the footer does not overlap existing content.",
+      "To add page numbers to a PDF, select the document in ZivraTools's Page numbers tool and run the operation. It adds a bottom-centred number in the format current page / total pages, starting with the first PDF page. Download the result and check that the footer does not overlap existing content.",
     relatedToolIds: ["merge", "organize", "crop"],
     sections: [
       {
@@ -507,7 +507,7 @@ const content: ToolArticleContent[] = [
         title: "Why should you add page numbers after organising a PDF?",
         paragraphs: [
           "Page numbers are most useful when everyone uses the same finished reading sequence. If you number several inputs before merging them, the combined document can contain several unrelated pages labelled one. If you rearrange a numbered packet afterward, its labels may no longer match its order. Finish merging, removing unwanted pages, and organising sections first. Then add one continuous reference sequence to the completed file so a reader can point to a specific position without explaining which original document it came from.",
-          "Consider a workshop pack assembled from an agenda, a handout, and several exercises. A continuous footer lets the presenter ask participants to open page nine without naming a separate attachment. PDFZivra numbers every physical PDF page, including covers and blank inserts, using a current-page and total-pages format. The first position becomes 1 / N, where N is the final page count. This is a straightforward bundle reference rather than a custom publishing system with separate chapter or front-matter numbering rules.",
+          "Consider a workshop pack assembled from an agenda, a handout, and several exercises. A continuous footer lets the presenter ask participants to open page nine without naming a separate attachment. ZivraTools numbers every physical PDF page, including covers and blank inserts, using a current-page and total-pages format. The first position becomes 1 / N, where N is the final page count. This is a straightforward bundle reference rather than a custom publishing system with separate chapter or front-matter numbering rules.",
         ],
       },
       {
@@ -531,11 +531,11 @@ const content: ToolArticleContent[] = [
   {
     toolId: "remove",
     title: "How to Remove Pages from a PDF and Keep the Right Content",
-    metaTitle: "Remove PDF Pages: Delete Unwanted Pages Guide | PDFZivra",
+    metaTitle: "Remove PDF Pages: Delete Unwanted Pages Guide | ZivraTools",
     excerpt:
       "Remove unwanted PDF pages with page numbers and ranges, preserve the remaining order, and check that the shared copy contains the right context.",
     answer:
-      "To remove PDF pages, open PDFZivra's Remove pages tool, select the PDF, and enter positions to delete, such as 2, 5-7. Create the new document and review the remaining pages. At least one page must remain. The original file on your device is unchanged by the operation.",
+      "To remove PDF pages, open ZivraTools's Remove pages tool, select the PDF, and enter positions to delete, such as 2, 5-7. Create the new document and review the remaining pages. At least one page must remain. The original file on your device is unchanged by the operation.",
     relatedToolIds: ["extract", "organize", "compress"],
     sections: [
       {
@@ -567,11 +567,11 @@ const content: ToolArticleContent[] = [
   {
     toolId: "extract",
     title: "How to Extract Selected PDF Pages into a New Document",
-    metaTitle: "Extract PDF Pages: Save Selected Pages Guide | PDFZivra",
+    metaTitle: "Extract PDF Pages: Save Selected Pages Guide | ZivraTools",
     excerpt:
       "Save selected PDF pages as a new document, use page ranges correctly, and preserve enough context when sharing an excerpt from a larger file.",
     answer:
-      "To extract PDF pages, open PDFZivra's Extract pages tool, select the source PDF, and enter the pages to keep, such as 4-7, 10. Run the operation and download the new PDF. The selection becomes one document, while the complete source file stays unchanged on your device.",
+      "To extract PDF pages, open ZivraTools's Extract pages tool, select the source PDF, and enter the pages to keep, such as 4-7, 10. Run the operation and download the new PDF. The selection becomes one document, while the complete source file stays unchanged on your device.",
     relatedToolIds: ["split", "remove", "merge"],
     sections: [
       {
@@ -603,18 +603,18 @@ const content: ToolArticleContent[] = [
   {
     toolId: "crop",
     title: "How to Crop PDF Margins Without Mistaking Cropping for Redaction",
-    metaTitle: "Crop PDF Guide: Trim Margins and Check Content | PDFZivra",
+    metaTitle: "Crop PDF Guide: Trim Margins and Check Content | ZivraTools",
     excerpt:
       "Trim PDF margins with a measured inset, review mixed page sizes, and learn why cropping changes visibility without removing sensitive content.",
     answer:
-      "To crop a PDF, select it in PDFZivra's Crop PDF tool, enter the margin to trim from each edge in points, and create the output. The same inset applies to every page. Cropping changes the visible page boundary; it does not permanently remove the hidden content or replace redaction.",
+      "To crop a PDF, select it in ZivraTools's Crop PDF tool, enter the margin to trim from each edge in points, and create the output. The same inset applies to every page. Cropping changes the visible page boundary; it does not permanently remove the hidden content or replace redaction.",
     relatedToolIds: ["redact", "pdf-jpg", "rotate"],
     sections: [
       {
         id: "choose-a-crop-margin",
         title: "How do you choose a PDF crop margin in points?",
         paragraphs: [
-          "PDF measurements use points, with 72 points equal to one inch. A trim of 18 points removes a quarter inch from the visible area at each edge, while 36 points represents half an inch. PDFZivra uses one margin value for all four edges of every page. Start with a modest inset and compare the result with the original. The goal is to remove unnecessary border space while retaining complete headings, captions, footnotes, and any page numbers near the outside edges.",
+          "PDF measurements use points, with 72 points equal to one inch. A trim of 18 points removes a quarter inch from the visible area at each edge, while 36 points represents half an inch. ZivraTools uses one margin value for all four edges of every page. Start with a modest inset and compare the result with the original. The goal is to remove unnecessary border space while retaining complete headings, captions, footnotes, and any page numbers near the outside edges.",
           "For example, a scanned handout may have a wide blank border that makes the actual text appear small when fitted to a screen. A careful crop can make the useful content occupy more of that viewing area. It does not enlarge the underlying scan or add detail to its lettering. If the border is uneven or the page is photographed at an angle, an equal inset may not solve the source problem. Correct perspective or irregular image framing in a suitable editor before assembling the PDF.",
         ],
       },
@@ -623,7 +623,7 @@ const content: ToolArticleContent[] = [
         title: "Why does cropping a PDF not securely remove information?",
         paragraphs: [
           "A PDF can retain content outside its visible crop boundary. Cropping tells a viewer which part of the page to display; it does not necessarily delete the text, images, or graphics beyond that boundary. A private note hidden in the trimmed margin can still exist in the document data. For that reason, use cropping to improve framing and readability. If the requirement is to permanently remove a name, identifier, or other sensitive area, use a redaction workflow and inspect the resulting document.",
-          "This distinction also matters when sharing a cropped visual extract. A page that appears to contain only a chart may still retain the surrounding page content outside the visible area. Do not treat the preview as proof that everything else has been erased. PDFZivra's Redact PDF tool removes content within a chosen rectangle on one page, while Crop PDF applies a visible inset throughout the file. Choose according to the information-handling goal, and review other pages and document data separately when preparing an external copy.",
+          "This distinction also matters when sharing a cropped visual extract. A page that appears to contain only a chart may still retain the surrounding page content outside the visible area. Do not treat the preview as proof that everything else has been erased. ZivraTools's Redact PDF tool removes content within a chosen rectangle on one page, while Crop PDF applies a visible inset throughout the file. Choose according to the information-handling goal, and review other pages and document data separately when preparing an external copy.",
         ],
       },
       {
@@ -640,11 +640,11 @@ const content: ToolArticleContent[] = [
   {
     toolId: "excel-pdf",
     title: "How to Convert Excel to PDF and Review Spreadsheet Content",
-    metaTitle: "Excel to PDF Guide: XLSX Export and Review | PDFZivra",
+    metaTitle: "Excel to PDF Guide: XLSX Export and Review | ZivraTools",
     excerpt:
       "Convert an XLSX workbook to PDF, check worksheet content and formula values, and understand why charts and complex layouts need comparison.",
     answer:
-      "To convert Excel to PDF, open PDFZivra's Excel to PDF tool, select an XLSX workbook, and create the document. Download the PDF and compare worksheet content, labels, and values with the source. The browser engine reflows readable content, so complex spreadsheet layouts and charts may not match a native Excel export.",
+      "To convert Excel to PDF, open ZivraTools's Excel to PDF tool, select an XLSX workbook, and create the document. Download the PDF and compare worksheet content, labels, and values with the source. The browser engine reflows readable content, so complex spreadsheet layouts and charts may not match a native Excel export.",
     relatedToolIds: ["pdf-excel", "merge", "protect"],
     sections: [
       {
@@ -652,7 +652,7 @@ const content: ToolArticleContent[] = [
         title: "How should you prepare an Excel workbook for PDF conversion?",
         paragraphs: [
           "A spreadsheet is built for calculation and exploration, while a PDF is usually read as a fixed sequence of pages. Before converting, decide which information the recipient needs and make a clearly scoped working copy of the workbook if necessary. Check worksheet labels, headings, totals, and explanatory notes in the source application. An unused sheet or an unexplained code can make a technically readable export confusing. Keep the original XLSX as the editable master for future updates and calculations.",
-          "For example, a team may need a PDF summary of an equipment inventory for a meeting. Check that item descriptions and quantities are current, that the workbook has been saved, and that the intended summary is understandable without interactive filters. PDFZivra accepts XLSX files rather than legacy XLS or renamed CSV files. Save other spreadsheet formats as a real XLSX in a compatible editor first. Changing the extension does not reconstruct the workbook's internal structure or make unsupported content reliably readable.",
+          "For example, a team may need a PDF summary of an equipment inventory for a meeting. Check that item descriptions and quantities are current, that the workbook has been saved, and that the intended summary is understandable without interactive filters. ZivraTools accepts XLSX files rather than legacy XLS or renamed CSV files. Save other spreadsheet formats as a real XLSX in a compatible editor first. Changing the extension does not reconstruct the workbook's internal structure or make unsupported content reliably readable.",
         ],
       },
       {
@@ -676,18 +676,18 @@ const content: ToolArticleContent[] = [
   {
     toolId: "pdf-excel",
     title: "How to Convert PDF to Excel and Check Extracted Rows and Columns",
-    metaTitle: "PDF to Excel Guide: Tables, Columns and Checks | PDFZivra",
+    metaTitle: "PDF to Excel Guide: Tables, Columns and Checks | ZivraTools",
     excerpt:
       "Export selectable PDF text to an XLSX workbook, review rows and columns, and understand scanned pages, missing formulas, and data cleanup.",
     answer:
-      "To convert PDF to Excel, select a PDF with selectable text in PDFZivra's PDF to Excel tool and run the conversion. The output is an XLSX workbook with one worksheet per PDF page. Check row and column alignment carefully. Scanned pages need OCR elsewhere, and original spreadsheet formulas cannot be recovered from PDF.",
+      "To convert PDF to Excel, select a PDF with selectable text in ZivraTools's PDF to Excel tool and run the conversion. The output is an XLSX workbook with one worksheet per PDF page. Check row and column alignment carefully. Scanned pages need OCR elsewhere, and original spreadsheet formulas cannot be recovered from PDF.",
     relatedToolIds: ["excel-pdf", "extract", "pdf-word"],
     sections: [
       {
         id: "understand-table-extraction",
         title: "Why does a PDF table need checking after Excel conversion?",
         paragraphs: [
-          "A PDF table can look neatly structured without storing actual spreadsheet cells. The page may contain positioned text lines whose visual spacing suggests columns. PDFZivra groups selectable text by page position and separates available text into rows and columns, but that process cannot always infer the intended table structure. A long description may wrap into another row, or a heading may occupy several visual columns. Treat the resulting workbook as a useful extraction that needs review before sorting, calculating, or importing its contents.",
+          "A PDF table can look neatly structured without storing actual spreadsheet cells. The page may contain positioned text lines whose visual spacing suggests columns. ZivraTools groups selectable text by page position and separates available text into rows and columns, but that process cannot always infer the intended table structure. A long description may wrap into another row, or a heading may occupy several visual columns. Treat the resulting workbook as a useful extraction that needs review before sorting, calculating, or importing its contents.",
           "For example, a PDF equipment list may show an item code, a description, and a quantity on each line. After conversion, compare several complete source rows with their spreadsheet counterparts. Check a short row, a wrapped description, and the final row of the table. Do not assume a clean first line proves the whole worksheet is aligned. Page headers and footers may also appear as rows, so separate them from the actual dataset before applying spreadsheet operations to the extracted material.",
         ],
       },
@@ -712,11 +712,11 @@ const content: ToolArticleContent[] = [
   {
     toolId: "ppt-pdf",
     title: "How to Convert PowerPoint to PDF and Review the Static Output",
-    metaTitle: "PowerPoint to PDF Guide: PPTX Conversion | PDFZivra",
+    metaTitle: "PowerPoint to PDF Guide: PPTX Conversion | ZivraTools",
     excerpt:
       "Convert a PPTX presentation to PDF, check slide content and layout changes, and understand why animations and exact styling are not preserved.",
     answer:
-      "To convert PowerPoint to PDF, open PDFZivra's PowerPoint to PDF tool, select a PPTX file, and create the PDF. Download the output and compare it with the presentation. Supported content is reflowed into readable pages; exact slide styling, charts, animations, and interactive presentation behaviour are not preserved.",
+      "To convert PowerPoint to PDF, open ZivraTools's PowerPoint to PDF tool, select a PPTX file, and create the PDF. Download the output and compare it with the presentation. Supported content is reflowed into readable pages; exact slide styling, charts, animations, and interactive presentation behaviour are not preserved.",
     relatedToolIds: ["pdf-ppt", "pdf-jpg", "compress"],
     sections: [
       {
@@ -731,8 +731,8 @@ const content: ToolArticleContent[] = [
         id: "understand-conversion-layout",
         title: "Why can PPTX-to-PDF layout differ from the original slides?",
         paragraphs: [
-          "A presentation file can contain layered graphics, custom fonts, diagrams, charts, and positioned text boxes. PDFZivra's Office engine reflows readable content and does not promise a pixel-for-pixel recreation of PowerPoint's slide renderer. This means the generated pages can differ from the original slide proportions, arrangement, or visual styling. Compare the output with the actual deck instead of assuming that conversion preserves every design decision simply because the resulting file is a PDF.",
-          "If exact branding, chart appearance, or slide composition matters, export a PDF from the application that authored the presentation and compare the results. That is often the appropriate route for a carefully designed pitch deck or a presentation whose spatial arrangement carries meaning. PDFZivra is useful for a browser-based readable conversion when its supported output meets your needs. Choose based on the actual pages you review, especially for content containing grouped objects, overlapping text, or charts whose labels must remain precisely associated with data.",
+          "A presentation file can contain layered graphics, custom fonts, diagrams, charts, and positioned text boxes. ZivraTools's Office engine reflows readable content and does not promise a pixel-for-pixel recreation of PowerPoint's slide renderer. This means the generated pages can differ from the original slide proportions, arrangement, or visual styling. Compare the output with the actual deck instead of assuming that conversion preserves every design decision simply because the resulting file is a PDF.",
+          "If exact branding, chart appearance, or slide composition matters, export a PDF from the application that authored the presentation and compare the results. That is often the appropriate route for a carefully designed pitch deck or a presentation whose spatial arrangement carries meaning. ZivraTools is useful for a browser-based readable conversion when its supported output meets your needs. Choose based on the actual pages you review, especially for content containing grouped objects, overlapping text, or charts whose labels must remain precisely associated with data.",
         ],
       },
       {
@@ -748,11 +748,11 @@ const content: ToolArticleContent[] = [
   {
     toolId: "pdf-ppt",
     title: "How to Convert PDF to PowerPoint: Slide Images or Editable Text",
-    metaTitle: "PDF to PowerPoint Guide: Images or Editable Text | PDFZivra",
+    metaTitle: "PDF to PowerPoint Guide: Images or Editable Text | ZivraTools",
     excerpt:
       "Turn PDF pages into a PPTX presentation, choose page images or editable text boxes, and review slide dimensions, graphics, and readability.",
     answer:
-      "To convert PDF to PowerPoint, open PDFZivra's PDF to PowerPoint tool, select a PDF, and choose Preserve appearance or Editable text. Preserve appearance makes a slide image for each page. Editable text creates text boxes from selectable PDF text and omits the original graphics. Download and review the PPTX before presenting.",
+      "To convert PDF to PowerPoint, open ZivraTools's PDF to PowerPoint tool, select a PDF, and choose Preserve appearance or Editable text. Preserve appearance makes a slide image for each page. Editable text creates text boxes from selectable PDF text and omits the original graphics. Download and review the PPTX before presenting.",
     relatedToolIds: ["ppt-pdf", "pdf-jpg", "extract"],
     sections: [
       {
@@ -784,11 +784,12 @@ const content: ToolArticleContent[] = [
   {
     toolId: "protect",
     title: "How to Password Protect a PDF and Verify the Encrypted Copy",
-    metaTitle: "Password Protect PDF: Encryption and Sharing Guide | PDFZivra",
+    metaTitle:
+      "Password Protect PDF: Encryption and Sharing Guide | ZivraTools",
     excerpt:
       "Add an opening password with AES-256 PDF encryption, keep access details organised, and test the protected file before sharing it with a recipient.",
     answer:
-      "To password protect a PDF, open PDFZivra's Protect PDF tool, select the document, and enter a new password using 8–64 ASCII characters without commas. Create and download the encrypted PDF, then reopen it to test the password. The tool applies AES-256 encryption and processes the document and password on your device.",
+      "To password protect a PDF, open ZivraTools's Protect PDF tool, select the document, and enter a new password using 8–64 ASCII characters without commas. Create and download the encrypted PDF, then reopen it to test the password. The tool applies AES-256 encryption and processes the document and password on your device.",
     relatedToolIds: ["unlock", "redact", "remove"],
     sections: [
       {
@@ -804,7 +805,7 @@ const content: ToolArticleContent[] = [
         title: "How should you choose and keep the PDF password?",
         paragraphs: [
           "Use a password that is difficult to guess and store it through a method you can reliably retrieve later, such as your established password manager. Avoid obvious personal details, the document title, or a short repeated pattern. The current tool requires between 8 and 64 ASCII characters and excludes commas; this is an input constraint rather than a promise that every allowed password is equally strong. Check the exact characters before creating the encrypted output and retain the approved password separately from the document.",
-          "Do not place the password in the filename or write it on the first page of an unprotected companion copy. When sharing access details, use a suitable separate channel agreed with the recipient. PDFZivra does not store a recovery password on a processing server, and Unlock PDF does not recover unknown opening passwords. Keep an authorised source copy according to your normal records process. If several people need access, decide how they will obtain and retain the password without creating conflicting versions of the file.",
+          "Do not place the password in the filename or write it on the first page of an unprotected companion copy. When sharing access details, use a suitable separate channel agreed with the recipient. ZivraTools does not store a recovery password on a processing server, and Unlock PDF does not recover unknown opening passwords. Keep an authorised source copy according to your normal records process. If several people need access, decide how they will obtain and retain the password without creating conflicting versions of the file.",
         ],
       },
       {
@@ -820,11 +821,11 @@ const content: ToolArticleContent[] = [
   {
     toolId: "unlock",
     title: "How to Unlock a PDF with Its Current Password",
-    metaTitle: "Unlock PDF Guide: Remove a Known Password | PDFZivra",
+    metaTitle: "Unlock PDF Guide: Remove a Known Password | ZivraTools",
     excerpt:
       "Create an unlocked PDF using the current password, verify the unencrypted output, and manage working copies when editing or changing protection.",
     answer:
-      "To unlock a PDF, open PDFZivra's Unlock PDF tool, select a document you own or are authorised to modify, and enter its current opening password when required. Create and download the unencrypted copy. The tool authenticates with the supplied password; it does not crack, guess, or recover unknown passwords.",
+      "To unlock a PDF, open ZivraTools's Unlock PDF tool, select a document you own or are authorised to modify, and enter its current opening password when required. Create and download the unencrypted copy. The tool authenticates with the supplied password; it does not crack, guess, or recover unknown passwords.",
     relatedToolIds: ["protect", "merge", "edit"],
     sections: [
       {
@@ -856,11 +857,11 @@ const content: ToolArticleContent[] = [
   {
     toolId: "sign",
     title: "How to Add a Drawn or Typed Signature to a PDF",
-    metaTitle: "Sign PDF Guide: Draw, Type and Place a Signature | PDFZivra",
+    metaTitle: "Sign PDF Guide: Draw, Type and Place a Signature | ZivraTools",
     excerpt:
       "Place a drawn or typed visual signature on a selected PDF page, check its size and position, and understand the limits of this signing workflow.",
     answer:
-      "To sign a PDF visually, select it in PDFZivra's Sign PDF tool, choose the target page, load its preview, and mark the signature area. Draw your signature or enter a typed name, then download and review the result. This adds a visible electronic mark rather than a certificate-based digital signature.",
+      "To sign a PDF visually, select it in ZivraTools's Sign PDF tool, choose the target page, load its preview, and mark the signature area. Draw your signature or enter a typed name, then download and review the result. This adds a visible electronic mark rather than a certificate-based digital signature.",
     relatedToolIds: ["edit", "protect", "extract"],
     sections: [
       {
@@ -868,7 +869,7 @@ const content: ToolArticleContent[] = [
         title:
           "Check the recipient's signing requirements before adding a mark",
         paragraphs: [
-          "The word signature can describe a visible name on a page or a more extensive signing process involving identity checks, certificates, and audit records. PDFZivra provides the visible-mark workflow. Before using it, check whether the recipient accepts a drawn or typed signature in a PDF and whether they require a specific platform or process. This practical check helps you choose a method that the recipient can actually use, especially when a form comes with its own completion and submission instructions.",
+          "The word signature can describe a visible name on a page or a more extensive signing process involving identity checks, certificates, and audit records. ZivraTools provides the visible-mark workflow. Before using it, check whether the recipient accepts a drawn or typed signature in a PDF and whether they require a specific platform or process. This practical check helps you choose a method that the recipient can actually use, especially when a form comes with its own completion and submission instructions.",
           "For example, an internal acknowledgement form may ask for a visible signature and a separately entered date. Read the entire form and complete the other required information through an appropriate workflow before placing your mark. Adding a signature alone does not fill every field or confirm that the rest of the document is ready. Keep the original available, confirm the version you are reviewing, and choose the page containing the correct signature line rather than relying on a similar-looking earlier page.",
         ],
       },
@@ -893,11 +894,11 @@ const content: ToolArticleContent[] = [
   {
     toolId: "redact",
     title: "How to Redact a PDF and Check That Selected Content Is Removed",
-    metaTitle: "Redact PDF Guide: Remove Content and Verify | PDFZivra",
+    metaTitle: "Redact PDF Guide: Remove Content and Verify | ZivraTools",
     excerpt:
       "Redact a selected PDF area, understand why covering and cropping are different, and review repeated information before sharing the finished copy.",
     answer:
-      "To redact a PDF, open PDFZivra's Redact PDF tool, select the target page, load its preview, and mark the rectangle containing the information to remove. Apply permanent redaction, then download and inspect the result. The operation removes affected content in that area; other occurrences and document data require separate review.",
+      "To redact a PDF, open ZivraTools's Redact PDF tool, select the target page, load its preview, and mark the rectangle containing the information to remove. Apply permanent redaction, then download and inspect the result. The operation removes affected content in that area; other occurrences and document data require separate review.",
     relatedToolIds: ["remove", "protect", "crop"],
     sections: [
       {
@@ -905,7 +906,7 @@ const content: ToolArticleContent[] = [
         title:
           "Why is redaction different from covering text or cropping a page?",
         paragraphs: [
-          "A shape placed over text can hide it visually while leaving the original characters underneath. Cropping can hide an edge of the page while leaving content outside the visible boundary in the file. Redaction is intended to remove affected content from the document rather than simply change what a viewer displays. PDFZivra applies the chosen rectangle to text, image pixels, and intersecting graphics, then rewrites the PDF. Review the output to confirm the intended removal rather than judging success from a blank or dark-looking area alone.",
+          "A shape placed over text can hide it visually while leaving the original characters underneath. Cropping can hide an edge of the page while leaving content outside the visible boundary in the file. Redaction is intended to remove affected content from the document rather than simply change what a viewer displays. ZivraTools applies the chosen rectangle to text, image pixels, and intersecting graphics, then rewrites the PDF. Review the output to confirm the intended removal rather than judging success from a blank or dark-looking area alone.",
           "For example, a training sample might need a personal identifier removed before it is shared with a wider group. A decorative box placed over that identifier is not a dependable substitute for deleting the underlying content. Use the redaction workflow and check the result with visual inspection and text search or selection where available. If the entire page is unnecessary, removing it may be simpler. Choose the smallest operation that meets the sharing need while still reviewing the rest of the document for related information.",
         ],
       },
@@ -930,11 +931,12 @@ const content: ToolArticleContent[] = [
   {
     toolId: "repair",
     title: "How to Repair a Damaged PDF and Verify Recovered Pages",
-    metaTitle: "Repair PDF Guide: Recovery and Completeness Checks | PDFZivra",
+    metaTitle:
+      "Repair PDF Guide: Recovery and Completeness Checks | ZivraTools",
     excerpt:
       "Attempt recovery of a damaged PDF, understand structural repair limits, and check page counts, images, and text before relying on the output.",
     answer:
-      "To attempt PDF repair, preserve the damaged original, select a copy in PDFZivra's Repair PDF tool, and run the recovery operation. Download and inspect the rebuilt file. Repair can recover some readable structures, but it cannot guarantee recovery of missing bytes, destroyed images, or content that was never saved.",
+      "To attempt PDF repair, preserve the damaged original, select a copy in ZivraTools's Repair PDF tool, and run the recovery operation. Download and inspect the rebuilt file. Repair can recover some readable structures, but it cannot guarantee recovery of missing bytes, destroyed images, or content that was never saved.",
     relatedToolIds: ["extract", "merge", "compress"],
     sections: [
       {
@@ -972,7 +974,7 @@ export const toolArticles = content.map((entry) => {
     ...entry,
     slug: `${tool.slug}-guide`,
     category: `${tool.category} guides`,
-    author: "PDFZivra Editorial Team",
+    author: "ZivraTools Editorial Team",
     publishedAt: "2026-10-28",
     publishedLabel: "October 28, 2026",
     tool,

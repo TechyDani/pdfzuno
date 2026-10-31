@@ -12,7 +12,7 @@ const origin = process.env.NEXT_PUBLIC_SITE_URL;
 const articleUrl = origin ? new URL(articlePath, origin).href : articlePath;
 
 export const metadata: Metadata = {
-  title: "Convert PDF to Word for IRS Tax Forms: US Guide | PDFZivra",
+  title: "Convert PDF to Word for IRS Tax Forms: US Guide | ZivraTools",
   description: article.excerpt,
   authors: [{ name: article.author }],
   alternates: { canonical: articleUrl },
@@ -56,10 +56,10 @@ const faqs = [
   {
     question: "How do I convert a scanned tax form to Word?",
     answer:
-      "Use Preserve appearance to put scanned pages into a DOCX as images. For editable words, use a separate OCR tool to recognize the scan first, then convert a searchable PDF in Editable text mode. PDFZivra does not include OCR; proofread every recognized number and label.",
+      "Use Preserve appearance to put scanned pages into a DOCX as images. For editable words, use a separate OCR tool to recognize the scan first, then convert a searchable PDF in Editable text mode. ZivraTools does not include OCR; proofread every recognized number and label.",
   },
   {
-    question: "Is PDFZivra's PDF-to-Word converter free?",
+    question: "Is ZivraTools's PDF-to-Word converter free?",
     answer:
       "Yes. The current tool is free, requires no account, and processes selected files in your browser. The combined input limit is 50 MB per operation. Editable text and Preserve appearance modes both produce a DOCX file.",
   },
@@ -80,7 +80,7 @@ const structuredData = {
   inLanguage: "en-US",
   articleSection: article.category,
   author: { "@type": "Person", name: article.author },
-  publisher: { "@type": "Organization", name: "PDFZivra" },
+  publisher: { "@type": "Organization", name: "ZivraTools" },
   ...(origin && {
     url: articleUrl,
     mainEntityOfPage: { "@type": "WebPage", "@id": articleUrl },
@@ -260,7 +260,7 @@ export default function IrsPdfToWordArticlePage() {
                     </p>
                   </li>
                   <li>
-                    <h3>Open PDFZivra and add your file</h3>
+                    <h3>Open ZivraTools and add your file</h3>
                     <p>
                       Visit <Link href="/tools/pdf-to-word/">PDF to Word</Link>{" "}
                       and select one PDF. The current combined input limit is 50
@@ -299,9 +299,9 @@ export default function IrsPdfToWordArticlePage() {
                 </h2>
                 <p>
                   A photographed W-2 or scanned 1099 may contain only pixels.
-                  PDFZivra does not include optical character recognition (OCR).
-                  Editable mode cannot recognize words from those images; a
-                  mixed document can also yield text from some pages while
+                  ZivraTools does not include optical character recognition
+                  (OCR). Editable mode cannot recognize words from those images;
+                  a mixed document can also yield text from some pages while
                   leaving others without extracted text.
                 </p>
                 <p>
@@ -348,7 +348,7 @@ export default function IrsPdfToWordArticlePage() {
                 </h2>
                 <p>
                   Tax documents can contain Social Security numbers, EINs,
-                  addresses, income details, and bank information. PDFZivra
+                  addresses, income details, and bank information. ZivraTools
                   processes selected document contents in your browser without
                   uploading them to a conversion server. The website still
                   downloads application resources; see the{" "}
@@ -393,12 +393,12 @@ export default function IrsPdfToWordArticlePage() {
               <div className="article-author-note">
                 <strong>About the author</strong>
                 <p>
-                  Danyal Khan is a software engineer and the creator of PDFZivra.
-                  This guide explains document conversion for US tax paperwork;
-                  it does not determine your tax obligations. Follow the
-                  relevant IRS form instructions or consult your tax preparer
-                  for filing questions.{" "}
-                  <Link href="/about-us/">About PDFZivra</Link>.
+                  Danyal Khan is a software engineer and the creator of
+                  ZivraTools. This guide explains document conversion for US tax
+                  paperwork; it does not determine your tax obligations. Follow
+                  the relevant IRS form instructions or consult your tax
+                  preparer for filing questions.{" "}
+                  <Link href="/about-us/">About ZivraTools</Link>.
                 </p>
               </div>
               <nav className="article-next-links" aria-label="Article links">

@@ -88,9 +88,18 @@ export function Toolkit() {
       <main>
         <section className="hero">
           <div className="shell">
-            <span className="eyebrow">
-              <Icons.Zap size={13} /> YOUR EVERYDAY PDF & IMAGE TOOLKIT
-            </span>
+            <div className="hero-brand">
+              <span className="eyebrow">
+                <Icons.Zap size={13} /> ZivraTools
+              </span>
+              <h1>
+                Every Tool. <span>One Place.</span>
+              </h1>
+              <p>
+                Free online tools for PDFs, images, documents, and everyday
+                productivity. <span>Fast, simple, and private.</span>
+              </p>
+            </div>
             <PopularHero suspended={!!info} />
             <label className="search">
               <Icons.Search size={20} className="text-muted-foreground" />
@@ -122,7 +131,7 @@ export function Toolkit() {
         <section
           className="tool-section shell"
           id="tools"
-          aria-label="PDF and image tools"
+          aria-label="All tools"
         >
           <div className="filters">
             <Icons.SlidersHorizontal
@@ -214,8 +223,8 @@ export function Toolkit() {
             {info === "privacy" ? (
               <>
                 <p>
-                  PDF and image tools run inside your browser. PDFZivra does not
-                  upload or store your files. Closing the tool clears its
+                  PDF and image tools run inside your browser. ZivraTools does
+                  not upload or store your files. Closing the tool clears its
                   working selection.
                 </p>
                 <p>

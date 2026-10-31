@@ -21,7 +21,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
   const tool = tools.find((candidate) => candidate.slug === slug);
   if (!tool) notFound();
-  const title = `${tool.name} — Free Online Tool | PDFZivra`;
+  const title = `${tool.name} — Free Online Tool | ZivraTools`;
   const description =
     tool.kind === "download"
       ? "Download images and MP4 videos from public Pinterest Pins and pin.it share links. Preview available media and save the highest available download quality."

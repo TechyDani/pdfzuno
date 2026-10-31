@@ -151,7 +151,7 @@ function ToolPreview({ tool }: { tool: Tool }) {
         )}
       </div>
       <span className="hero-art-note">
-        <Sparkles size={14} /> A little less work. A little more flow.
+        <Sparkles size={14} /> Every Tool. One Place.
       </span>
     </div>
   );

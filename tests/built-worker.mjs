@@ -16,10 +16,10 @@ const workerName = chunks.find(
       .includes("Loading document engine"),
 );
 assert(workerName, "Processing worker bundle is present");
-const workerUrl = `https://pdfzivra.test/_next/static/chunks/${workerName}`;
+const workerUrl = `https://zivratools.test/_next/static/chunks/${workerName}`;
 const location = {
   href: workerUrl,
-  origin: "https://pdfzivra.test",
+  origin: "https://zivratools.test",
   toString() {
     return workerUrl;
   },
@@ -68,7 +68,7 @@ const sandbox = {
   performance,
   crypto: globalThis.crypto,
   WorkerGlobalScope: class {},
-  navigator: { userAgent: "PDFZivra worker smoke test" },
+  navigator: { userAgent: "ZivraTools worker smoke test" },
   ArrayBuffer,
   Uint8Array,
   Int8Array,

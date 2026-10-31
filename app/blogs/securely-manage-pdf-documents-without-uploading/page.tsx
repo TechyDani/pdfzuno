@@ -8,7 +8,7 @@ const articlePath = `/blogs/${article.slug}/`;
 const origin = process.env.NEXT_PUBLIC_SITE_URL;
 
 export const metadata: Metadata = {
-  title: `${article.title} | PDFZivra`,
+  title: `${article.title} | ZivraTools`,
   description: article.excerpt,
   authors: [{ name: article.author }],
   ...(origin && { alternates: { canonical: new URL(articlePath, origin) } }),
@@ -93,11 +93,11 @@ export default function SecurePdfArticlePage() {
               <p>
                 You do not always need to upload a file to a remote service to
                 merge, split, compress, or protect it. Browser-based tools can
-                perform these operations on your own device. PDFZivra uses that
-                approach for its PDF and image tools. A useful privacy routine
-                combines local processing with careful file selection, an
-                appropriate device, and a review of the result before it reaches
-                another person.
+                perform these operations on your own device. ZivraTools uses
+                that approach for its PDF and image tools. A useful privacy
+                routine combines local processing with careful file selection,
+                an appropriate device, and a review of the result before it
+                reaches another person.
               </p>
               <div className="article-takeaway">
                 <strong>The key distinction</strong>
@@ -126,7 +126,7 @@ export default function SecurePdfArticlePage() {
                   require the application to send it elsewhere.
                 </p>
                 <p>
-                  PDFZivra reads selected files in the browser and performs
+                  ZivraTools reads selected files in the browser and performs
                   processing in a browser worker. Results and previews are
                   created locally, and a download link lets you save the output.
                   Document contents and passwords are not uploaded to a PDF
@@ -254,7 +254,7 @@ export default function SecurePdfArticlePage() {
                   marks before deciding whether the tradeoff is acceptable.
                 </p>
                 <p>
-                  PDFZivra currently accepts up to 50 MB of combined input per
+                  ZivraTools currently accepts up to 50 MB of combined input per
                   operation. A document below that limit can still need
                   considerable memory. For a large or complex packet, try a
                   desktop browser or work with a smaller section. Keep your
@@ -299,10 +299,10 @@ export default function SecurePdfArticlePage() {
                     Adobe&apos;s redaction guidance
                   </a>{" "}
                   describes sanitization for items such as comments, metadata,
-                  and hidden layers. PDFZivra&apos;s selected-area tool does not
-                  provide automatic whole-document sanitization. If a document
-                  needs that broader treatment, use an appropriate workflow and
-                  check its results before distribution.
+                  and hidden layers. ZivraTools&apos;s selected-area tool does
+                  not provide automatic whole-document sanitization. If a
+                  document needs that broader treatment, use an appropriate
+                  workflow and check its results before distribution.
                 </p>
               </section>
 
@@ -403,8 +403,8 @@ export default function SecurePdfArticlePage() {
                 </p>
                 <p>
                   A visual signature also needs the right expectations.
-                  PDFZivra&apos;s signing tool places a drawing or typed name on
-                  a page; it does not provide a certificate-backed signing
+                  ZivraTools&apos;s signing tool places a drawing or typed name
+                  on a page; it does not provide a certificate-backed signing
                   workflow. Use the method your recipient requires. Similarly,
                   applying a watermark can label a draft, but it does not stop
                   an authorized reader from seeing the content underneath.
@@ -466,10 +466,10 @@ export default function SecurePdfArticlePage() {
               <div className="article-author-note">
                 <strong>About the author</strong>
                 <p>
-                  Danyal Khan is a software engineer and the creator of PDFZivra,
-                  built to help people handle everyday document tasks more
-                  easily. <Link href="/about-us/">Learn about the project</Link>
-                  .
+                  Danyal Khan is a software engineer and the creator of
+                  ZivraTools, built to help people handle everyday document
+                  tasks more easily.{" "}
+                  <Link href="/about-us/">Learn about the project</Link>.
                 </p>
               </div>
               <nav className="article-next-links" aria-label="Article links">

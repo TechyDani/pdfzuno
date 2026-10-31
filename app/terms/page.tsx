@@ -4,32 +4,32 @@ import { InfoPage } from "@/components/pdf/info-page";
 import { tools } from "@/lib/pdf/tools";
 
 export const metadata: Metadata = {
-  title: "Terms of Service | PDFZivra",
+  title: "Terms of Service | ZivraTools",
   alternates: { canonical: "/terms/" },
   description:
-    "Read the rules for using PDFZivra, including authorized file use, local processing, tool limitations, output review, and software licensing.",
+    "Read the rules for using ZivraTools, including authorized file use, local processing, tool limitations, output review, and software licensing.",
 };
 
 export default function TermsOfServicePage() {
   return (
     <InfoPage
       title="Terms of Service"
-      description="Simple rules for using PDFZivra responsibly and understanding what its tools can do."
+      description="Simple rules for using ZivraTools responsibly and understanding what its tools can do."
       updated
     >
       <p className="guide-intro">
-        These terms govern your use of PDFZivra, a browser-based PDF and image
+        These terms govern your use of ZivraTools, a browser-based PDF and image
         toolkit built by Danyal Khan. By using the website&apos;s tools, you
         agree to these terms. If you do not agree, do not use the tools.
       </p>
       <section className="guide-section">
         <h2>Using the toolkit</h2>
         <p>
-          PDFZivra currently provides its tools free of charge without requiring
-          an account. You may use them for personal, educational, or business
-          tasks, subject to these terms and the rights that apply to your files.
-          You are responsible for choosing the correct files, settings, and
-          recipients for your results.
+          ZivraTools currently provides its tools free of charge without
+          requiring an account. You may use them for personal, educational, or
+          business tasks, subject to these terms and the rights that apply to
+          your files. You are responsible for choosing the correct files,
+          settings, and recipients for your results.
         </p>
         <p>
           The <Link href="/#tools">tool catalog</Link> links to {tools.length}{" "}
@@ -47,7 +47,7 @@ export default function TermsOfServicePage() {
           use and modify. Respect other people&apos;s privacy, copyright, and
           confidentiality. You retain whatever rights you already hold in your
           files; using a tool does not transfer ownership of your documents to
-          PDFZivra.
+          ZivraTools.
         </p>
       </section>
       <section className="guide-section">
@@ -75,7 +75,7 @@ export default function TermsOfServicePage() {
       <section className="guide-section">
         <h2>Local processing and your copies</h2>
         <p>
-          File processing takes place on your device. PDFZivra does not upload
+          File processing takes place on your device. ZivraTools does not upload
           your selected documents or passwords to a processing server. Website
           assets, fonts, and background-removal models may need network
           connections as explained in the{" "}
@@ -135,11 +135,11 @@ export default function TermsOfServicePage() {
           rendering, verified signing, or comprehensive sanitization is needed.
         </p>
         <p>
-          To the extent permitted by applicable law, PDFZivra and its developer
-          are not liable for losses arising from use of the tools, processing
-          errors, or reliance on unchecked outputs. Nothing in these terms
-          excludes any right, remedy, or responsibility that cannot lawfully be
-          excluded.
+          To the extent permitted by applicable law, ZivraTools and its
+          developer are not liable for losses arising from use of the tools,
+          processing errors, or reliance on unchecked outputs. Nothing in these
+          terms excludes any right, remedy, or responsibility that cannot
+          lawfully be excluded.
         </p>
       </section>
       <section className="guide-section">
@@ -147,7 +147,7 @@ export default function TermsOfServicePage() {
         <p>
           The application uses open-source components, including MuPDF, and its
           distributed source is provided under AGPL-3.0-or-later. The{" "}
-          <a href="/pdfzivra-source.zip" download>
+          <a href="/zivratools-source.zip" download>
             source download
           </a>{" "}
           includes the project license and third-party notices. Those software
@@ -166,7 +166,7 @@ export default function TermsOfServicePage() {
           Updated terms will be posted on this page with a revised date. Review
           the current version when returning to the service. For questions about
           these terms, contact{" "}
-          <a href="mailto:info@pdfzivra.pk">info@pdfzivra.pk</a>. Learn more
+          <a href="mailto:info@zivratools.pk">info@zivratools.pk</a>. Learn more
           about the project on the <Link href="/about-us/">About Us</Link> page.
         </p>
       </section>

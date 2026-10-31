@@ -3,7 +3,7 @@
 import { useEffect, useId, useRef, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { ChevronDown, FileText, Sparkles } from "lucide-react";
+import { ChevronDown, LayoutGrid, Sparkles } from "lucide-react";
 import { categories, tools, toolPath } from "@/lib/pdf/tools";
 
 export function SiteHeader({
@@ -32,11 +32,11 @@ export function SiteHeader({
   return (
     <header className="topbar site-header">
       <div className="shell site-header-inner">
-        <Link className="brand" href="/" aria-label="PDFZivra home">
+        <Link className="brand" href="/" aria-label="ZivraTools home">
           <span className="brand-mark">
-            <FileText size={25} />
+            <LayoutGrid size={25} />
           </span>
-          PDFZivra<span className="text-[#315be8] -ml-2">.</span>
+          ZivraTools<span className="text-[#315be8] -ml-2">.</span>
         </Link>
         <nav className="site-header-nav" aria-label="Main navigation">
           <Link
@@ -165,7 +165,7 @@ export function SiteHeader({
         </nav>
         {onHowItWorks && (
           <span className="site-header-tagline">
-            <Sparkles size={15} /> Less work. More flow.
+            <Sparkles size={15} /> Every Tool. One Place.
           </span>
         )}
       </div>
