@@ -93,10 +93,10 @@ export function Toolkit() {
             </span>
             <PopularHero suspended={!!info} />
             <label className="search">
-              <Icons.Search size={20} color="#8591aa" />
+              <Icons.Search size={20} className="text-muted-foreground" />
               <input
                 aria-label="Search tools"
-                placeholder="What would you like to do with your PDF or image?"
+                placeholder="Search all tools"
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
               />
@@ -127,7 +127,7 @@ export function Toolkit() {
           <div className="filters">
             <Icons.SlidersHorizontal
               size={17}
-              className="mr-2 text-[#8290a7] hidden sm:block"
+              className="mr-2 text-muted-foreground hidden sm:block"
             />
             {categories.map((c) => (
               <button
@@ -139,7 +139,7 @@ export function Toolkit() {
                 {c}
               </button>
             ))}
-            <span className="ml-auto text-xs text-[#778397] pl-3">
+            <span className="ml-auto text-xs text-muted-foreground pl-3">
               {filtered.length} tools
             </span>
           </div>
@@ -185,8 +185,8 @@ export function Toolkit() {
             <div>
               <h3>Your files. Your business.</h3>
               <p>
-                All tools process files on your device. No file uploads, no
-                accounts, no copies stored on a server.
+                PDF and image editing stays on your device. Pinterest downloads
+                use a server to fetch the public media you choose.
               </p>
             </div>
             <button
@@ -208,7 +208,7 @@ export function Toolkit() {
           <DialogDescription>
             {info === "privacy"
               ? "Your document contents stay on your device."
-              : "Choose a tool, add your files, and download the result."}
+              : "Choose a tool, add your files or paste a link, and download the result."}
           </DialogDescription>
           <div className="text-sm leading-7 text-slate-600">
             {info === "privacy" ? (
@@ -217,6 +217,11 @@ export function Toolkit() {
                   PDF and image tools run inside your browser. PDFZivra does not
                   upload or store your files. Closing the tool clears its
                   working selection.
+                </p>
+                <p>
+                  Pinterest downloader sends your pasted link to our server to
+                  retrieve public media from Pinterest. No Pinterest login is
+                  required.
                 </p>
                 <p className="mt-3">
                   Fonts are loaded from Google Fonts. They receive ordinary

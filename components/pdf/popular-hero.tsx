@@ -10,6 +10,8 @@ import {
   ChevronLeft,
   ChevronRight,
   FileText,
+  Image as ImageIcon,
+  Link2,
   Pause,
   Play,
   Sparkles,
@@ -20,6 +22,12 @@ import { tools, toolPath, type Tool } from "@/lib/pdf/tools";
 const popular = tools.filter((tool) => tool.popular);
 const copy: Record<string, { title: string; accent: string; detail: string }> =
   {
+    pinterest: {
+      title: "Your favorite Pins.",
+      accent: "Ready to keep.",
+      detail:
+        "Save images and videos from public Pinterest Pins. Paste a link, preview the media, and download the file.",
+    },
     "remove-background": {
       title: "Keep the subject.",
       accent: "Lose the background.",
@@ -62,7 +70,26 @@ function ToolPreview({ tool }: { tool: Tool }) {
           <span />
           <span className="hero-preview-title">{tool.name}</span>
         </div>
-        {tool.id === "remove-background" ? (
+        {tool.id === "pinterest" ? (
+          <div className="hero-pin-preview">
+            <div className="hero-pin-url">
+              <Link2 size={13} /> pinterest.com/pin/…
+            </div>
+            <div className="hero-pin-media">
+              <div className="hero-pin-image">
+                <ImageIcon size={36} strokeWidth={1.5} />
+                <span>Image</span>
+              </div>
+              <div className="hero-pin-video">
+                <Play size={27} fill="currentColor" strokeWidth={1.5} />
+                <span>MP4 video</span>
+              </div>
+            </div>
+            <span className="hero-preview-label">
+              <ArrowDownToLine size={13} /> Ready to download
+            </span>
+          </div>
+        ) : tool.id === "remove-background" ? (
           <div className="hero-cutout image-result-preview">
             <div className="hero-subject">
               <UserRound strokeWidth={1.3} />
@@ -253,8 +280,10 @@ export function PopularHero({ suspended = false }: { suspended?: boolean }) {
                     Use {tool.name} <ArrowRight size={17} />
                   </Link>
                   <span className="hero-local-note">
-                    <Check size={14} /> Free to use. Your files stay on your
-                    device.
+                    <Check size={14} />
+                    {tool.kind === "download"
+                      ? "Free to use. No Pinterest sign-in needed."
+                      : "Free to use. Files stay on your device."}
                   </span>
                 </div>
                 <ToolPreview tool={tool} />
@@ -293,7 +322,7 @@ export function PopularHero({ suspended = false }: { suspended?: boolean }) {
           <ChevronRight size={19} />
         </button>
         <button
-          className="hero-arrow"
+          className="hero-arrow hero-play-toggle"
           aria-label={paused ? "Enable auto-slide" : "Pause auto-slide"}
           title={paused ? "Enable auto-slide" : "Pause auto-slide"}
           onClick={() => {

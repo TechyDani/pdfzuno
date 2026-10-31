@@ -4,6 +4,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowRight, ShieldCheck } from "lucide-react";
 import { Workspace } from "@/components/pdf/workspace";
+import { PinterestDownloader } from "@/components/pinterest/downloader";
 import { tools, toolPath } from "@/lib/pdf/tools";
 import { guides } from "@/lib/pdf/guides";
 import { toolArticles } from "@/lib/blog/tool-articles";
@@ -21,7 +22,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const tool = tools.find((candidate) => candidate.slug === slug);
   if (!tool) notFound();
   const title = `${tool.name} — Free Online Tool | PDFZivra`;
-  const description = `${tool.description} Free local processing, a step-by-step guide, practical use cases, and answers about formats, security, and file sizes.`;
+  const description =
+    tool.kind === "download"
+      ? "Download images and MP4 videos from public Pinterest Pins and pin.it share links. Preview available media and save the highest available download quality."
+      : `${tool.description} Free local processing, a step-by-step guide, practical use cases, and answers about formats, security, and file sizes.`;
   const origin = process.env.NEXT_PUBLIC_SITE_URL;
   return {
     title,
@@ -63,12 +67,23 @@ export default async function ToolPage({ params }: Props) {
           <p>{tool.description}</p>
           <div className="trust">
             <span>
-              <ShieldCheck size={15} /> Files stay on your device
+              <ShieldCheck size={15} />{" "}
+              {tool.kind === "download"
+                ? "Public Pins · No Pinterest login needed"
+                : "Files stay on your device"}
             </span>
-            <span>Free · No sign-up · 50 MB total input</span>
+            <span>
+              {tool.kind === "download"
+                ? "Images & MP4 videos · Up to 100 MB per file"
+                : "Free · No sign-up · 50 MB total input"}
+            </span>
           </div>
         </div>
-        <Workspace key={tool.id} tool={tool} />
+        {tool.kind === "download" ? (
+          <PinterestDownloader />
+        ) : (
+          <Workspace key={tool.id} tool={tool} />
+        )}
         <article className="tool-guide" aria-label={`${tool.name} guide`}>
           <nav className="guide-navigation" aria-label="On this page">
             <a href="#how-to">How to use</a>
@@ -118,17 +133,19 @@ export default async function ToolPage({ params }: Props) {
             </div>
           </section>
         </article>
-        <nav className="related-tools" aria-label="Related tools">
-          <h2>More {tool.category.toLowerCase()} tools</h2>
-          <div>
-            {related.map((candidate) => (
-              <Link key={candidate.id} href={toolPath(candidate)}>
-                {candidate.name}
-                <ArrowRight size={15} />
-              </Link>
-            ))}
-          </div>
-        </nav>
+        {related.length > 0 && (
+          <nav className="related-tools" aria-label="Related tools">
+            <h2>More {tool.category.toLowerCase()} tools</h2>
+            <div>
+              {related.map((candidate) => (
+                <Link key={candidate.id} href={toolPath(candidate)}>
+                  {candidate.name}
+                  <ArrowRight size={15} />
+                </Link>
+              ))}
+            </div>
+          </nav>
+        )}
       </main>
     </>
   );

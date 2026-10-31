@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { InfoPage } from "@/components/pdf/info-page";
+import { tools } from "@/lib/pdf/tools";
 
 export const metadata: Metadata = {
   title: "About Us — Built by Danyal Khan | PDFZivra",
@@ -32,11 +33,11 @@ export default function AboutUsPage() {
         </p>
         <p>
           Danyal created PDFZivra to help with those moments. The toolkit brings
-          together 26 tools for merging, splitting, compressing, organizing,
-          converting, and editing documents, along with useful image tasks. Each
-          tool has its own page with instructions, practical examples, and
-          answers to common questions, so people can understand the options
-          before working on a file.
+          together {tools.length} tools for merging, splitting, compressing,
+          organizing, converting, and editing documents, along with useful image
+          tasks and Pinterest downloads. Each tool has its own page with
+          instructions, practical examples, and answers to common questions, so
+          people can understand the options before working on a file.
         </p>
         <p>
           Start with the <Link href="/#tools">searchable tool catalog</Link>, or
@@ -61,7 +62,9 @@ export default function AboutUsPage() {
           to run its tools. Our{" "}
           <Link href="/privacy-policy/">Privacy Policy</Link> explains those
           connections and the difference between loading website assets and
-          uploading a document.
+          uploading a document. Pinterest downloader uses our server to fetch
+          the public Pin and media you choose; it does not require Pinterest
+          credentials.
         </p>
       </section>
       <section className="guide-section">
@@ -74,9 +77,9 @@ export default function AboutUsPage() {
         <p>
           Clear expectations matter as much as convenience. Some conversions can
           change layout, scanned pages need a separate OCR workflow to become
-          editable text, and important outputs should always be checked. PDFZivra
-          explains these limitations so you can decide whether a tool fits the
-          task in front of you.
+          editable text, and important outputs should always be checked.
+          PDFZivra explains these limitations so you can decide whether a tool
+          fits the task in front of you.
         </p>
       </section>
       <section className="guide-section">
@@ -89,9 +92,10 @@ export default function AboutUsPage() {
         </p>
         <p>
           Questions, feedback, and suggestions are welcome at{" "}
-          <a href="mailto:info@pdfzivra.pk">info@pdfzivra.pk</a>. Please describe
-          the issue without sending confidential documents or passwords. You can
-          also read the <Link href="/terms/">Terms of Service</Link> or{" "}
+          <a href="mailto:info@pdfzivra.pk">info@pdfzivra.pk</a>. Please
+          describe the issue without sending confidential documents or
+          passwords. You can also read the{" "}
+          <Link href="/terms/">Terms of Service</Link> or{" "}
           <Link href="/#tools">explore all tools</Link> to find the one you
           need.
         </p>

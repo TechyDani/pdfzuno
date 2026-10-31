@@ -7,7 +7,7 @@ import { blogArticles } from "@/lib/blog/articles";
 export const metadata: Metadata = {
   title: "Blogs — PDF Tips and Practical Guides | PDFZivra",
   description:
-    "Explore step-by-step guides for all 26 PDFZivra tools: merge, split, compress, convert, edit, protect PDFs, and work with images in your browser.",
+    "Explore step-by-step guides for PDFZivra's 26 PDF and image tools: merge, split, compress, convert, edit, protect PDFs, and work with images in your browser.",
   alternates: {
     canonical: process.env.NEXT_PUBLIC_SITE_URL
       ? new URL("/blogs/", process.env.NEXT_PUBLIC_SITE_URL).href
@@ -23,9 +23,9 @@ export default function BlogsPage() {
     >
       <p className="guide-intro">
         Learn how to merge, split, compress, convert, edit, and protect
-        documents. Find a complete guide for each of our 26 tools, including
-        image background removal and WebP conversion, plus focused articles on
-        document privacy and specific submission workflows.
+        documents. Find a complete guide for each of our 26 PDF and image tools,
+        including image background removal and WebP conversion, plus focused
+        articles on document privacy and specific submission workflows.
       </p>
       <section className="blog-grid" aria-label="Blog articles">
         {blogArticles.map((article) => (

@@ -8,6 +8,7 @@ export type Tool = {
   color: string;
   available: boolean;
   popular?: boolean;
+  kind?: "download";
 };
 
 export function toolPath(tool: Pick<Tool, "slug">) {
@@ -21,8 +22,21 @@ export const categories = [
   "Edit",
   "Optimize",
   "Security",
+  "Download",
 ];
 export const tools: Tool[] = [
+  {
+    id: "pinterest",
+    slug: "pinterest-downloader",
+    name: "Pinterest downloader",
+    description: "Paste a public Pinterest link and save its images or videos.",
+    category: "Download",
+    icon: "Download",
+    color: "purple",
+    available: true,
+    kind: "download",
+    popular: true,
+  },
   {
     id: "remove-background",
     slug: "remove-background",

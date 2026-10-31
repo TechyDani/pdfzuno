@@ -1,21 +1,21 @@
-// Checks the actual exported HTML, so guide text must exist before hydration.
+// Checks the actual prerendered HTML, so guide text must exist before hydration.
 import assert from "node:assert/strict";
-import { readFile } from "node:fs/promises";
+import { readBuiltPage } from "./built-site.mjs";
 import { tools, toolPath } from "../lib/pdf/tools.ts";
 import { guides } from "../lib/pdf/guides.ts";
 
-assert.equal(tools.length, 26);
+assert.equal(tools.length, 27);
 assert.equal(new Set(tools.map((tool) => tool.slug)).size, tools.length);
 assert.deepEqual(
   Object.keys(guides).sort(),
   tools.map((tool) => tool.id).sort(),
 );
 
-const home = await readFile("out/index.html", "utf8");
+const home = await readBuiltPage("/");
 const titles = new Set();
 const descriptions = new Set();
 for (const tool of tools) {
-  const html = await readFile(`out/tools/${tool.slug}/index.html`, "utf8");
+  const html = await readBuiltPage(`/tools/${tool.slug}/`);
   assert.match(
     home,
     new RegExp(`href="/tools/${tool.slug}/?"`),
@@ -32,8 +32,10 @@ for (const tool of tools) {
     "The input workspace is rendered on the page",
   );
   assert(
-    html.includes('type="file"'),
-    "The file input is present before hydration",
+    html.includes(
+      tool.kind === "download" ? 'id="pinterest-url"' : 'type="file"',
+    ),
+    "The tool input is present before hydration",
   );
   const article = html.match(/<article\b[^>]*>([\s\S]*?)<\/article>/)?.[1];
   assert(article, `${tool.slug} has a server-rendered guide`);
@@ -47,7 +49,7 @@ for (const tool of tools) {
     new URL(canonical, "https://example.test").pathname,
     toolPath(tool),
   );
-  const legacy = await readFile(`out/${tool.slug}/index.html`, "utf8");
+  const legacy = await readBuiltPage(`/${tool.slug}/`);
   assert(legacy.includes('id="tool-workspace"'), "Legacy bookmarks still work");
   assert(
     legacy.includes(`rel="canonical" href="${canonical}"`),
@@ -93,7 +95,7 @@ const compliancePages = [
   ["about-us", "About Us", "A practical tool for everyday problems"],
 ];
 for (const [slug, heading, section] of compliancePages) {
-  const html = await readFile(`out/${slug}/index.html`, "utf8");
+  const html = await readBuiltPage(`/${slug}/`);
   assert(html.includes(`>${heading}</h1>`), `${slug} has its own heading`);
   assert(
     html.includes(`>${section}</h2>`),
@@ -105,7 +107,7 @@ for (const [slug, heading, section] of compliancePages) {
     assert(html.includes(`href="/${target}/"`), `${slug} links to ${target}`);
   }
 }
-const oldTerms = await readFile("out/terms-of-service/index.html", "utf8");
+const oldTerms = await readBuiltPage("/terms-of-service/");
 assert(oldTerms.includes('rel="canonical" href="/terms/"'));
 assert(oldTerms.includes(">Terms of Service</h1>"));
 
@@ -118,13 +120,13 @@ const pagePaths = [
   "/blogs/securely-manage-pdf-documents-without-uploading/",
 ];
 for (const pagePath of pagePaths) {
-  const html = await readFile(`out${pagePath}index.html`, "utf8");
+  const html = await readBuiltPage(pagePath);
   const hrefs = new Set(
     [...html.matchAll(/<a\b[^>]*href="([^"?#]*)/g)].map((m) => m[1]),
   );
   for (const href of hrefs) {
     if (!href.startsWith("/") || !href.endsWith("/")) continue;
-    await readFile(`out${href}index.html`, "utf8");
+    await readBuiltPage(href);
     assert(
       !tools.some((tool) => href === `/${tool.slug}/`),
       "Internal links use /tools/",
@@ -133,5 +135,5 @@ for (const pagePath of pagePaths) {
   }
 }
 console.log(
-  "PASS 26 canonical tool routes, legacy URLs, 400–500 word guides, metadata, compliance pages and internal links",
+  "PASS 27 canonical tool routes, legacy URLs, 400–500 word guides, metadata, compliance pages and internal links",
 );

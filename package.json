@@ -9,11 +9,14 @@
   "scripts": {
     "dev": "node scripts/prepare-engines.mjs && node scripts/package-source.mjs && next dev --webpack --hostname 0.0.0.0",
     "build": "node scripts/prepare-engines.mjs && node scripts/package-source.mjs && next build --webpack",
+    "start": "next start --hostname 0.0.0.0",
     "format": "prettier --write app components/pdf lib/pdf tests README.md",
-    "test": "node --experimental-strip-types tests/pdf-smoke.mjs && node --experimental-strip-types tests/all-tools.mjs",
+    "test": "node --experimental-strip-types tests/pdf-smoke.mjs && node --experimental-strip-types tests/all-tools.mjs && node --experimental-strip-types tests/pinterest.mjs",
     "test:browser": "node --experimental-strip-types tests/image-tools.mjs",
     "test:pages": "node --experimental-strip-types tests/tool-pages.mjs",
     "test:blogs": "node --experimental-strip-types tests/blog-pages.mjs",
+    "test:pinterest": "node --experimental-strip-types tests/pinterest.mjs",
+    "test:pinterest:browser": "node --experimental-strip-types tests/pinterest-browser.mjs",
     "lint": "eslint . --ignore-pattern dist --ignore-pattern .next"
   },
   "dependencies": {

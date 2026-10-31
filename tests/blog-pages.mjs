@@ -1,13 +1,15 @@
 // Run after a production build: assert the content is present without hydration.
 import assert from "node:assert/strict";
-import { readFile } from "node:fs/promises";
-import { tools, toolPath } from "../lib/pdf/tools.ts";
+import { readBuiltPage } from "./built-site.mjs";
+import { tools as allTools, toolPath } from "../lib/pdf/tools.ts";
 import {
   articleBodyText,
   articleWordCount,
   toolArticles,
 } from "../lib/blog/tool-articles.ts";
 import { blogArticles } from "../lib/blog/articles.ts";
+
+const tools = allTools.filter((tool) => tool.kind !== "download");
 
 const escapeHtml = (text) =>
   text
@@ -35,11 +37,11 @@ assert.equal(
   tools.length,
 );
 
-const index = await readFile("out/blogs/index.html", "utf8");
+const index = await readBuiltPage("/blogs/");
 const titles = new Set();
 for (const article of toolArticles) {
   const path = `/blogs/${article.slug}/`;
-  const html = await readFile(`out${path}index.html`, "utf8");
+  const html = await readBuiltPage(path);
   const words = articleWordCount(article);
   assert(
     words >= 900,
@@ -52,10 +54,7 @@ for (const article of toolArticles) {
     html.includes(`href="${toolPath(article.tool)}"`),
     "Article links to its tool",
   );
-  const toolHtml = await readFile(
-    `out${toolPath(article.tool)}index.html`,
-    "utf8",
-  );
+  const toolHtml = await readBuiltPage(toolPath(article.tool));
   assert(
     toolHtml.includes(`href="${path}"`),
     "Tool links back to its full article",
@@ -141,7 +140,7 @@ assert.equal(titles.size, tools.length);
 // Existing specialised posts remain listed and their static routes still work.
 for (const article of blogArticles) {
   assert(index.includes(`href="/blogs/${article.slug}/"`));
-  await readFile(`out/blogs/${article.slug}/index.html`, "utf8");
+  await readBuiltPage(`/blogs/${article.slug}/`);
 }
 console.log(
   `PASS ${toolArticles.length} tool articles and ${blogArticles.length} total blog routes`,

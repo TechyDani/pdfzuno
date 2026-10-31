@@ -7,6 +7,48 @@ export type ToolGuide = {
 };
 
 export const guides: Record<string, ToolGuide> = {
+  pinterest: {
+    intro:
+      "Pinterest downloader saves available images and MP4 videos from a public Pin. Paste a full Pinterest Pin URL or a pin.it share link, preview the available files, and choose what to download. Video Pins and Idea Pins can contain several pages, so the results may include more than one file. The service selects the largest downloadable version exposed by Pinterest; it does not upscale images or reconstruct missing video. Unlike the PDF tools, this feature contacts Pinterest through the website's server to retrieve the public media.",
+    steps: [
+      {
+        title: "Copy an individual Pin link",
+        text: "Open the image or video on Pinterest, select Share, and copy its link. Full Pin URLs, regional Pinterest domains, and pin.it links are accepted. A board, search result, or profile link does not identify an individual downloadable item.",
+      },
+      {
+        title: "Find available media",
+        text: "Paste the link into the Pinterest Pin URL field and press Find downloads. Keep the page open while the server checks the public Pin. No Pinterest password, account connection, or file upload is needed. Cancel if you want to stop the request.",
+      },
+      {
+        title: "Choose an image or video",
+        text: "Review the preview and media type before downloading. For a multi-page Idea Pin, each available image or video has its own button. Dimensions describe the available file rather than a promise of original camera resolution. A video cover remains a preview.",
+      },
+      {
+        title: "Download and check your file",
+        text: "Press Download image or Download video and wait for the transfer to finish. Your browser saves the file using its normal download settings. Open the saved file to check it. Each download is limited to 100 MB; an interrupted transfer can be retried.",
+      },
+    ],
+    useCases: [
+      {
+        title: "Keep a copy of your own published media",
+        text: "Save an accessible image or video from your own public Pin when you need a reference copy on another device. Keep your original source separately, because Pinterest's available version may already have been resized or compressed during publication.",
+      },
+      {
+        title: "Save an authorized reference",
+        text: "Download a creator's reference image or clip when you have permission to keep it. Retain the source Pin link so you can find its author and context later. Downloading a file does not grant permission to republish or commercially reuse it.",
+      },
+    ],
+    faqs: [
+      {
+        title: "Does every Pinterest link work?",
+        text: "Public image Pins, video Pins, and supported Idea Pin pages can work, including shared links ending in /sent/. For videos listed as streams, the downloader checks Pinterest's available MP4 exports and verifies the file before offering it. Private, removed, login-restricted, or externally embedded media may be unavailable. Videos without an available MP4 are reported rather than replaced with a thumbnail.",
+      },
+      {
+        title: "What happens to the link I paste?",
+        text: "The website's server receives the link, requests public Pin information from Pinterest, and streams your selected file. It does not request your Pinterest credentials or intentionally store a media library. The host and Pinterest may retain ordinary technical request logs.",
+      },
+    ],
+  },
   protect: {
     intro:
       "Protect PDF adds AES-256 encryption and an opening password to a document. This can help control access when a file needs to be stored or shared with a specific recipient. Choose a password you can retain securely, because you will need it to open the protected output. Password protection does not inspect the document for private information or remove content. Review the file itself before encrypting it, and verify the downloaded result before distributing the protected copy.",

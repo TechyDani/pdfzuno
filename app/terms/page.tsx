@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { InfoPage } from "@/components/pdf/info-page";
+import { tools } from "@/lib/pdf/tools";
 
 export const metadata: Metadata = {
   title: "Terms of Service | PDFZivra",
@@ -31,8 +32,9 @@ export default function TermsOfServicePage() {
           recipients for your results.
         </p>
         <p>
-          The <Link href="/#tools">tool catalog</Link> links to 26 dedicated
-          tool pages, including <Link href="/tools/merge-pdf/">Merge PDF</Link>,{" "}
+          The <Link href="/#tools">tool catalog</Link> links to {tools.length}{" "}
+          dedicated tool pages, including{" "}
+          <Link href="/tools/merge-pdf/">Merge PDF</Link>,{" "}
           <Link href="/tools/compress-pdf/">Compress PDF</Link>, and{" "}
           <Link href="/tools/remove-background/">Remove background</Link>.
           Instructions, use cases, and frequently asked questions appear below
@@ -85,6 +87,17 @@ export default function TermsOfServicePage() {
           results, or forgotten passwords for you. You are responsible for
           protecting the files stored on your device and deciding where to share
           them.
+        </p>
+      </section>
+      <section className="guide-section">
+        <h2>Pinterest downloads</h2>
+        <p>
+          Pinterest downloader retrieves available public images and MP4 videos
+          through our server. Only download media you own or have permission to
+          save. Access to a public Pin does not transfer copyright or grant
+          permission to republish it. Private, deleted, restricted, externally
+          embedded, or streaming-only media may not be downloadable.
+          Availability depends on Pinterest, and each file is limited to 100 MB.
         </p>
       </section>
       <section className="guide-section">
@@ -153,8 +166,8 @@ export default function TermsOfServicePage() {
           Updated terms will be posted on this page with a revised date. Review
           the current version when returning to the service. For questions about
           these terms, contact{" "}
-          <a href="mailto:info@pdfzivra.pk">info@pdfzivra.pk</a>. Learn more about
-          the project on the <Link href="/about-us/">About Us</Link> page.
+          <a href="mailto:info@pdfzivra.pk">info@pdfzivra.pk</a>. Learn more
+          about the project on the <Link href="/about-us/">About Us</Link> page.
         </p>
       </section>
     </InfoPage>

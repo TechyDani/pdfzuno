@@ -1,57 +1,19 @@
-// Runs against the real production export, including its browser workers.
+// Runs against the production Next.js server, including its browser workers.
 // Requires Google Chrome. The background test downloads the model and a
 // public-domain NASA astronaut photo from scikit-image's sample dataset.
 import assert from "node:assert/strict";
-import { createServer } from "node:http";
-import { readFile, mkdir, stat } from "node:fs/promises";
-import path from "node:path";
+import { readFile, mkdir } from "node:fs/promises";
+import { startBuiltSite } from "./built-site.mjs";
 import { chromium, expect } from "@playwright/test";
 import { PDFDocument } from "pdf-lib";
 import { tools } from "../lib/pdf/tools.ts";
 
-const root = path.resolve("out");
-const mime = {
-  ".html": "text/html",
-  ".js": "text/javascript",
-  ".mjs": "text/javascript",
-  ".css": "text/css",
-  ".wasm": "application/wasm",
-  ".svg": "image/svg+xml",
-};
-const server = createServer(async (req, res) => {
-  try {
-    const pathname = decodeURIComponent(
-      new URL(req.url, "http://localhost").pathname,
-    );
-    let filename = path.resolve(
-      root,
-      `.${pathname === "/" ? "/index.html" : pathname}`,
-    );
-    assert(filename.startsWith(root + path.sep));
-    if ((await stat(filename)).isDirectory()) {
-      if (!pathname.endsWith("/")) {
-        res.writeHead(301, { Location: `${pathname}/` });
-        res.end();
-        return;
-      }
-      filename = path.join(filename, "index.html");
-    }
-    const bytes = await readFile(filename);
-    res.writeHead(200, {
-      "Content-Type":
-        mime[path.extname(filename)] || "application/octet-stream",
-    });
-    res.end(bytes);
-  } catch {
-    res.writeHead(404);
-    res.end("Not found");
-  }
-});
 async function verifySite() {
   let browser;
+  let site;
   try {
-    await new Promise((resolve) => server.listen(0, "127.0.0.1", resolve));
-    const url = `http://127.0.0.1:${server.address().port}`;
+    site = await startBuiltSite();
+    const { url } = site;
     browser = await chromium.launch({ channel: "chrome", headless: true });
     const context = await browser.newContext({
       acceptDownloads: true,
@@ -68,6 +30,9 @@ async function verifySite() {
     await expect(page.locator(".tool-card")).toHaveCount(tools.length);
     await expect(
       page.getByRole("link", { name: "Remove background", exact: true }),
+    ).toContainText("Popular");
+    await expect(
+      page.locator('.tool-card[aria-label="Pinterest downloader"]'),
     ).toContainText("Popular");
 
     const featured = tools.filter((tool) => tool.popular);
@@ -235,13 +200,78 @@ async function verifySite() {
       fullPage: true,
     });
     await touch.detach();
+    await page.emulateMedia({ reducedMotion: "reduce" });
+    for (const width of [320, 360, 390, 430, 768]) {
+      await page.setViewportSize({ width, height: 844 });
+      let height;
+      for (const tool of featured) {
+        await hero
+          .getByRole("button", { name: `Show ${tool.name}`, exact: true })
+          .click();
+        const slide = hero.locator('.hero-slide[aria-hidden="false"]');
+        const box = await hero.boundingBox();
+        const cta = await slide.locator(".hero-cta").boundingBox();
+        assert(
+          await page.evaluate(
+            () => document.documentElement.scrollWidth <= innerWidth,
+          ),
+          `${width}px: no horizontal page overflow`,
+        );
+        assert(
+          cta.x >= box.x && cta.x + cta.width <= box.x + box.width,
+          `${width}px: ${tool.name} button stays inside the hero`,
+        );
+        if (height !== undefined)
+          assert(
+            Math.abs(box.height - height) < 2,
+            `${width}px: carousel height stays stable between slides`,
+          );
+        height = box.height;
+        for (const control of await hero
+          .locator(".hero-slider-controls button")
+          .all()) {
+          const target = await control.boundingBox();
+          assert(
+            target.width >= 24 && target.height >= 24,
+            `${width}px: controls have usable touch targets`,
+          );
+          assert(
+            target.x >= box.x && target.x + target.width <= box.x + box.width,
+            `${width}px: carousel controls remain visible`,
+          );
+        }
+        const art = await slide.locator(".hero-art").boundingBox();
+        const controls = await hero
+          .locator(".hero-slider-controls")
+          .boundingBox();
+        assert(
+          art.y + art.height <= controls.y + 1,
+          `${width}px: preview does not overlap navigation`,
+        );
+      }
+      await hero
+        .getByRole("button", { name: "Show Pinterest downloader", exact: true })
+        .click();
+      await hero.scrollIntoViewIfNeeded();
+      await page.screenshot({
+        path: `.test-output/hero-pinterest-${width}.png`,
+      });
+    }
     await page.setViewportSize({ width: 1280, height: 720 });
     await hero
       .getByRole("button", { name: `Show ${featured[0].name}`, exact: true })
       .click();
     console.log(
-      "PASS all popular hero slides, tool buttons, looping arrows, dots, keyboard, reduced motion and mobile touch swipe",
+      "PASS all popular hero slides including Pinterest, CTA links, looping, keyboard, touch swipe, and 320–768px layouts with stable heights and visible touch controls",
     );
+    if (process.argv.includes("--hero-only")) {
+      assert.deepEqual(
+        errors,
+        [],
+        "No browser exceptions or failed app assets",
+      );
+      return;
+    }
 
     // Every catalog link opens an independent, refreshable tool page.
     for (const tool of tools) {
@@ -255,7 +285,12 @@ async function verifySite() {
       await expect(
         page.getByRole("heading", { name: tool.name, exact: true, level: 1 }),
       ).toBeVisible();
-      await expect(page.getByLabel("Choose files")).toHaveValue("");
+      await expect(
+        page.getByLabel(
+          tool.kind === "download" ? "Pinterest Pin URL" : "Choose files",
+          { exact: true },
+        ),
+      ).toHaveValue("");
       const guideWords = (await page.locator(".tool-guide p").allTextContents())
         .join(" ")
         .trim()
@@ -563,7 +598,7 @@ async function verifySite() {
     console.log("PASS filters, search, mobile layout and no browser errors");
   } finally {
     await browser?.close();
-    await new Promise((resolve) => server.close(resolve));
+    await site?.close();
   }
 }
 await verifySite();

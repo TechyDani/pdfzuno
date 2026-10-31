@@ -6,13 +6,13 @@ import path from "node:path";
 import assert from "node:assert/strict";
 import { PDFDocument, StandardFonts } from "pdf-lib";
 import { defaultOptions } from "../lib/pdf/types.ts";
-const root = path.resolve("out");
-const chunks = fs.readdirSync(path.join(root, "_next/static/chunks"));
+const root = path.resolve(".");
+const chunks = fs.readdirSync(path.join(root, ".next/static/chunks"));
 const workerName = chunks.find(
   (f) =>
     f.endsWith(".js") &&
     fs
-      .readFileSync(path.join(root, "_next/static/chunks", f), "utf8")
+      .readFileSync(path.join(root, ".next/static/chunks", f), "utf8")
       .includes("Loading document engine"),
 );
 assert(workerName, "Processing worker bundle is present");
@@ -37,7 +37,10 @@ const moduleCache = new Map();
 function localFile(url) {
   const parsed = new URL(url, workerUrl);
   assert.equal(parsed.origin, location.origin);
-  const file = path.resolve(root, "." + parsed.pathname);
+  const pathname = parsed.pathname.startsWith("/_next/")
+    ? parsed.pathname.replace("/_next/", "/.next/")
+    : `/public${parsed.pathname}`;
+  const file = path.resolve(root, "." + pathname);
   assert(file.startsWith(root + path.sep));
   return file;
 }

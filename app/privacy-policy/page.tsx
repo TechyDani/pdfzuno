@@ -40,6 +40,24 @@ export default function PrivacyPolicyPage() {
         </p>
       </section>
       <section className="guide-section">
+        <h2>Pinterest links and media downloads</h2>
+        <p>
+          Pinterest downloader sends the link you paste to PDFZivra&apos;s
+          server. The server requests public Pin information from Pinterest and
+          streams the image or video you select back to your browser. Preview
+          images load from Pinterest&apos;s media servers. This feature makes
+          network requests and is separate from local document processing.
+        </p>
+        <p>
+          We do not request your Pinterest password, connect to your Pinterest
+          account, or intentionally store a library of downloaded media. The
+          website host and Pinterest may receive technical connection
+          information and retain request logs under their own policies. The Pin
+          identifier is included in download requests. Avoid pasting private or
+          sensitive links, and save only media you are authorized to download.
+        </p>
+      </section>
+      <section className="guide-section">
         <h2>Temporary data and downloads</h2>
         <p>
           Selected files, settings, previews, and results are held in the
@@ -90,9 +108,9 @@ export default function PrivacyPolicyPage() {
         <p>
           The current toolkit does not require an account, collect payment
           information, or include application-level advertising or analytics
-          trackers. PDFZivra does not use your document contents for advertising,
-          sell them, or use them to train an AI model. No document contents
-          reach a processing server through the tools.
+          trackers. PDFZivra does not use your document contents for
+          advertising, sell them, or use them to train an AI model. No document
+          contents reach a processing server through the tools.
         </p>
       </section>
       <section className="guide-section">
