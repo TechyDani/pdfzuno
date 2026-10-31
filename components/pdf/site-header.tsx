@@ -32,11 +32,11 @@ export function SiteHeader({
   return (
     <header className="topbar site-header">
       <div className="shell site-header-inner">
-        <Link className="brand" href="/" aria-label="PDFzuno home">
+        <Link className="brand" href="/" aria-label="PDFZivra home">
           <span className="brand-mark">
             <FileText size={25} />
           </span>
-          PDFzuno<span className="text-[#315be8] -ml-2">.</span>
+          PDFZivra<span className="text-[#315be8] -ml-2">.</span>
         </Link>
         <nav className="site-header-nav" aria-label="Main navigation">
           <Link

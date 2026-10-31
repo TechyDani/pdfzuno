@@ -3,10 +3,10 @@ import Link from "next/link";
 import { InfoPage } from "@/components/pdf/info-page";
 
 export const metadata: Metadata = {
-  title: "About Us — Built by Danyal Khan | PDFzuno",
+  title: "About Us — Built by Danyal Khan | PDFZivra",
   alternates: { canonical: "/about-us/" },
   description:
-    "PDFzuno was built by Danyal Khan, a software engineer, to help people handle everyday PDF and image tasks with free tools that process files locally.",
+    "PDFZivra was built by Danyal Khan, a software engineer, to help people handle everyday PDF and image tasks with free tools that process files locally.",
 };
 
 export default function AboutUsPage() {
@@ -16,7 +16,7 @@ export default function AboutUsPage() {
       description="Built by Danyal Khan to help people spend less time on paperwork and more time on what matters."
     >
       <p className="guide-intro">
-        PDFzuno was built by Danyal Khan, a software engineer, to help other
+        PDFZivra was built by Danyal Khan, a software engineer, to help other
         people complete everyday document tasks more easily. The mission is
         straightforward: make useful PDF and image tools accessible,
         understandable, and respectful of the files people trust them with.
@@ -31,7 +31,7 @@ export default function AboutUsPage() {
           a clear copy of a document for a customer.
         </p>
         <p>
-          Danyal created PDFzuno to help with those moments. The toolkit brings
+          Danyal created PDFZivra to help with those moments. The toolkit brings
           together 26 tools for merging, splitting, compressing, organizing,
           converting, and editing documents, along with useful image tasks. Each
           tool has its own page with instructions, practical examples, and
@@ -51,7 +51,7 @@ export default function AboutUsPage() {
         <h2>Privacy is part of the design</h2>
         <p>
           Helping people also means respecting the personal and professional
-          information in their documents. PDFzuno processes selected files
+          information in their documents. PDFZivra processes selected files
           locally in the user&apos;s browser, rather than uploading them to a
           processing server. You choose your files, run the tool on your device,
           and download the result.
@@ -74,7 +74,7 @@ export default function AboutUsPage() {
         <p>
           Clear expectations matter as much as convenience. Some conversions can
           change layout, scanned pages need a separate OCR workflow to become
-          editable text, and important outputs should always be checked. PDFzuno
+          editable text, and important outputs should always be checked. PDFZivra
           explains these limitations so you can decide whether a tool fits the
           task in front of you.
         </p>
@@ -83,13 +83,13 @@ export default function AboutUsPage() {
         <h2>Built to help, with room to improve</h2>
         <p>
           Danyal&apos;s aim is to use software engineering to make everyday work
-          a little easier for other people. PDFzuno reflects that aim through
+          a little easier for other people. PDFZivra reflects that aim through
           focused tools, local file processing, and guidance that helps people
           use each feature with confidence.
         </p>
         <p>
           Questions, feedback, and suggestions are welcome at{" "}
-          <a href="mailto:info@pdfzuno.pk">info@pdfzuno.pk</a>. Please describe
+          <a href="mailto:info@pdfzivra.pk">info@pdfzivra.pk</a>. Please describe
           the issue without sending confidential documents or passwords. You can
           also read the <Link href="/terms/">Terms of Service</Link> or{" "}
           <Link href="/#tools">explore all tools</Link> to find the one you

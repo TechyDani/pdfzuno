@@ -23,7 +23,7 @@ export function InfoPage({
           <span aria-current="page">{title}</span>
         </nav>
         <div className="tool-page-heading info-page-heading">
-          <span className="eyebrow">PDFzuno</span>
+          <span className="eyebrow">PDFZivra</span>
           <h1>{title}</h1>
           <p>{description}</p>
           {updated && (

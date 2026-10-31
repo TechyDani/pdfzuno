@@ -3,38 +3,38 @@ import Link from "next/link";
 import { InfoPage } from "@/components/pdf/info-page";
 
 export const metadata: Metadata = {
-  title: "Privacy Policy | PDFzuno",
+  title: "Privacy Policy | PDFZivra",
   alternates: { canonical: "/privacy-policy/" },
   description:
-    "Learn how PDFzuno processes files locally on your device without uploading your documents or passwords to a server, and how website connections work.",
+    "Learn how PDFZivra processes files locally on your device without uploading your documents or passwords to a server, and how website connections work.",
 };
 
 export default function PrivacyPolicyPage() {
   return (
     <InfoPage
       title="Privacy Policy"
-      description="Your files stay on your device. Here is how PDFzuno handles your privacy."
+      description="Your files stay on your device. Here is how PDFZivra handles your privacy."
       updated
     >
       <p className="guide-intro">
-        PDFzuno was built by Danyal Khan to make everyday document tasks easier
+        PDFZivra was built by Danyal Khan to make everyday document tasks easier
         while keeping you in control of your files. This policy explains what
         happens when you visit the website and use its PDF and image tools. This
         policy applies to the home page, individual tool pages, guides, and
-        other informational pages on PDFzuno.
+        other informational pages on PDFZivra.
       </p>
       <section className="guide-section">
         <h2>Your files are processed locally</h2>
         <p>
-          When you choose a PDF, Office document, or image, PDFzuno reads and
+          When you choose a PDF, Office document, or image, PDFZivra reads and
           processes it locally on your device inside your browser. Your files
           are not uploaded to a server for processing. Document contents,
           selected filenames, passwords, and drawn signatures are not sent to
-          PDFzuno or to an external processing service.
+          PDFZivra or to an external processing service.
         </p>
         <p>
           The browser creates your result locally and gives you a download link.
-          Your original file is not overwritten. PDFzuno does not receive a
+          Your original file is not overwritten. PDFZivra does not receive a
           server-side copy of either your selected file or its processed result,
           so we cannot retrieve those files for you later.
         </p>
@@ -90,7 +90,7 @@ export default function PrivacyPolicyPage() {
         <p>
           The current toolkit does not require an account, collect payment
           information, or include application-level advertising or analytics
-          trackers. PDFzuno does not use your document contents for advertising,
+          trackers. PDFZivra does not use your document contents for advertising,
           sell them, or use them to train an AI model. No document contents
           reach a processing server through the tools.
         </p>
@@ -121,7 +121,7 @@ export default function PrivacyPolicyPage() {
       <section className="guide-section">
         <h2>When you contact us</h2>
         <p>
-          If you email info@pdfzuno.pk, your email address, any name you
+          If you email info@pdfzivra.pk, your email address, any name you
           provide, and the contents of your message are received through the
           email service and used to respond to your inquiry. Correspondence may
           be kept for as long as needed to handle the request and related
@@ -136,7 +136,7 @@ export default function PrivacyPolicyPage() {
           If the website&apos;s data practices change, this policy should be
           updated to describe them. The date above identifies this version. For
           questions about this policy or privacy practices, email{" "}
-          <a href="mailto:info@pdfzuno.pk">info@pdfzuno.pk</a>. Please do not
+          <a href="mailto:info@pdfzivra.pk">info@pdfzivra.pk</a>. Please do not
           attach sensitive documents or passwords to a privacy inquiry.
         </p>
         <p>

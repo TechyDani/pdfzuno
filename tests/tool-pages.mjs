@@ -99,7 +99,7 @@ for (const [slug, heading, section] of compliancePages) {
     html.includes(`>${section}</h2>`),
     `${slug} includes existing policy text`,
   );
-  assert(html.includes("mailto:info@pdfzuno.pk"), "Contact is available");
+  assert(html.includes("mailto:info@pdfzivra.pk"), "Contact is available");
   for (const [target] of compliancePages) {
     assert(home.includes(`href="/${target}/"`), `Home links to ${target}`);
     assert(html.includes(`href="/${target}/"`), `${slug} links to ${target}`);

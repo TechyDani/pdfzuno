@@ -6,6 +6,7 @@ import { ArrowRight, ShieldCheck } from "lucide-react";
 import { Workspace } from "@/components/pdf/workspace";
 import { tools, toolPath } from "@/lib/pdf/tools";
 import { guides } from "@/lib/pdf/guides";
+import { toolArticles } from "@/lib/blog/tool-articles";
 
 type Props = { params: Promise<{ slug: string }> };
 
@@ -19,7 +20,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
   const tool = tools.find((candidate) => candidate.slug === slug);
   if (!tool) notFound();
-  const title = `${tool.name} — Free Online Tool | PDFzuno`;
+  const title = `${tool.name} — Free Online Tool | PDFZivra`;
   const description = `${tool.description} Free local processing, a step-by-step guide, practical use cases, and answers about formats, security, and file sizes.`;
   const origin = process.env.NEXT_PUBLIC_SITE_URL;
   return {
@@ -37,6 +38,9 @@ export default async function ToolPage({ params }: Props) {
   const tool = tools.find((candidate) => candidate.slug === slug);
   if (!tool) notFound();
   const guide = guides[tool.id];
+  const article = toolArticles.find(
+    (candidate) => candidate.toolId === tool.id,
+  );
   const related = tools
     .filter(
       (candidate) =>
@@ -72,6 +76,14 @@ export default async function ToolPage({ params }: Props) {
             <a href="#faq">FAQs</a>
           </nav>
           <p className="guide-intro">{guide.intro}</p>
+          {article && (
+            <aside className="guide-intro" aria-label="Complete guide">
+              <Link href={`/blogs/${article.slug}/`}>
+                Read the complete {tool.name} guide: examples, quality checks,
+                and troubleshooting.
+              </Link>
+            </aside>
+          )}
           <section id="how-to" className="guide-section">
             <h2>How to use {tool.name}</h2>
             <ol className="guide-steps">

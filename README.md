@@ -1,4 +1,4 @@
-# PDFzuno
+# PDFZivra
 
 Next.js App Router + React + TypeScript + Tailwind CSS PDF and image toolkit. All 26 displayed tools have real processing paths and downloadable output; there are no placeholder tool dialogs. Processing runs in a cancellable browser Web Worker. Documents, images and passwords never go to a processing server.
 
@@ -29,9 +29,11 @@ Privacy, terms, and about content is available at `/privacy-policy/`, `/terms/`,
 
 Routes are defined by `slug` in `lib/pdf/tools.ts`; editorial content is maintained in `lib/pdf/guides.ts`. The shared page template is `app/tools/[slug]/page.tsx`. Each tool has a unique title and description. Optionally set `NEXT_PUBLIC_SITE_URL` to your deployed origin before building to generate absolute canonical URLs for that domain.
 
+Every tool also has a long-form post at `/blogs/<tool-slug>-guide/`. Editorial sections live in `lib/blog/tool-articles.ts`, while instructions, use cases, and FAQs share the tool guide source so product details stay consistent. Each post includes at least 900 words of prose, a direct opening answer, a table of contents, related guides, and a link to the tool. The shared server-rendered template is `app/blogs/[slug]/page.tsx`; metadata includes canonical URLs, Open Graph, Twitter cards, and JSON-LD for the article, breadcrumbs, and visible FAQs. These features support discovery and comprehension without guaranteeing search rankings, rich results, or AI citations. Keep instructions and article text aligned when tool behaviour changes. Run `npm run test:blogs` after `npm run build` to check coverage, rendered word counts, metadata, schema, and links, including the existing specialised posts.
+
 After building, run `npm run test:pages` to verify all 26 exported routes, internal links, metadata, input workspaces, guide word counts, and compliance pages. Run `npm run test:browser -- --skip-ai` for routing, direct refreshes, mobile layout, and real image conversions without downloading the background-removal model.
 
-To regenerate the downloadable source archive, run `node scripts/package-source.mjs`. It excludes credentials, Sites identity, node_modules, builds and test outputs. Source is available at `/pdfzuno-source.zip` after building.
+To regenerate the downloadable source archive, run `node scripts/package-source.mjs`. It excludes credentials, Sites identity, node_modules, builds and test outputs. Source is available at `/pdfzivra-source.zip` after building.
 
 ## Folder structure
 

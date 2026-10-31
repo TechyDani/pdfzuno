@@ -1,5 +1,5 @@
 {
-  "name": "pdfzuno",
+  "name": "pdfzivra",
   "version": "0.1.0",
   "private": true,
   "packageManager": "pnpm@11.25.0",
@@ -13,6 +13,7 @@
     "test": "node --experimental-strip-types tests/pdf-smoke.mjs && node --experimental-strip-types tests/all-tools.mjs",
     "test:browser": "node --experimental-strip-types tests/image-tools.mjs",
     "test:pages": "node --experimental-strip-types tests/tool-pages.mjs",
+    "test:blogs": "node --experimental-strip-types tests/blog-pages.mjs",
     "lint": "eslint . --ignore-pattern dist --ignore-pattern .next"
   },
   "dependencies": {

@@ -18,7 +18,7 @@ function result(
 ): ToolResult {
   return {
     bytes,
-    filename: `pdfzuno-${id}.${extension}`,
+    filename: `pdfzivra-${id}.${extension}`,
     mime: mime[extension],
     message,
   };
@@ -557,7 +557,7 @@ async function pdfToOffice(
   }
   const { default: PptxGenJS } = await import("pptxgenjs");
   const presentation = new PptxGenJS();
-  presentation.author = "PDFzuno";
+  presentation.author = "PDFZivra";
   const first = doc.loadPage(0);
   const bounds = first.getBounds();
   first.destroy();

@@ -3,8 +3,8 @@ type Engine = typeof MuPDF;
 let engine: Promise<Engine> | undefined;
 // Served as native ES modules so WebAssembly stays out of Next.js's JS bundles.
 export function getEngine(): Promise<Engine> {
-  const injected = (globalThis as unknown as { __PDFZUNO_ENGINE__?: Engine })
-    .__PDFZUNO_ENGINE__;
+  const injected = (globalThis as unknown as { __PDFZIVRA_ENGINE__?: Engine })
+    .__PDFZIVRA_ENGINE__;
   if (injected) return Promise.resolve(injected);
   if (!engine) {
     const url = new URL("/engines/mupdf/mupdf.js", globalThis.location.origin)

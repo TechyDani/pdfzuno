@@ -214,7 +214,7 @@ export function Toolkit() {
             {info === "privacy" ? (
               <>
                 <p>
-                  PDF and image tools run inside your browser. PDFzuno does not
+                  PDF and image tools run inside your browser. PDFZivra does not
                   upload or store your files. Closing the tool clears its
                   working selection.
                 </p>

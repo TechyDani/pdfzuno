@@ -3,7 +3,7 @@ import "./globals.css";
 import { SiteFooter } from "@/components/pdf/site-footer";
 
 export const metadata: Metadata = {
-  title: "PDFzuno — Your everyday PDF toolkit",
+  title: "PDFZivra — Your everyday PDF toolkit",
   description:
     "Merge, split and edit PDFs, convert JPG to PDF and WebP to JPG, and remove image backgrounds right in your browser.",
   icons: {

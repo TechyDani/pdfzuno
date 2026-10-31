@@ -6,7 +6,7 @@ import ExcelJS from "exceljs";
 import PptxGenJS from "pptxgenjs";
 import JSZip from "jszip";
 import { mkdir, writeFile } from "node:fs/promises";
-globalThis.__PDFZUNO_ENGINE__ = mupdf;
+globalThis.__PDFZIVRA_ENGINE__ = mupdf;
 const { runTool } = await import("../lib/pdf/advanced.ts");
 const { defaultOptions } = await import("../lib/pdf/types.ts");
 await mkdir(".test-output", { recursive: true });
@@ -74,7 +74,7 @@ const word = await Packer.toBuffer(
     sections: [
       {
         children: [
-          new Paragraph("PDFzuno Word conversion"),
+          new Paragraph("PDFZivra Word conversion"),
           new Paragraph("Unicode: مرحبا World"),
         ],
       },
@@ -91,7 +91,7 @@ await check("excel-pdf", [
   new File([await workbook.xlsx.writeBuffer()], "sample.xlsx"),
 ]);
 const ppt = new PptxGenJS();
-ppt.addSlide().addText("PDFzuno presentation", { x: 1, y: 1, w: 5, h: 1 });
+ppt.addSlide().addText("PDFZivra presentation", { x: 1, y: 1, w: 5, h: 1 });
 await check("ppt-pdf", [
   new File([await ppt.write({ outputType: "uint8array" })], "sample.pptx"),
 ]);
