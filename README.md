@@ -64,7 +64,7 @@ The Next.js website stays on **Vercel**. A separate container runs yt-dlp, its J
 
 The repository includes `render.yaml` for the separate Docker service. Push this file and `Dockerfile.youtube.dockerignore` to GitHub, then open [Deploy the downloader on Render](https://render.com/deploy?repo=https%3A%2F%2Fgithub.com%2FTechyDani%2Fpdfzuno%2Ftree%2Fcodex%2Frender-youtube). Review the service before creating it. The Blueprint selects Free for an initial test; Render's free service sleeps when idle, so use an always-on instance for production. If testing the free instance, open its `/health` URL and wait for it to respond before trying a download. A sleeping service can take longer to start than Vercel's request timeout.
 
-1. When Render asks for `YOUTUBE_ALLOWED_ORIGINS`, enter your actual website origin, such as `https://your-project.vercel.app`. Add your custom domain after a comma if applicable. Include `https://` and omit paths and trailing slashes.
+1. The Blueprint sets `YOUTUBE_ALLOWED_ORIGINS` to `https://pdfzuno-iota.vercel.app`. If you already created the Render service, set this value in its Environment settings and redeploy or sync the Blueprint. Add any custom domain after a comma if applicable. Include `https://` and omit paths and trailing slashes.
 2. Wait for the service to finish deploying. Open its public `/health` URL and confirm it returns `{"ok":true,"service":"zivratools-youtube"}`.
 3. In the Render service's Environment settings, copy its generated `YOUTUBE_SERVICE_TOKEN`. Keep this value private; do not put it in GitHub or chat.
 4. In your Vercel project, open **Settings → Environment Variables** and add the following to **Production** (and Preview if needed):

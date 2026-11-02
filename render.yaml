@@ -17,4 +17,4 @@ services:
       - key: YOUTUBE_SERVICE_TOKEN
         generateValue: true
       - key: YOUTUBE_ALLOWED_ORIGINS
-        sync: false
+        value: https://pdfzuno-iota.vercel.app
