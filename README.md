@@ -4,7 +4,7 @@
 
 Free online tools for PDFs, images, documents, and everyday productivity. Fast, simple, and private.
 
-Next.js App Router + React + TypeScript + Tailwind CSS toolkit with 26 local PDF/image tools and a Pinterest downloader. Document processing runs in a cancellable browser Web Worker; selected documents, images and passwords never go to a processing server. Pinterest downloader separately sends a public Pin link to a server endpoint and streams the selected media back to the browser.
+Next.js App Router + React + TypeScript + Tailwind CSS toolkit with 26 local PDF/image tools, a Pinterest downloader, and a YouTube video/Shorts downloader. Document processing runs in a cancellable browser Web Worker; selected documents, images and passwords never go to a processing server. Pinterest downloader separately sends a public Pin link to a server endpoint and streams the selected media back to the browser.
 
 ## Run the project
 
@@ -16,7 +16,7 @@ pnpm install --frozen-lockfile
 pnpm dev
 ```
 
-Open `http://localhost:3000`. No API keys or database setup is required. The engine preparation script copies the pinned MuPDF JavaScript and WebAssembly assets into `public/engines/` automatically.
+Open `http://localhost:3000`. No API keys or database setup is required for local document tools or Pinterest. For YouTube, run the one-time local setup below. The engine preparation script copies the pinned MuPDF JavaScript and WebAssembly assets into `public/engines/` automatically.
 
 ```sh
 pnpm test
@@ -37,9 +37,64 @@ Private/deleted Pins, login or regional restrictions, external embeds, and HLS-o
 
 The media endpoint streams its response to avoid buffering whole videos in server memory. The browser collects the stream before saving so an interrupted transfer is reported instead of saving an incomplete file. For Vercel, allow the download function's configured 60-second duration. Hosting bandwidth and duration limits still apply. Configure hosting request protections as appropriate for production traffic.
 
+## YouTube downloader locally
+
+Before using YouTube downloads on your computer, run:
+
+```sh
+npm run youtube:setup
+npm run dev
+```
+
+If the development server is already running, stop it with Ctrl+C before starting it again. Setup installs yt-dlp, ffmpeg, and ffprobe inside ignored `.local/youtube/bin/`, verifies the downloaded executables' SHA-256 checksums, and creates a random shared token plus local service settings in ignored `.env.local`. It preserves existing environment settings and does not install system-wide software or require Docker. The automatic installer supports macOS x64/arm64, Linux x64/arm64, and Windows x64.
+
+`npm run dev` now starts the downloader at `http://127.0.0.1:8787` alongside Next.js, waits for it to be ready, and stops both when you press Ctrl+C. You no longer need a separate terminal or a manually copied token for local development. If you have configured a remote service URL, development uses that service instead. Run `npm run youtube:setup -- --update` to refresh yt-dlp when YouTube changes its delivery. Installed dependency notices are kept alongside the binaries.
+
+The message **"YouTube downloads are not configured yet"** means `YOUTUBE_SERVICE_URL` or a valid `YOUTUBE_SERVICE_TOKEN` is missing. For local development, run setup and restart `npm run dev`. Setting a URL alone does not start a downloader; the new development command handles that. For manual testing, `npm run youtube:service` reads `.env.local` and starts just the service.
+
+## YouTube downloader on Vercel
+
+Open `/tools/youtube-downloader/` or choose the Download category. Paste a public YouTube watch URL, `youtu.be` share URL, or Shorts URL, review the preview, choose an MP4 quality ceiling, and download with audio. Limits are twenty minutes and 100 MB. Playlists, live/upcoming streams, private, paid, age-restricted, and region-restricted videos are unsupported. No YouTube login or cookies are used. Availability can change when YouTube blocks a hosting region or changes its delivery; no implementation can guarantee every public link.
+
+The Next.js website stays on **Vercel**. A separate container runs yt-dlp, its JavaScript challenge support, Node.js, and ffmpeg. The website only requests metadata and creates signed links; video files transfer **directly from the container to the browser**, without passing through a Vercel function. This also means the service needs its own publicly accessible HTTPS URL. The feature returns a clear unavailable message until the service is configured.
+
+1. Generate a shared secret with `openssl rand -hex 32`. Keep it server-side.
+2. Build `Dockerfile.youtube` from the repository root and deploy the image on a Docker-capable host. Set these container environment variables:
+
+   ```text
+   YOUTUBE_SERVICE_TOKEN=<the generated secret>
+   YOUTUBE_ALLOWED_ORIGINS=https://your-website.vercel.app,https://your-custom-domain.example
+   PORT=8787
+   ```
+
+   Use your actual website origins, including `https://`, with no paths or trailing slashes. Configure the host to route to `PORT`; its health check is `GET /health`. Allow requests lasting at least three minutes and temporary storage of at least 500 MB. The worker permits two concurrent jobs per container and removes temporary files after transfers, cancellations, and errors. Do not attach a persistent media volume. Recreating the container clears any files left by a forced process termination.
+
+3. In the Vercel project's **Settings → Environment Variables**, set:
+
+   ```text
+   YOUTUBE_SERVICE_URL=https://your-downloader-service.example
+   YOUTUBE_SERVICE_TOKEN=<the same generated secret>
+   ```
+
+   Redeploy Vercel after setting these variables. The service URL must be an HTTPS origin without a path. Neither variable should have a `NEXT_PUBLIC_` prefix. Add each preview deployment's exact origin to the service allowlist if downloads should work in that preview.
+
+For local Docker testing:
+
+```sh
+docker build -f Dockerfile.youtube -t zivratools-youtube .
+docker run --rm -p 8787:8787 \
+  -e YOUTUBE_SERVICE_TOKEN \
+  -e YOUTUBE_ALLOWED_ORIGINS=http://localhost:3000 \
+  zivratools-youtube
+```
+
+Export `YOUTUBE_SERVICE_TOKEN` in that terminal first. Set `YOUTUBE_SERVICE_URL=http://localhost:8787` and the same token in `.env.local`, then run `pnpm dev`. Alternatively install a current `yt-dlp[default]`, ffmpeg, and Node.js 22.13+ locally and run `pnpm youtube:service` with those environment variables. Optional `YT_DLP_PATH` and `FFMPEG_PATH` select installed executables. Docker installs the current yt-dlp release at build time; rebuild periodically because YouTube extraction changes. See the [yt-dlp installation documentation](https://github.com/yt-dlp/yt-dlp#installation) and [JavaScript support requirements](https://github.com/yt-dlp/yt-dlp/wiki/EJS).
+
+`POST /api/youtube/resolve/` accepts `{ "url": "https://www.youtube.com/watch?v=..." }`. It validates and canonicalizes an individual video ID, authenticates to the service's `POST /resolve`, and returns metadata and signed download URLs valid for fifteen minutes. The service's `GET /download` verifies the signature, video ID, quality and expiry before invoking yt-dlp without a shell. Credentials and arbitrary media URLs are never accepted from visitors. File size, process output, execution time, and temporary disk use are bounded. Signed links should be treated as temporary bearer links and kept out of analytics logs.
+
 ## Dedicated tool pages
 
-All 27 tools have their own prerendered URL, including `/tools/merge-pdf/`, `/tools/compress-pdf/`, `/tools/pdf-to-word/`, `/tools/remove-background/`, and `/tools/pinterest-downloader/`. The home catalog and popular carousel link to these pages. Each page contains its inline file or link workspace followed by 400–500 words of server-rendered guidance: a tool-specific introduction, four tutorial steps, practical use cases, and tool-specific FAQs. Content describes the actual processor behavior, including conversion and OCR limitations.
+All 28 tools have their own prerendered URL, including `/tools/merge-pdf/`, `/tools/compress-pdf/`, `/tools/pdf-to-word/`, `/tools/remove-background/`, `/tools/pinterest-downloader/`, and `/tools/youtube-downloader/`. The home catalog and popular carousel link to these pages. Each page contains its inline file or link workspace followed by 400–500 words of server-rendered guidance: a tool-specific introduction, four tutorial steps, practical use cases, and tool-specific FAQs. Content describes the actual processor behavior, including conversion and OCR limitations.
 
 Privacy, terms, and about content is available at `/privacy-policy/`, `/terms/`, and `/about-us/`, with footer links on every page. The existing wording has been updated to cover the dedicated tool pages and guidance. Legacy root tool URLs and `/terms-of-service/` remain accessible for bookmarks and identify the new canonical URLs; internal links use the new routes.
 
@@ -47,7 +102,7 @@ Routes are defined by `slug` in `lib/pdf/tools.ts`; editorial content is maintai
 
 Every local PDF/image tool also has a long-form post at `/blogs/<tool-slug>-guide/`. Editorial sections live in `lib/blog/tool-articles.ts`, while instructions, use cases, and FAQs share the tool guide source so product details stay consistent. Each post includes at least 900 words of prose, a direct opening answer, a table of contents, related guides, and a link to the tool. The shared server-rendered template is `app/blogs/[slug]/page.tsx`; metadata includes canonical URLs, Open Graph, Twitter cards, and JSON-LD for the article, breadcrumbs, and visible FAQs. These features support discovery and comprehension without guaranteeing search rankings, rich results, or AI citations. Keep instructions and article text aligned when tool behaviour changes. Run `npm run test:blogs` after `npm run build` to check coverage, rendered word counts, metadata, schema, and links, including the existing specialised posts.
 
-After building, run `npm run test:pages` to verify all 27 prerendered routes, internal links, metadata, input workspaces, guide word counts, and compliance pages. Run `npm run test:browser -- --skip-ai` for routing, direct refreshes, mobile layout, and real image conversions without downloading the background-removal model.
+After building, run `npm run test:pages` to verify all 28 prerendered routes, internal links, metadata, input workspaces, guide word counts, and compliance pages. Run `npm run test:browser -- --skip-ai` for routing, direct refreshes, mobile layout, and real image conversions without downloading the background-removal model.
 
 To regenerate the downloadable source archive, run `node scripts/package-source.mjs`. It excludes credentials, Sites identity, node_modules, builds and test outputs. Source is available at `/zivratools-source.zip` after building.
 
@@ -121,11 +176,13 @@ To regenerate the downloadable source archive, run `node scripts/package-source.
 
 ## Verification
 
+`npm run test:youtube` checks YouTube URLs, audio-aware format validation, signed-link expiry/tampering, subprocess execution, cancellation, file limits, concurrency, service authentication, CORS, MP4 streaming, and temporary-file cleanup using offline fixtures. `npm run test:youtube:dev` verifies the normal development startup in an isolated project: loading `.env.local`, starting the downloader automatically, resolving and transferring an MP4 through Next.js, custom-port CORS, and shutting both processes down. After building, `npm run test:youtube:browser` exercises the actual Next.js API and separate service with a deterministic video fixture, covering watch/Shorts links, MP4 bytes, quality selection, expired links, cancellation, and mobile layouts. These fixtures do not establish live YouTube availability; test your deployed service from its hosting region with your own public video.
+
 `npm run test:pinterest` checks extraction, short-link resolution, MP4 export discovery and quality fallback, canonical video aliases, HTML fallback, redirect/host validation, streaming and size limits without network access. `npm run test:pinterest -- --live` adds current public-Pin checks, including the two reported Idea Pins. After building, `npm run test:pinterest:browser` checks the downloader interface, errors, image/video downloads and cancellation using deterministic browser fixtures plus real API validation. Add `-- --live` to fully download both reported videos and verify that Chrome decodes them and that their MP4 files include audio tracks.
 
 `pnpm test` checks the 24 PDF tool paths and extra modes using generated documents, plus the offline Pinterest extraction and download tests. Checks include valid PDF/ZIP/Office containers, encryption plus unlock round-trip, wrong-password rejection, page-range validation and text removal after redaction. Generated test outputs are written under `.test-output/` and are not shipped in the ZIP.
 
-After `pnpm build`, run `pnpm test:browser` (or `npm run test:browser`) with Google Chrome installed. This serves the production Next.js application and checks all 27 dedicated tool pages and direct refreshes, JPG/PNG-to-PDF page order with missing MIME types, genuine WebP-to-JPG downloads and transparency handling, invalid-image rejection, cancellation, real AI background removal with a public-domain NASA astronaut photo, PNG transparency and retained subject pixels, filters, search, mobile overflow, and browser exceptions/failed application assets. It needs internet access for the test photo and AI model unless `--skip-ai` is supplied. Screenshots are saved under `.test-output/`.
+After `pnpm build`, run `pnpm test:browser` (or `npm run test:browser`) with Google Chrome installed. This serves the production Next.js application and checks all 28 dedicated tool pages and direct refreshes, JPG/PNG-to-PDF page order with missing MIME types, genuine WebP-to-JPG downloads and transparency handling, invalid-image rejection, cancellation, real AI background removal with a public-domain NASA astronaut photo, PNG transparency and retained subject pixels, filters, search, mobile overflow, and browser exceptions/failed application assets. It needs internet access for the test photo and AI model unless `--skip-ai` is supplied. Screenshots are saved under `.test-output/`.
 
 Browser UI testing is environment-dependent; passing processor tests and a production build does not replace testing downloads, touch interactions and document appearance in your target browsers.
 

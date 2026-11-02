@@ -25,6 +25,11 @@ for (const file of [
   "public/favicon.svg",
   "scripts/prepare-engines.mjs",
   "scripts/package-source.mjs",
+  "scripts/youtube-service.mjs",
+  "scripts/local-env.mjs",
+  "scripts/setup-youtube.mjs",
+  "scripts/dev.mjs",
+  "Dockerfile.youtube",
 ])
   zip.file(`zivratools/${file}`, await readFile(file));
 // A portable package has no Sites identity, generated output, credentials or runtime state.
@@ -34,7 +39,7 @@ delete manifest.scripts["db:generate"];
 zip.file("zivratools/package.json", JSON.stringify(manifest, null, 2) + "\n");
 zip.file(
   "zivratools/.gitignore",
-  "node_modules/\n.next/\nout/\npublic/engines/\npublic/zivratools-source.zip\n.test-output/\n.env*\n*.tsbuildinfo\nnext-env.d.ts\n",
+  "node_modules/\n.local/\n.next/\nout/\npublic/engines/\npublic/zivratools-source.zip\n.test-output/\n.env*\n*.tsbuildinfo\nnext-env.d.ts\n",
 );
 const bytes = await zip.generateAsync({
   type: "uint8array",

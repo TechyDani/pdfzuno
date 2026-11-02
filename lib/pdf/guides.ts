@@ -7,6 +7,48 @@ export type ToolGuide = {
 };
 
 export const guides: Record<string, ToolGuide> = {
+  youtube: {
+    intro:
+      "YouTube downloader saves a public YouTube video or Short as an MP4 file with audio. Paste a standard watch link, a youtu.be share link, or a YouTube Shorts link to preview the title and choose an available quality. The tool supports finished videos up to twenty minutes long, with a maximum download size of 100 MB. Video preparation takes place on a separate download server, so this feature needs an internet connection. Your local PDF and image files are not involved in this process.",
+    steps: [
+      {
+        title: "Copy a video or Shorts link",
+        text: "Open the video in YouTube and use Share to copy its link. An individual video is required; channel pages, search results, and playlist-only links are not supported. A watch link containing a playlist downloads only the identified video, rather than the entire playlist.",
+      },
+      {
+        title: "Find available downloads",
+        text: "Paste the link into the YouTube video or Shorts URL field and press Find downloads. The server checks the video's availability and reads its title, duration, and formats. Review the preview to confirm you selected the correct video before starting the file transfer.",
+      },
+      {
+        title: "Choose an MP4 quality",
+        text: "Select a quality ceiling of up to 360p, 720p, or 1080p when available. The actual resolution depends on the source formats. Choose a lower quality for a smaller file. The download includes audio; separate video and audio tracks are combined when needed.",
+      },
+      {
+        title: "Download and check the video",
+        text: "Press Download MP4 and keep the page open while the service prepares and transfers the file. Cancel to stop the request. Once saved, open the MP4 to check its picture and sound. If a link expires, find the video again to generate fresh download links.",
+      },
+    ],
+    useCases: [
+      {
+        title: "Retrieve your own published clip",
+        text: "Save an available copy of your own video or Short for reference on another device. Keep your original recording separately: YouTube compresses published videos, and the downloaded version does not replace an original editing master or recover quality lost during publication.",
+      },
+      {
+        title: "Keep a video with permission",
+        text: "Save a public tutorial, demonstration, or reference clip when the creator permits downloading it. Retain the source link and author information alongside your copy. A downloadable file does not grant permission to redistribute, modify, or commercially reuse someone else's work.",
+      },
+    ],
+    faqs: [
+      {
+        title: "Why might a YouTube download fail?",
+        text: "Private, removed, age-restricted, paid, region-restricted, live, and upcoming videos are unsupported. YouTube can also block a server's requests or change its format delivery. If a file exceeds 100 MB, try a lower quality. Videos longer than twenty minutes are rejected.",
+      },
+      {
+        title: "Where is the video processed?",
+        text: "The website sends your link to a download service. That service retrieves and temporarily prepares the MP4, then transfers it directly to your browser. Temporary files are removed after transfer or cancellation. No YouTube password is requested. The service and YouTube may retain technical request logs.",
+      },
+    ],
+  },
   pinterest: {
     intro:
       "Pinterest downloader saves available images and MP4 videos from a public Pin. Paste a full Pinterest Pin URL or a pin.it share link, preview the available files, and choose what to download. Video Pins and Idea Pins can contain several pages, so the results may include more than one file. The service selects the largest downloadable version exposed by Pinterest; it does not upscale images or reconstruct missing video. Unlike the PDF tools, this feature contacts Pinterest through the website's server to retrieve the public media.",

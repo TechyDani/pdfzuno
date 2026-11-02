@@ -9,9 +9,14 @@ export function readBuiltPage(route) {
   return readFile(`.next/server/app/${normalized || "index"}.html`, "utf8");
 }
 
-export async function startBuiltSite() {
+export async function startBuiltSite({
+  port: requestedPort = 0,
+  env = {},
+} = {}) {
   const probe = createServer();
-  await new Promise((resolve) => probe.listen(0, "127.0.0.1", resolve));
+  await new Promise((resolve) =>
+    probe.listen(requestedPort, "127.0.0.1", resolve),
+  );
   const port = probe.address().port;
   await new Promise((resolve) => probe.close(resolve));
   const child = spawn(
@@ -24,7 +29,7 @@ export async function startBuiltSite() {
       "--port",
       String(port),
     ],
-    { stdio: ["ignore", "pipe", "pipe"] },
+    { stdio: ["ignore", "pipe", "pipe"], env: { ...process.env, ...env } },
   );
   let output = "";
   child.stdout.on("data", (chunk) => {

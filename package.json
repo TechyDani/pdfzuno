@@ -7,11 +7,16 @@
     "node": ">=22.13.0"
   },
   "scripts": {
-    "dev": "node scripts/prepare-engines.mjs && node scripts/package-source.mjs && next dev --webpack --hostname 0.0.0.0",
+    "dev": "node scripts/prepare-engines.mjs && node scripts/package-source.mjs && node scripts/dev.mjs",
     "build": "node scripts/prepare-engines.mjs && node scripts/package-source.mjs && next build --webpack",
     "start": "next start --hostname 0.0.0.0",
     "format": "prettier --write app components/pdf lib/pdf tests README.md",
-    "test": "node --experimental-strip-types tests/pdf-smoke.mjs && node --experimental-strip-types tests/all-tools.mjs && node --experimental-strip-types tests/pinterest.mjs",
+    "test": "node --experimental-strip-types tests/pdf-smoke.mjs && node --experimental-strip-types tests/all-tools.mjs && node --experimental-strip-types tests/pinterest.mjs && node --experimental-strip-types tests/youtube.mjs",
+    "youtube:setup": "node scripts/setup-youtube.mjs",
+    "youtube:service": "node --env-file-if-exists=.env.local --experimental-strip-types scripts/youtube-service.mjs",
+    "test:youtube": "node --experimental-strip-types tests/youtube.mjs",
+    "test:youtube:browser": "node --experimental-strip-types tests/youtube-browser.mjs",
+    "test:youtube:dev": "node --experimental-strip-types tests/youtube-dev.mjs",
     "test:browser": "node --experimental-strip-types tests/image-tools.mjs",
     "test:pages": "node --experimental-strip-types tests/tool-pages.mjs",
     "test:blogs": "node --experimental-strip-types tests/blog-pages.mjs",

@@ -101,6 +101,17 @@ export default function TermsOfServicePage() {
         </p>
       </section>
       <section className="guide-section">
+        <h2>YouTube downloads</h2>
+        <p>
+          YouTube downloader retrieves available public videos and Shorts as MP4
+          files with audio. Only download videos you own or have permission to
+          save. Downloading does not grant reuse or redistribution rights.
+          Private, paid, restricted, live, and upcoming videos are unsupported.
+          Downloads are limited to twenty minutes and 100 MB per file, and
+          availability depends on YouTube and the download service.
+        </p>
+      </section>
+      <section className="guide-section">
         <h2>Tool limits and reviewing results</h2>
         <p>
           The current combined input limit is 50 MB per operation. Image

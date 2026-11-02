@@ -1617,6 +1617,27 @@ html {
   display: grid;
   gap: 20px;
 }
+.youtube-link-icon {
+  background: #fff0f0;
+  color: #d92d39;
+}
+.tool-icon.red {
+  background: #fff0f0;
+  color: #d92d39;
+}
+.youtube-media {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr));
+  align-items: center;
+}
+.youtube-media .primary {
+  justify-self: start;
+}
+.youtube-workspace .field input,
+.youtube-workspace .field select {
+  min-width: 0;
+  width: 100%;
+}
 .pinterest-intro {
   display: flex;
   align-items: center;

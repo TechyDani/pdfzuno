@@ -287,7 +287,11 @@ async function verifySite() {
       ).toBeVisible();
       await expect(
         page.getByLabel(
-          tool.kind === "download" ? "Pinterest Pin URL" : "Choose files",
+          tool.id === "youtube"
+            ? "YouTube video or Shorts URL"
+            : tool.kind === "download"
+              ? "Pinterest Pin URL"
+              : "Choose files",
           { exact: true },
         ),
       ).toHaveValue("");

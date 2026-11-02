@@ -54,7 +54,7 @@ try {
   await page.route("https://fonts.googleapis.com/**", (route) => route.abort());
   await page.goto(site.url);
   await page.getByRole("button", { name: "Download", exact: true }).click();
-  await expect(page.locator(".tool-card")).toHaveCount(1);
+  await expect(page.locator(".tool-card")).toHaveCount(2);
   await page
     .getByRole("link", { name: "Pinterest downloader", exact: true })
     .click();

@@ -5,6 +5,7 @@ import { notFound } from "next/navigation";
 import { ArrowRight, ShieldCheck } from "lucide-react";
 import { Workspace } from "@/components/pdf/workspace";
 import { PinterestDownloader } from "@/components/pinterest/downloader";
+import { YouTubeDownloader } from "@/components/youtube/downloader";
 import { tools, toolPath } from "@/lib/pdf/tools";
 import { guides } from "@/lib/pdf/guides";
 import { toolArticles } from "@/lib/blog/tool-articles";
@@ -23,9 +24,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   if (!tool) notFound();
   const title = `${tool.name} — Free Online Tool | ZivraTools`;
   const description =
-    tool.kind === "download"
-      ? "Download images and MP4 videos from public Pinterest Pins and pin.it share links. Preview available media and save the highest available download quality."
-      : `${tool.description} Free local processing, a step-by-step guide, practical use cases, and answers about formats, security, and file sizes.`;
+    tool.id === "youtube"
+      ? "Download public YouTube videos and Shorts as MP4 files with audio. Paste a video link, preview it, and choose up to 1080p quality."
+      : tool.kind === "download"
+        ? "Download images and MP4 videos from public Pinterest Pins and pin.it share links. Preview available media and save the highest available download quality."
+        : `${tool.description} Free local processing, a step-by-step guide, practical use cases, and answers about formats, security, and file sizes.`;
   const origin = process.env.NEXT_PUBLIC_SITE_URL;
   return {
     title,
@@ -68,18 +71,24 @@ export default async function ToolPage({ params }: Props) {
           <div className="trust">
             <span>
               <ShieldCheck size={15} />{" "}
-              {tool.kind === "download"
-                ? "Public Pins · No Pinterest login needed"
-                : "Files stay on your device"}
+              {tool.id === "youtube"
+                ? "Public videos & Shorts · No YouTube login needed"
+                : tool.kind === "download"
+                  ? "Public Pins · No Pinterest login needed"
+                  : "Files stay on your device"}
             </span>
             <span>
-              {tool.kind === "download"
-                ? "Images & MP4 videos · Up to 100 MB per file"
-                : "Free · No sign-up · 50 MB total input"}
+              {tool.id === "youtube"
+                ? "MP4 with audio · Up to 20 minutes & 100 MB"
+                : tool.kind === "download"
+                  ? "Images & MP4 videos · Up to 100 MB per file"
+                  : "Free · No sign-up · 50 MB total input"}
             </span>
           </div>
         </div>
-        {tool.kind === "download" ? (
+        {tool.id === "youtube" ? (
+          <YouTubeDownloader />
+        ) : tool.kind === "download" ? (
           <PinterestDownloader />
         ) : (
           <Workspace key={tool.id} tool={tool} />

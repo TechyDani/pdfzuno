@@ -58,6 +58,25 @@ export default function PrivacyPolicyPage() {
         </p>
       </section>
       <section className="guide-section">
+        <h2>YouTube links and video downloads</h2>
+        <p>
+          YouTube downloader sends your pasted video link through our server to
+          a separate download service. That service requests public video
+          information from YouTube and temporarily stores video and audio files
+          while preparing an MP4. The prepared video transfers directly from the
+          service to your browser. Temporary files are removed after the
+          transfer, cancellation, or a processing error. Preview images load
+          from YouTube&apos;s image servers.
+        </p>
+        <p>
+          We do not request your YouTube password or connect to your account.
+          Download links contain a video identifier and a signature valid for
+          fifteen minutes. The website host, download service, and YouTube may
+          receive technical connection information and retain request logs.
+          Downloaded files remain on your device until you delete them.
+        </p>
+      </section>
+      <section className="guide-section">
         <h2>Temporary data and downloads</h2>
         <p>
           Selected files, settings, previews, and results are held in the

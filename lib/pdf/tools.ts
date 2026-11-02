@@ -26,6 +26,18 @@ export const categories = [
 ];
 export const tools: Tool[] = [
   {
+    id: "youtube",
+    slug: "youtube-downloader",
+    name: "YouTube downloader",
+    description:
+      "Paste a YouTube video or Shorts link and download an MP4 with audio.",
+    category: "Download",
+    icon: "Video",
+    color: "red",
+    available: true,
+    kind: "download",
+  },
+  {
     id: "pinterest",
     slug: "pinterest-downloader",
     name: "Pinterest downloader",

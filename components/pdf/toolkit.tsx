@@ -88,18 +88,6 @@ export function Toolkit() {
       <main>
         <section className="hero">
           <div className="shell">
-            <div className="hero-brand">
-              <span className="eyebrow">
-                <Icons.Zap size={13} /> ZivraTools
-              </span>
-              <h1>
-                Every Tool. <span>One Place.</span>
-              </h1>
-              <p>
-                Free online tools for PDFs, images, documents, and everyday
-                productivity. <span>Fast, simple, and private.</span>
-              </p>
-            </div>
             <PopularHero suspended={!!info} />
             <label className="search">
               <Icons.Search size={20} className="text-muted-foreground" />
@@ -194,8 +182,9 @@ export function Toolkit() {
             <div>
               <h3>Your files. Your business.</h3>
               <p>
-                PDF and image editing stays on your device. Pinterest downloads
-                use a server to fetch the public media you choose.
+                PDF and image editing stays on your device. Pinterest and
+                YouTube downloads use a server to fetch the public media you
+                choose.
               </p>
             </div>
             <button
@@ -228,9 +217,10 @@ export function Toolkit() {
                   working selection.
                 </p>
                 <p>
-                  Pinterest downloader sends your pasted link to our server to
-                  retrieve public media from Pinterest. No Pinterest login is
-                  required.
+                  Pinterest and YouTube downloaders send your pasted link to a
+                  server to retrieve public media. YouTube videos are prepared
+                  temporarily on a download service and transferred to your
+                  browser. No Pinterest or YouTube login is required.
                 </p>
                 <p className="mt-3">
                   Fonts are loaded from Google Fonts. They receive ordinary

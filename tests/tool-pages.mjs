@@ -4,7 +4,7 @@ import { readBuiltPage } from "./built-site.mjs";
 import { tools, toolPath } from "../lib/pdf/tools.ts";
 import { guides } from "../lib/pdf/guides.ts";
 
-assert.equal(tools.length, 27);
+assert.equal(tools.length, 28);
 assert.equal(new Set(tools.map((tool) => tool.slug)).size, tools.length);
 assert.deepEqual(
   Object.keys(guides).sort(),
@@ -33,7 +33,7 @@ for (const tool of tools) {
   );
   assert(
     html.includes(
-      tool.kind === "download" ? 'id="pinterest-url"' : 'type="file"',
+      tool.kind === "download" ? `id="${tool.id}-url"` : 'type="file"',
     ),
     "The tool input is present before hydration",
   );
@@ -135,5 +135,5 @@ for (const pagePath of pagePaths) {
   }
 }
 console.log(
-  "PASS 27 canonical tool routes, legacy URLs, 400–500 word guides, metadata, compliance pages and internal links",
+  "PASS 28 canonical tool routes, legacy URLs, 400–500 word guides, metadata, compliance pages and internal links",
 );
