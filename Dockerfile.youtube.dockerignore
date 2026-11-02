@@ -1,0 +1,7 @@
+.git
+.env*
+.local
+.next
+.test-output
+node_modules
+public

@@ -1,0 +1,20 @@
+# Deploy only the YouTube backend; the Next.js website remains on Vercel.
+# Free is for an initial test. Select an always-on plan for production traffic.
+services:
+  - type: web
+    name: zivratools-youtube
+    runtime: docker
+    plan: free
+    dockerfilePath: ./Dockerfile.youtube
+    dockerContext: .
+    healthCheckPath: /health
+    autoDeployTrigger: off
+    envVars:
+      - key: PORT
+        value: "8787"
+      - key: YOUTUBE_SERVICE_HOST
+        value: "0.0.0.0"
+      - key: YOUTUBE_SERVICE_TOKEN
+        generateValue: true
+      - key: YOUTUBE_ALLOWED_ORIGINS
+        sync: false

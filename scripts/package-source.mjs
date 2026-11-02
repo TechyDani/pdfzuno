@@ -30,6 +30,8 @@ for (const file of [
   "scripts/setup-youtube.mjs",
   "scripts/dev.mjs",
   "Dockerfile.youtube",
+  "Dockerfile.youtube.dockerignore",
+  "render.yaml",
 ])
   zip.file(`zivratools/${file}`, await readFile(file));
 // A portable package has no Sites identity, generated output, credentials or runtime state.
